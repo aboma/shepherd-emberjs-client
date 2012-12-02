@@ -1,0 +1,23 @@
+<div class="form-horizontal">
+	<fieldset>
+    	<legend>Create Portfolio</legend>
+    	<div class="control-group">
+    		<label class="control-label">Portfolio Name</label>
+    		<div class="controls">
+   				{{ view Ember.TextField viewName="pNameTextField" 
+   				   valueBinding="content.name" disabledBinding="view.isDisabled" }}
+    		</div>
+    	</div>
+    	<div class="control-group">
+    		<label class="control-label">Description</label>
+    		<div class="controls">
+   				{{ view Ember.TextArea viewName="pDescriptionTextArea" 
+   				   valueBinding="content.description" disabledBinding="view.isDisabled" }}
+    		</div>
+    	</div>
+    	<div class="control-group button-group">
+   			<button {{ action save disabledBinding="view.isDisabled" }} class="btn btn-success"> Save </button>
+			<button {{ action cancel disabledBinding="view.isDisabled" }} class="btn btn-warning"> Cancel </button>
+    	</div>
+    </fieldset>
+</div>

@@ -1,0 +1,33 @@
+<div id='MbTopNav'>
+    <div class="navbar navbar-fixed-top">
+	    <div class="navbar-inner">
+		    <div class="container">
+			    <li class="brand">
+				    Luxin
+			    </li>
+			 	<ul class="nav">
+			 	   <li class="active">
+			 		   <a href="#">Portfolios</a>
+				    </li>
+				    {{#if Luxin.authorizeUser.hasAdminRights }}
+				    	<li><a href="#">Admin</a></li>
+				    {{/if}}
+				    <li><a href="#">Search</a></li>
+				 </ul>
+				 <ul class="nav pull-right">
+				    <li class="divider-vertical"></li>
+				    <li class="dropdown">
+						<a class="dropdown-toggle"
+							data-toggle="dropdown"
+							href="#"> Boma, Adrian <b class="caret"></b> </a>
+							<ul class="dropdown-menu">
+								<li>
+									<a href='v1/logout'>Logout</a>
+								</li>
+							</ul>
+					</li>
+			    </ul>
+    		</div>
+   		</div>
+   	</div>		
+</div>

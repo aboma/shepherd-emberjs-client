@@ -1,0 +1,24 @@
+<div id="floater"></div>
+<div id="signin-container">
+		<h3>Luxin DAM</h3>
+		<% flash.each do |key, value| %>
+		    <div class="flash <%= key %>"><%= value %></div>
+		<% end %>
+	
+		<%= form_tag sessions_path do %>
+		  <div class="field">
+		    <%= label_tag :email %>
+		    <%= text_field_tag :email, params[:email] %>
+		  </div>
+		  <div class="field">
+		    <%= label_tag :password %>
+		    <%= password_field_tag :password %>
+		  </div>
+		  <div class="field">
+		    <%= check_box_tag :remember_me, 1, params[:remember_me] %>
+		    <%= label_tag :remember_me %>
+		  </div>
+		  <div class="actions"><%= submit_tag "Log in" %></div>
+		  <div class='clear'></div>
+		<% end %>
+</div>

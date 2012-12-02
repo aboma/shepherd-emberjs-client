@@ -1,14 +1,27 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <title>VilioEmberjsClient</title>
-  <%= stylesheet_link_tag    "application", :media => "all" %>
-  <%= javascript_include_tag "application" %>
-  <%= csrf_meta_tags %>
-</head>
-<body>
-
-<%= yield %>
-
-</body>
+	<head>
+		<title>LuxinDAM</title>
+		<%= stylesheet_link_tag    "application" %>
+		<%= javascript_include_tag "application" %>
+		<%= csrf_meta_tags %>
+	</head>
+	<body>
+		<section id='luxin'>
+			<nav>
+				<script type="text/x-handlebars">
+				{{ view Luxin.TopNav }}
+				</script>
+			</nav>
+			<header id='app-header'>
+				<div id='login-info'>
+					<ul class="nav nav-pills">
+						
+					</ul>
+				</div>
+			</header>
+			<%= yield %>
+			<footer></footer>
+		</section>
+	</body>
 </html>

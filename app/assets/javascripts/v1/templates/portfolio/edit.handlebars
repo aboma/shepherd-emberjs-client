@@ -1,0 +1,49 @@
+<div class="form-horizontal">
+		<fieldset>
+			{{#if content.isNew }}
+				<legend>Create Portfolio</legend>
+			{{else}}
+	    		<legend>Edit "{{ content.name }}" Portfolio</legend>    		
+	    	{{/if }}
+	    	{{#unless content.isNew }}
+	    		<div class="control-group">
+		    		<label class="control-label">Portfolio URI</label>
+	    			<label class="data-label">{{ content.url }}</label>
+		    	</div>
+	    	{{/unless}}
+	    	<div class="control-group">
+	    		<label class="control-label">Portfolio Name</label>
+	    		<div class="controls">
+	   				{{ view Ember.TextField viewName="pNameTextField" 
+	   				   valueBinding="content.name" disabledBinding="content.isSaving" }}
+	    		</div>
+	    	</div>
+	    	<div class="control-group">
+	    		<label class="control-label">Description</label>
+	    		<div class="controls">
+	   				{{ view Ember.TextArea viewName="pDescriptionTextArea" 
+	   				   valueBinding="content.description" disabledBinding="content.isSaving" }}
+	    		</div>
+	    	</div>
+	    	{{#unless content.isNew }}
+		    	<div class="control-group">
+		    		<label class="control-label">Created On</label>
+		    		<label class="data-label">{{ content.created_at }}</label>
+		    	</div>
+		    	<div class="control-group">
+		    		<label class="control-label">Updated On</label>
+		    		<label class="data-label">{{ content.updated_at }}</label>
+		    	</div>
+	    	{{/unless}}
+	    	<div class="control-group button-group">
+	    		<button {{ action save content disabledBinding="content.isDirty" }} 
+	    			class="btn btn-success"> Save </button>
+				<button {{ action cancel content disabledBinding="content.isSaving" }} 
+					class="btn btn-warning"> Cancel </button>
+					{{#unless content.isNew}}
+						<button {{ action remove content disabledBinding="content.isSaving" }} 
+							class="btn btn-danger"> Delete </button>					
+					{{/unless}}
+	    	</div>
+	    </fieldset>
+	</div>
