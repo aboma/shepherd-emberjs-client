@@ -5,11 +5,10 @@ class SessionsController < ApplicationController
   skip_before_filter :verify_auth_token, :only => [:new, :create]
   
   def create
-    #user = login(params[:email], params[:password], params[:remember_me])
     @auth_token = get_auth_token params
     if @auth_token
       session[:auth_token] ||= @auth_token
-      redirect_to root_url, :notice => "Logged in!"
+      redirect_to :action => 'index', :notice => "Logged in!", :controller => 'application'
     else
       flash.now.alert = "Email or password was invalid"
       render :new

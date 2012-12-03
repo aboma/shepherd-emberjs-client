@@ -8,7 +8,7 @@ Luxin.Router = Ember.Router.extend({
 	      redirectsTo: 'portfolios'
 	    }),
 	    portfolios: Ember.Route.extend({
-	    	route: '/portfolios',
+	    	route: 'http://localhost:4444/portfolios',
 	    	showPortfolio: Ember.Route.transitionTo('show_portfolio'),
 	    	createPortfolio: Ember.Route.transitionTo('new_portfolio'),
 	    	connectOutlets: function(router) {

@@ -4,10 +4,10 @@ require 'uri'
 class ApplicationController < ActionController::Base
   protect_from_forgery
   before_filter :verify_auth_token
-  
   respond_to :html
   
   def index
+    render :index
   end
   
   def verify_auth_token
@@ -16,10 +16,11 @@ class ApplicationController < ActionController::Base
       redirect_to_login
       return nil
     end
-    net = Net::HTTP.new("localhost", 3000)
+    logger.debug 'checking auth token validitity with API'
+    net = Net::HTTP.new("localhost", 4444)
     request = Net::HTTP::Get.new("/sessions/#{params[:auth_token]}")
     request['Content-Type'] = 'application/json'
-    request.add_field("X-AUTH-TOKEN", params[:auth_key])
+    request["X-AUTH-TOKEN"] = params[:auth_token]
     #response = Net::HTTP.get_response(URI.parse(uri))
     response = net.start { |http| http.request(request) }
     redirect_to_login unless response.code == "200" 
