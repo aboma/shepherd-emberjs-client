@@ -1,4 +1,7 @@
 Luxin.store = DS.Store.create({
-  revision: 4,
-  adapter: DS.RESTAdapter.create( { bulkCommit: false } )
+  revision: 8,
+  adapter: DS.RESTAdapter.create({ 
+	  bulkCommit: false,
+	  url: "http://localhost:4444"
+  })
 });

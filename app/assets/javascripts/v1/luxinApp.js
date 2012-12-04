@@ -1,17 +1,3 @@
-// IMPORTANT - set default content type for ajax requests since
-// ember-data rest adapter does not seem to do this
-$.ajaxSetup({
-	beforeSend : function(xhr) {
-		xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr(
-				'content'));
-		xhr.setRequestHeader('X-API-Version', 'v1');
-		// xhr.setRequestHeader('Content-Type', 'application/json;
-		// charset=UTF-8');
-		// xhr.setRequestHeader('Data-Type', 'json');
-		// xhr.setRequestHeader('Accepts', 'application/json');
-	}
-});
-
 // add startWith function to string prototype
 if (typeof String.prototype.startsWith != 'function') {
 	String.prototype.startsWith = function(str) {
