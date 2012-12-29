@@ -6,12 +6,11 @@
 //
 //= require jquery-1.8.3
 //= require handlebars
-//= require debug-console-log-v0.4
 //= require ember-latest.js
 //= require ember-data-latest.js
 //= require bootstrap-modal
 //= require bootstrap-dropdown
-//= require chosen
+//= require select2
 //= require ./v1/luxinApp.js
 //= require v1/mixins.js
 //= require v1/luxinUI

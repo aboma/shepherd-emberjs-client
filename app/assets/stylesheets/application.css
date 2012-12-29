@@ -5,5 +5,5 @@
  *= require_self
  *= require v1/application
  *= require v1/portfolios
- *= require chosen
+ *= require select2
 */

@@ -35,4 +35,5 @@ class ApplicationController < ActionController::Base
   def get_token
     request.headers['X-AUTH-TOKEN'] ? request.headers['X-AUTH-TOKEN'] : session[:auth_token]
   end
+
 end

@@ -4,6 +4,7 @@ gem 'rails', '3.2.6'
 gem 'jquery-rails', '~> 2.0.1'
 gem 'ember-rails', '~> 0.2.2'
 gem 'yajl-ruby', '~> 1.1.0'
+gem "select2-rails", '~> 3.2.0'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'

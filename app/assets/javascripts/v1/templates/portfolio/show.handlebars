@@ -1,11 +1,13 @@
-<div id='portfolioHeader'>
+{{#with controller.content as portfolio}}
+	<div id='portfolioHeader'>
 		<h2 class="portfolioHeader">{{name}} Portfolio</h2>
 		<div id="portfolioOptions" class="portfolioHeader">
-			<a class="portfolioHeader" {{ action edit content href=true }}>edit</a>
+			<a class="portfolioHeader" {{ action edit portfolio href=true }}>edit</a>
 			/
-			<a class="portfolioHeader" {{ action add content href=true }}>add</a>
+			<a class="portfolioHeader" {{ action add portfolio href=true }}>add</a>
 		</div>
-</div>
-<div id='portfolioDetails'>
-	<span>Showing {{name}} Portfolio</span>
-</div>
+	</div>
+	<div id='portfolioDetails'>
+		<span>Showing {{name}} Portfolio</span>
+	</div>
+{{/with}}

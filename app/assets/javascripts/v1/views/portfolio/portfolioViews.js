@@ -3,7 +3,7 @@ Luxin.PortfoliosView = Ember.View.extend({
   	filteredPortfolios: null,
     
   	init: function() {
-  		Luxin.log('initializing portfolios list view');
+  		console.log('initializing portfolios list view');
     	this._super();
   	},
   	updateFilter: function() {

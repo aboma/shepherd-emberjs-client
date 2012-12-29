@@ -103,14 +103,14 @@ window.debug = (function(){
   while ( --idx >= 0 ) {
     (function( idx, level ){
       
-      // Method: debug.log
+      // Method: console.log
       // 
       // Call the console.log method if available. Adds an entry into the logs
       // array for a callback specified via <debug.setCallback>.
       // 
       // Usage:
       // 
-      //  debug.log( object [, object, ...] );                               - -
+      //  console.log( object [, object, ...] );                               - -
       // 
       // Arguments:
       // 

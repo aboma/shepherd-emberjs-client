@@ -1,12 +1,24 @@
-<div id='MbAppContainer'>
-	<div id='MbHeader'>
-		{{ outlet master }}	
-	</div>
-	<div id='MbLeftNav'>
-		{{ outlet nav }}
-	</div>
-	<div id='MbMain'>
-		{{ outlet detail }}
-	</div>
-	<div id='MbFooter'> {{ outlet footer }} </div>
-</div>
+<section id='luxin'>
+	<nav>
+		{{ outlet topnav }}
+	</nav>
+	<header id='app-header'>
+		<div id='login-info'>
+			<ul class="nav nav-pills">			
+			</ul>
+		</div>
+	</header>
+		<div id='MbAppContainer'>
+			<div id='MbHeader'>
+				{{ outlet master }}	
+			</div>
+			<div id='MbLeftNav'>
+				{{ outlet nav }}
+			</div>
+			<div id='MbMain'>
+				{{ outlet detail }}
+			</div>
+			<div id='MbFooter'> {{ outlet footer }} </div>
+		</div>
+	<footer></footer>
+</section>

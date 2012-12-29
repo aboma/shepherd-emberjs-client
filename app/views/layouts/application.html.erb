@@ -2,25 +2,12 @@
 <html>
 	<head>
 		<title>LuxinDAM Client</title>
+		<script type=application/javascript>
+			auth_token = "<%= params[:auth_token] %>";
+		</script>		
 		<%= stylesheet_link_tag    "application" %>
 		<%= javascript_include_tag "application" %>
 		<%= csrf_meta_tags %>
-		<script type=application/javascript>
-			auth_token = "<%= params[:auth_token] %>";
-			$.ajaxSetup({
-				beforeSend : function(xhr) {
-					xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr(
-							'content'));
-					xhr.setRequestHeader('X-API-Version', 'v1');
-					xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
-					xhr.setRequestHeader('AUTH_TOKEN', auth_token);
-					// xhr.setRequestHeader('Content-Type', 'application/json;
-					// charset=UTF-8');
-					// xhr.setRequestHeader('Data-Type', 'json');
-					// xhr.setRequestHeader('Accepts', 'application/json');
-				}
-			});
-		</script>
 	</head>
 	<body>
 		<section id='luxin'>

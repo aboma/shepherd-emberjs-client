@@ -1,62 +1,32 @@
-Luxin.ChosenSelect = Ember.Select.extend(Luxin.CustomActionAttacher, {
-	chosenOptions : {},
-	multiple : false,
-	templateName : 'v1/templates/menus/chosen-select',
+// select box utilizing Select2 functionality
+Luxin.Select2 = Ember.Select.extend({
+    defaultTemplate: Ember.Handlebars.compile('<option></option>{{#each view.content}}{{view Ember.SelectOption contentBinding="this"}}{{/each}}'),
 
+    // initialize Select2 once view inserted in DOM
 	didInsertElement : function() {
 		this._super();
-		this.$().chosen();
-	},
-
-	_closeChosen : function() {
-		// trigger escape to close chosen
-		this.$().next('.chzn-container-active').find('input').trigger({
-			type : 'keyup',
-			which : 27
+		var placeholderText = this.get('placeholderText');
+		if (!placeholderText)
+			this.set('placeholderText', '');
+		this.$().select2({
+			containerCssClass: 'select2-portfolio',
+			placeholder: placeholderText,
+			allowClear: true
 		});
 	},
-
-	itemsChanged : function() {
-		console.log('chosen itemsChanged');
-		this.$().trigger('liszt:updated');
+	
+	// respond to load of data through binding
+	itemsLoaded : function() {
+		console.log('select2 items loaded');
 		Ember.run.sync();
+		// trigger change event on selectbox once data
+		// has been loaded to update options values
 		Ember.run.next(this, function() {
-			Luxin.log('running list update');
-			this.$().trigger('liszt:updated');
+			console.log('updating select2 options list');
+			// trigger change event on select2
+			this.$().change();
 		});
-	}.observes('controller.content.isLoaded'),
-
-	rerender : function() {
-		console.log('rerendering');
-		if (this.get('state') == 'inDOM') {
-			// remove now disconnected html
-			this.$().next('.chzn-container').remove();
-		}
-		this._super();
-	},
-
-	rerenderChosen : function() {
-		this.$().trigger('liszt:updated');
-	},
-
-	change : function(event) {
-		Luxin.log('chosen select value changed');
-		this._super();
-		var value = this.get('multiple') ? this.get('selection') : this.get('value');
-		if (!value)
-			Luxin.log('VALUE IS UNDEFINED');
-		var controller = this.get('controller');
-		if (controller)
-			controller.set('selected', value);
-		// call action if specified on view
-		action = this.get('action');
-		actionHandler = this.get(action);
-		if (actionHandler) {
-			event.context = value;
-			event.view = this;
-			actionHandler.call(action, event);
-		}
-	}
+	}.observes('controller.content.isLoaded')
 });
 
 // Put JQuery UI inside its own namespace

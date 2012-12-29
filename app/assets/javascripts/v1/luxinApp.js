@@ -1,3 +1,14 @@
+$.ajaxSetup({
+	beforeSend : function(xhr) {
+		//xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr(
+		//		'content'));
+		xhr.setRequestHeader('X-API-VERSION', 'v1');
+		xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+		xhr.setRequestHeader('X-AUTH-TOKEN', auth_token);
+		return xhr;
+	}
+});
+
 // add startWith function to string prototype
 if (typeof String.prototype.startsWith != 'function') {
 	String.prototype.startsWith = function(str) {
@@ -7,17 +18,18 @@ if (typeof String.prototype.startsWith != 'function') {
 
 window.Luxin = Ember.Application.create();
 
-Luxin.log = function(object) {
-	debug.log(object);
+if (!window.console) {
+	window.console = {};
+	window.console.log = function(object) {}
 }
 
 Luxin.displayError = function(e) {
 	if (typeof e === 'string') {
 		// display error strings
-		debug.log(e);
+		console.log(e);
 	} else if (typeof e === 'object' && e.responseText !== undefined) {
 		// TODO - further process json errors
-		debug.log(e.responseText);
+		console.log(e.responseText);
 	} else {
 		alert("An unexpected error occurred.");
 	}

@@ -2,6 +2,23 @@ Luxin.PortfoliosController = Ember.ArrayController.extend({
 	sortProperties: ['name'],
 	sortAscending: true, 
 	selectedPortfolio: null,
+		
+	initialize : function() {
+		this.connectControllers('portfolio');
+	}, 
+	
+	clearSelected : function() {
+		console.log('clearing selected portfolio');
+		this.set('selectedPortfolio', null);
+	},
+	
+	// set selected portfolio if one is set on the portfolioController
+	observeSelected : function(){
+		console.log('responding to change of port on portController');
+		var port = this.portfolioController.get('content');
+		this.set('selected', port);
+	}.observes('portfolioController.content'),
+	
 /*	portfolioNameFilter: '',
 	
   	filteredPortfolios: function() {
@@ -17,8 +34,10 @@ Luxin.PortfoliosController = Ember.ArrayController.extend({
   		return x;
   	}.property('arrangedContent.@each.name', 'portfolioNameFilter').cacheable(),
  */
-  	replaceContent: function() {
-  		Luxin.log('controller content is loaded');
+  	contentLoaded: function() {
+  		console.log('controller content is loaded');
+  		// set default value to null so prompt is shown, not first item
+  		//this.set('selectedPortfolio', null);
   	}.observes('content.isLoaded')
 });
 

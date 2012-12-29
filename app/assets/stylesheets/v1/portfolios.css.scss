@@ -15,4 +15,13 @@ div#portfoliosMaster {
 div#portfolioList,
 div#portfolioHeader {
   display: table-cell; 
+  min-width: 300px;
+}
+
+.select2-portfolio {
+  min-width: 210px;
+}
+
+.select2-container .select2-choice, .select2-drop {
+  text-shadow: none;
 }
