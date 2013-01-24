@@ -1,9 +1,13 @@
 class VilioAPI < Object
-  @@host = "localhost"
-  @@port = 4444
+  @host = "localhost"
+  @port = 4444
+  
+  class << self
+    attr_reader :host, :port
+  end
   
   def initialize 
-    @net = Net::HTTP.new(@@host, @@port)
+    @net = Net::HTTP.new(VilioAPI.host, VilioAPI.port)
   end
   
   # verify authentication token with API to determine if
