@@ -8,6 +8,7 @@ class VilioAPI < Object
   
   # verify authentication token with API to determine if
   # it is still valid
+  #TODO fix so auth token is not in URL
   def verify_token token
     @auth_token = token
     get "/sessions/#{@auth_token}"
