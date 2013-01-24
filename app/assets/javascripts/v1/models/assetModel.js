@@ -2,10 +2,13 @@ Luxin.Asset = DS.Model.extend({
 	name : DS.attr('string'),
 	url : DS.attr('string'),
 	thumbnail_path : DS.attr('string'),
+	links : DS.attr('links'),
+	portfolio : DS.hasMany('Luxin.Portfolio'),
 
 	upload : function(form_data, success_callback, error_callback) {
+		var assets_url = Luxin.store.adapter.url + '/assets'
 		$.ajax({
-			url : 'assets', // server script to process data
+			url : assets_url, 
 			type : 'POST', /*
 			xhr : function() { // custom xhr
 				myXhr = $.ajaxSettings.xhr();
@@ -36,4 +39,4 @@ Luxin.Asset.reopenClass({
 	resourceUrl : 'assets',
 	url : 'asset',
 	resourceName : 'asset'
-})
+});

@@ -1,8 +1,9 @@
 Luxin.Portfolio = DS.Model.extend({
-	name: DS.attr('string'),
-	description: DS.attr('string'),
-	created_at: DS.attr('string'),
-	updated_at: DS.attr('string'),
+	name : DS.attr('string'),
+	description : DS.attr('string'),
+	created_at : DS.attr('string'),
+	updated_at : DS.attr('string'),
+	assets : DS.hasMany('Luxin.Asset')
 });
 
 Luxin.Portfolio.reopenClass({
@@ -10,4 +11,4 @@ Luxin.Portfolio.reopenClass({
 	resourceUrl: 'portfolios',
 	url: 'portfolio',
 	resourceName: 'portfolio'
-})
+});
