@@ -24,7 +24,7 @@ class ApplicationController < ActionController::Base
   end
   
   def redirect_to_login( message )
-    redirect_to :action => 'new', :alert => message, :controller => 'sessions'
+    redirect_to login_path, :alert => message
   end
   
   private 
