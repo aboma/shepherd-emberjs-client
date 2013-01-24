@@ -8,8 +8,8 @@ class VilioAPI < Object
   
   # verify authentication token with API to determine if
   # it is still valid
-  def verify_token params
-    @auth_token = params[:auth_token]
+  def verify_token token
+    @auth_token = token
     get "/sessions/#{@auth_token}"
   end
   
@@ -23,27 +23,40 @@ class VilioAPI < Object
     return json['session']['auth_token']
   end
   
+  def destroy_token token
+    @auth_token = token
+    response = get('/logout')
+    return response.code == '200'
+  end
+  
   alias :login :get_token
+  alias :logout :destroy_token
   
   private
   
   def get(path)
     request = Net::HTTP::Get.new(path)
-    request['Content-Type'] = 'application/json'
-    request['Accept'] = 'application/json'
-    # attach authorization token if one exists
-    request["X-AUTH-TOKEN"] = @auth_token if @auth_token
+    add_headers(request)
     @net.request(request) 
   end
   
   def post(path, json)
     request = Net::HTTP::Post.new(path)
     request.body = json
+    add_headers(request)
+    @net.request(request) 
+  end
+  
+  def delete(path)
+    request = Net::HTTP::Delete.new(path)
+    add_headers(request)
+    @net.request(request)
+  end
+  
+  def add_headers(request)
     request['Content-Type'] = 'application/json'
     request['Accept'] = 'application/json'
-    # attach authorization token if one exists
-    request["X-AUTH-TOKEN"] = @auth_token if @auth_token
-    @net.request(request) 
+    request["X-AUTH-TOKEN"] = @auth_token if @auth_token    
   end
   
 end
