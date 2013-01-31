@@ -1,15 +1,20 @@
+Luxin.PortfolioSelect2 = Luxin.Select2.extend({
+	// bind change in selected portfolio to trigger routing 
+	// to show portfolio or portfolio list if null
+    valueDidChange: Ember.observer(function() {
+        this._super();
+        var selection = this.get('selection');
+        console.log('select2 value changed to ' + selection);
+        if (selection) {
+        	Luxin.router.transitionTo('root.portfolios.show_portfolio', selection);
+        } else {
+        	Luxin.router.transitionTo('root.portfolios.index');
+        }
+    }, 'value')
+});
+
 Luxin.PortfoliosView = Ember.View.extend({
   	templateName: 'v1/templates/portfolio/list',
-  	filteredPortfolios: null,
-    
-  	init: function() {
-  		console.log('initializing portfolios list view');
-    	this._super();
-  	},
-  	updateFilter: function() {
-  		var value = this.get('portfolioFilter.value');
-  		this.get('controller').set('portfolioNameFilter', value);
-  	}.observes('portfolioFilter.value')
 });
 
 Luxin.PortfolioView = Ember.View.extend({
@@ -17,10 +22,5 @@ Luxin.PortfolioView = Ember.View.extend({
 });
 
 Luxin.EditPortfolioView = Ember.View.extend({
-	templateName: 'v1/templates/portfolio/edit',
-	
-	didInsertElement: function() {
-		this._super();
-	   	this.$('input:first').focus();  	
-	}
+	templateName: 'v1/templates/portfolio/edit'
 });

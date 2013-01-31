@@ -36,18 +36,6 @@ Luxin.Router = Ember.Router.extend({
 					});					
 					// clear selected portfolio (needed if coming from substate)
 					portController.clearSelected();
-					// bind change in selected portfolio to trigger routing 
-					// to show portfolio or portfolio list if null
-					if (!portController.hasObserverFor('selectedPortfolio')) {
-						portController.addObserver('selectedPortfolio', function() {
-							console.log('selected portfolio changed to ' + this.get('selectedPortfolio.name'));
-							var portfolio = this.get('selectedPortfolio');
-							if (portfolio)
-								router.transitionTo('root.portfolios.show_portfolio', portfolio);
-							else
-								router.transitionTo('root.portfolios.index');
-						});
-					}
 				}
 			}),
 			// SHOW PORTFOLIO =============================================
@@ -161,6 +149,8 @@ Luxin.Router = Ember.Router.extend({
 					// created and has an id (for URL serialization)
 					if (portfolio.get('isDirty')) {
 						// callback will show portfolio once the id is available
+						// this does not work due to ember-data bug:
+						// https://github.com/emberjs/data/issues/405
 						portfolio.one('didCreate', function() {
 							console.log('portfolio created');
 							Ember.Route.transitionTo('root.portfolios.show_portfolio', portfolio);	

@@ -1,10 +1,10 @@
 <div id='portfoliosMaster'>
 	<div id='portfolioList'>
-		{{view Luxin.Select2
+		{{view Luxin.PortfolioSelect2
 	       contentBinding="controller"
 	       optionValuePath="content.id"
 	       optionLabelPath="content.name"
-	       selectionBinding="selectedPortfolio" 
+	       selectionBinding="controller.selectedPortfolio" 
 	       placeholderText="Please select a Portfolio"
 	       prompt=" "}}
 
