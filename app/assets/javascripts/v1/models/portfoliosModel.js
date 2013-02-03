@@ -3,7 +3,7 @@ Luxin.Portfolio = DS.Model.extend({
 	description : DS.attr('string'),
 	created_at : DS.attr('string'),
 	updated_at : DS.attr('string'),
-	assets : DS.hasMany('Luxin.Asset', { embbeded: false })
+	//assets : DS.hasMany('Luxin.Asset', { embbeded: false })
 });
 
 Luxin.Portfolio.reopenClass({

@@ -13,7 +13,6 @@
 //= require select2
 //= require ./v1/luxinApp.js
 //= require v1/mixins.js
-//= require v1/luxinUI
 //= require_tree ./v1/store
 //= require_tree ./v1/models
 //= require_tree ./v1/controllers

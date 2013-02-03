@@ -32,7 +32,8 @@ Luxin.Router = Ember.Router.extend({
 					ac.connectOutlet({
 						name : 'portfolios',
 						outletName : 'master',
-						context : Luxin.store.findAll(Luxin.Portfolio)
+						context: Luxin.Portfolio.find()
+						//context : Luxin.store.findAll(Luxin.Portfolio)
 					});					
 					// clear selected portfolio (needed if coming from substate)
 					portController.clearSelected();
@@ -53,6 +54,9 @@ Luxin.Router = Ember.Router.extend({
 				add : Ember.Route.transitionTo('add_asset'),
 				connectOutlets : function(router, portfolio) {
 					console.log('showing portfolio');
+					// load relationships for this portfolio
+					var rc = router.get("relationshipsController");
+					Luxin.Relationship.find({ portfolio_id : portfolio.id });
 					var ac = router.get("applicationController");
 					ac.connectOutlet({
 						name : 'portfolio',
