@@ -1,9 +1,19 @@
-Luxin.PortfoliosController = Ember.ArrayController.extend({
-	needs: ['portfolio'],
+Luxin.PortfoliosController = Ember.ObjectController.extend({});
+
+Luxin.PortfoliosShowController = Ember.ObjectController.extend({
+	selectedPortfolio: null,
+});
+
+Luxin.PortfoliosEditController = Ember.ObjectController.extend({});
+
+Luxin.PortfoliosIndexController = Ember.ArrayController.extend({
+	//needs: ['portfolioshow'],
+	content: null,
 	sortProperties: ['name'],
 	sortAscending: true,
-	selectedPortfolioBinding: "Luxin.portfolioController.content",
+	selectedPortfolioBinding: "portfolio.content",
 		
+	
 	clearSelected : function() {
 		console.log('clearing selected portfolio');
 		this.set('selectedPortfolio', null);
@@ -20,7 +30,3 @@ Luxin.PortfoliosController = Ember.ArrayController.extend({
   		//this.set('selectedPortfolio', null);
   	}.observes('content.isLoaded')
 });
-
-Luxin.PortfolioController = Ember.ObjectController.extend({});
-
-Luxin.EditPortfolioController = Ember.ObjectController.extend({});

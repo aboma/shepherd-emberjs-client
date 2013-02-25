@@ -7,7 +7,7 @@
 			    </li>
 			 	<ul class="nav">
 			 	   <li class="active">
-			 		   <a href="#">Portfolios</a>
+			 		   {{#linkTo "portfolios.index"}}Portfolios{{/linkTo}}
 				    </li>
 				    {{#if Luxin.authorizeUser.hasAdminRights }}
 				    	<li><a href="#">Admin</a></li>

@@ -1,13 +1,12 @@
 <div id='portfoliosMaster'>
 	<div id='portfolioList'>
 		{{view Luxin.PortfolioSelect2
-	       contentBinding="controller"
+	       contentBinding="controller.arrangedContent"
 	       optionValuePath="content.id"
 	       optionLabelPath="content.name"
-	       selectionBinding="controller.selectedPortfolio" 
+	       selectionBinding="Luxin.portfoliosShowController.selectedPortfolio" 
 	       placeholderText="Please select a Portfolio"
 	       prompt=" "}}
 
-		<a {{ action createPortfolio href=true }}>Create</a>
 	</div>
 </div>

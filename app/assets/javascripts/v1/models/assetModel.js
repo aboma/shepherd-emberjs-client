@@ -3,7 +3,7 @@ Luxin.Asset = DS.Model.extend({
 	url : DS.attr('string'),
 	thumbnail_path : DS.attr('string'),
 	links : DS.attr('links'),
-	portfolios : DS.hasMany('Luxin.Portfolio'),
+	relationships: DS.hasMany('Luxin.Relationship'),
 
 	upload : function(form_data, success_callback, error_callback) {
 		var assets_url = Luxin.store.adapter.url + '/assets'

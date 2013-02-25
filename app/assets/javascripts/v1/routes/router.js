@@ -1,3 +1,44 @@
+Luxin.Router.map(function(match) {
+	this.route("index", { path: "/" });
+	this.resource('portfolios', { path: '/portfolios' }, function() {
+	    this.route('index', { path: '/' });
+	    this.route('show', { path: '/:id' });
+	});
+});
+
+Luxin.IndexRoute = Ember.Route.extend({
+//	renderTemplate: function() {
+//	  this.render('topnav', { into: 'application', outlet: 'topnav' });
+//	},
+//	redirect: function() {
+//	    this.transitionTo('portfolios.list');
+//	}
+});
+
+Luxin.PortfoliosIndexRoute = Ember.Route.extend({
+	setupController: function(controller, model) {
+	    return controller.set("content", Luxin.Portfolio.find());
+	},
+	renderTemplate: function() {
+		//var controller = this.controllerFor('portfolios.index');
+		this.render('portfolios.index', { 
+			into: 'application', 
+			outlet: 'master'
+		});
+	}
+});
+
+Luxin.PortfoliosShowRoute = Ember.Route.extend({
+	renderTemplate: function() {
+		this.render('portfolios.show', {
+			into: 'application',
+			outlet: 'detail'
+		});
+	}
+});
+
+
+/*
 Luxin.Router = Ember.Router.extend({
 	enableLogging : true,
 	location : 'hash',
@@ -54,9 +95,11 @@ Luxin.Router = Ember.Router.extend({
 				add : Ember.Route.transitionTo('add_asset'),
 				connectOutlets : function(router, portfolio) {
 					console.log('showing portfolio');
-					// load relationships for this portfolio
+					// load relationships for this portfolio and add them
+					// to relationships controller
 					var rc = router.get("relationshipsController");
-					Luxin.Relationship.find({ portfolio_id : portfolio.id });
+					var rels = Luxin.Relationship.find({ portfolio_id : portfolio.id });
+					rc.set('content', rels);
 					var ac = router.get("applicationController");
 					ac.connectOutlet({
 						name : 'portfolio',
@@ -218,6 +261,4 @@ Luxin.Router = Ember.Router.extend({
 		})
 	})
 });
-
-// start app
-Luxin.initialize();
+*/

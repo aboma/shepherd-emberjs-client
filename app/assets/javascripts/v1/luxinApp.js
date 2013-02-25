@@ -16,7 +16,10 @@ if (typeof String.prototype.startsWith != 'function') {
 	};
 }
 
-window.Luxin = Ember.Application.create();
+window.Luxin = Ember.Application.create({
+    //rootElement: "body",
+    LOG_TRANSITIONS: true
+});
 
 if (!window.console) {
 	window.console = {};

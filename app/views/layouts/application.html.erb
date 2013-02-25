@@ -2,7 +2,7 @@
 <html>
 	<head>
 		<title>LuxinDAM Client</title>
-		<script type=application/javascript>
+		<script type='application/javascript'>
 			auth_token = "<%= params[:auth_token] %>";
 		</script>		
 		<%= stylesheet_link_tag    "application" %>
@@ -10,21 +10,7 @@
 		<%= csrf_meta_tags %>
 	</head>
 	<body>
-		<section id='luxin'>
-			<nav>
-				<script type="text/x-handlebars">
-				{{ view Luxin.TopNav }}
-				</script>
-			</nav>
-			<header id='app-header'>
-				<div id='login-info'>
-					<ul class="nav nav-pills">
-						
-					</ul>
-				</div>
-			</header>
-			<%= yield %>
-			<footer></footer>
-		</section>
+		<%= yield %>
+
 	</body>
 </html>

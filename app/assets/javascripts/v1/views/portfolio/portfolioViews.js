@@ -6,21 +6,23 @@ Luxin.PortfolioSelect2 = Luxin.Select2.extend({
         var selection = this.get('selection');
         console.log('select2 value changed to ' + selection);
         if (selection) {
-        	Luxin.router.transitionTo('root.portfolios.show_portfolio', selection);
+        	this.get('controller').transitionToRoute('portfolios.show', selection);
         } else {
-        	Luxin.router.transitionTo('root.portfolios.index');
+        	this.get('controller').transitionToRoute('portfolios.index');
         }
     }, 'value')
 });
 
-Luxin.PortfoliosView = Ember.View.extend({
-  	templateName: 'v1/templates/portfolio/list',
+Luxin.PortfoliosIndexView = Ember.View.extend({
+  	templateName: 'v1/templates/portfolio/list'
 });
 
-Luxin.PortfolioView = Ember.View.extend({
+Luxin.PortfoliosShowView = Ember.View.extend({
 	templateName: 'v1/templates/portfolio/show'
 });
 
-Luxin.EditPortfolioView = Ember.View.extend({
+Luxin.PortfoliosEditView = Ember.View.extend({
 	templateName: 'v1/templates/portfolio/edit'
 });
+
+Luxin.PortfoliosView = Ember.View.extend({});

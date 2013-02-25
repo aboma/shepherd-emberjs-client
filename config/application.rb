@@ -57,6 +57,10 @@ module VilioEmberjsClient
     config.assets.enabled = true
 
     # Version of your assets, change this if you want to expire all your assets
-    config.assets.version = '1.0'
+    config.assets.version = '1.2'
+  
+    #ember-rails gem configuration  
+    #Rails.configuration.handlebars.templates_root = 'v1/templates'
+
   end
 end

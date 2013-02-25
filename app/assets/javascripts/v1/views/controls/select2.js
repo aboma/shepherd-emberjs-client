@@ -4,7 +4,7 @@ Luxin.Select2 = Ember.Select.extend({
 
     // initialize Select2 once view inserted in DOM
 	didInsertElement : function() {
-		this._super();
+		//this._super();
 		var placeholderText = this.get('placeholderText');
 		if (!this.$().select2)
 			throw new Exception('select2 is required for Luxin.Select2 control');
