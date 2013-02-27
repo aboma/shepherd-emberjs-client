@@ -1,4 +1,4 @@
-Luxin.PortfoliosController = Ember.ObjectController.extend({});
+Luxin.PortfoliosIndexController = Ember.ObjectController.extend({});
 
 Luxin.PortfoliosShowController = Ember.ObjectController.extend({
 	selectedPortfolio: null,
@@ -6,7 +6,7 @@ Luxin.PortfoliosShowController = Ember.ObjectController.extend({
 
 Luxin.PortfoliosEditController = Ember.ObjectController.extend({});
 
-Luxin.PortfoliosIndexController = Ember.ArrayController.extend({
+Luxin.PortfoliosController = Ember.ArrayController.extend({
 	//needs: ['portfolioshow'],
 	content: null,
 	sortProperties: ['name'],

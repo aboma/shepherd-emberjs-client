@@ -2,28 +2,28 @@ Luxin.Router.map(function(match) {
 	this.route("index", { path: "/" });
 	this.resource('portfolios', { path: '/portfolios' }, function() {
 	    this.route('index', { path: '/' });
-	    this.route('show', { path: '/:id' });
+	    this.route('show', { path: '/:portfolio_id' });
 	});
 });
 
-Luxin.IndexRoute = Ember.Route.extend({
-//	renderTemplate: function() {
-//	  this.render('topnav', { into: 'application', outlet: 'topnav' });
-//	},
-//	redirect: function() {
-//	    this.transitionTo('portfolios.list');
-//	}
-});
-
-Luxin.PortfoliosIndexRoute = Ember.Route.extend({
+Luxin.PortfoliosRoute = Ember.Route.extend({
 	setupController: function(controller, model) {
 	    return controller.set("content", Luxin.Portfolio.find());
 	},
 	renderTemplate: function() {
-		//var controller = this.controllerFor('portfolios.index');
-		this.render('portfolios.index', { 
+		this.render('portfolios', {
 			into: 'application', 
 			outlet: 'master'
+		})
+	}
+});
+
+Luxin.PortfoliosIndexRoute = Ember.Route.extend({
+	renderTemplate: function() {
+		//var controller = this.controllerFor('portfolios.index');
+		this.render('portfolios.index', {  
+			into: 'portfolios',
+			outlet: 'detail'
 		});
 	}
 });
@@ -31,7 +31,7 @@ Luxin.PortfoliosIndexRoute = Ember.Route.extend({
 Luxin.PortfoliosShowRoute = Ember.Route.extend({
 	renderTemplate: function() {
 		this.render('portfolios.show', {
-			into: 'application',
+			into: 'portfolios',
 			outlet: 'detail'
 		});
 	}

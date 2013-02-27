@@ -6,16 +6,18 @@
   color:red;
 }
 
-div#portfoliosMaster {
+.row {
   display: table-row;
-  vertical-align: middle;
-  width: 100%;
 }
 
-div#portfolioList,
-div#portfolioHeader {
+.cell {
   display: table-cell; 
   min-width: 300px;
+}
+
+div#portfolio-list {
+  padding-top: 10px;
+  vertical-align: top;
 }
 
 .select2-portfolio {
@@ -24,4 +26,19 @@ div#portfolioHeader {
 
 .select2-container .select2-choice, .select2-drop {
   text-shadow: none;
+}
+
+h2.portfolio-header {
+  float: left;
+  display: inline;
+}
+
+div#portfolio-options {
+  float: left;
+  height:  100%;
+  padding: 12px 0 0 12px;
+  
+  a.portfolio-header {
+    padding-right: 10px;
+  }
 }

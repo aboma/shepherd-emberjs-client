@@ -1,16 +1,13 @@
 {{#with controller.content as portfolio}}
-	<div id='portfolioHeader'>
-		<h2 class="portfolioHeader">{{name}} Portfolio</h2>
-		<div id="portfolioOptions" class="portfolioHeader">
-			<a class="portfolioHeader" {{ action edit portfolio href=true }}>edit</a>
+	<div class='cell'>
+		<h2 class="portfolio-header">{{name}} Portfolio</h2>
+		<div id="portfolio-options">
+			<a class="portfolio-header" {{ action edit portfolio href=true }}>edit</a>
 			/
-			<a class="portfolioHeader" {{ action add portfolio href=true }}>add</a>
+			<a class="portfolio-header" {{ action add portfolio href=true }}>add</a>
 		</div>
 	</div>
-	<div id='portfolioDetails'>
-		<span>Showing {{name}} Portfolio</span>
-		{{#each relation in controller.relationships.content}}
-			<div>relationship</div>
-		{{/each}}
+	<div class='row'>
+		<span>Showing assets in {{name}} Portfolio</span>
 	</div>
 {{/with}}
