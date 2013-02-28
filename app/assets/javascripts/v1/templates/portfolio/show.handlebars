@@ -2,9 +2,9 @@
 	<div class='cell'>
 		<h2 class="portfolio-header">{{name}} Portfolio</h2>
 		<div id="portfolio-options">
-			<a class="portfolio-header" {{ action edit portfolio href=true }}>edit</a>
+			{{#linkTo portfolios.edit portfolio class="portfolio-header"}}edit{{/linkTo}}
 			/
-			<a class="portfolio-header" {{ action add portfolio href=true }}>add</a>
+			{{#linkTo portfolios.new class="portfolio-header"}}add{{/linkTo}}
 		</div>
 	</div>
 	<div class='row'>

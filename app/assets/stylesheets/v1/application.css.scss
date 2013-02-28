@@ -77,3 +77,55 @@ div.form-horizontal {
     text-align: left;
   }
 }
+
+.overlay {
+  background: #FFF;
+  height: 100%;
+  left: 0;
+  opacity: 0.1;
+  position: fixed;
+  text-align: center;
+  top: 0;
+  width: 100%;
+  vertical-align: middle;
+  z-index: 9999;
+}
+
+.modal-dialog {
+    clear:both; 
+
+    position:relative;
+    background: #333;
+    background: -moz-linear-gradient(0% 0 -90deg, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.95)) repeat scroll 0 0 transparent;
+    background: -webkit-gradient(linear, left top, left bottom, from(rgba(0, 0, 0, 0.7)), to(rgba(0, 0, 0, 0.95))) repeat scroll 0 0 transparent;
+    //background: -o-linear-gradient(0% 0 -90deg, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.95)) repeat scroll 0 0 transparent;
+    border: 2px solid #999999;
+    border-radius: 15px 15px 15px 15px;
+    box-shadow: 5px 5px 10px 10px #000000;
+    min-height: 200px;
+    opacity: 1;
+    padding: 20px;
+    margin-right: auto;
+    margin-left:auto;
+    text-align: center;
+    vertical-align: middle;
+    width: 300px;
+    z-index: 11111;
+}
+
+#loading {
+  position: fixed;
+  height: 100%;
+  width: 100%;
+}
+
+.floater {
+    float: left;
+    height: 50%;
+    margin-bottom: -120px;
+}
+
+.dialog-message {
+  position: absolute;
+  top: 50%;
+}

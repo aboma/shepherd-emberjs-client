@@ -26,6 +26,10 @@ Luxin.PortfoliosEditView = Ember.View.extend({
 	templateName: 'v1/templates/portfolio/edit'
 });
 
+Luxin.PortfoliosNewView = Ember.View.extend({
+	templateName: 'v1/templates/portfolio/edit'
+});
+
 Luxin.PortfoliosView = Ember.View.extend({
 	templateName: 'v1/templates/portfolio/portfolio'
 });

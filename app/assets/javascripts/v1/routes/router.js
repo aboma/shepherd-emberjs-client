@@ -3,8 +3,18 @@ Luxin.Router.map(function(match) {
 	this.resource('portfolios', { path: '/portfolios' }, function() {
 	    this.route('index', { path: '/' });
 	    this.route('show', { path: '/:portfolio_id' });
+	    this.route('edit', { path: '/:portfolio_id/edit' });
+	    this.route('new', { path: '/new' });
 	});
 });
+
+Luxin.IndexRoute = Ember.Route.extend({
+	enter: function() {
+		console.log('hiding loading overlay');
+		$('#loading').hide();
+		$('#loading-overlay').hide();
+	}
+})
 
 Luxin.PortfoliosRoute = Ember.Route.extend({
 	setupController: function(controller, model) {
@@ -28,12 +38,71 @@ Luxin.PortfoliosIndexRoute = Ember.Route.extend({
 	}
 });
 
+Luxin.PortfoliosNewRoute = Ember.Route.extend({
+	renderTemplate: function() {
+		this.render('portfolios.new', {
+			into: 'portfolios',
+			outlet: 'detail'
+		});
+	}
+});
+
 Luxin.PortfoliosShowRoute = Ember.Route.extend({
 	renderTemplate: function() {
 		this.render('portfolios.show', {
 			into: 'portfolios',
 			outlet: 'detail'
 		});
+	}
+});
+
+Luxin.PortfoliosEditRoute = Ember.Route.extend({
+	enter: function() {
+		this.transaction = this.store.transaction();
+		this.transaction.add(this.context);
+	},
+	renderTemplate: function() {
+		this.render('portfolios.edit', {
+			into: 'portfolios',
+			outlet: 'detail'
+		});
+	},
+	exit: function() {
+		//
+	},
+	events: {
+		cancel : function(portfolio) {
+			// clean up unused transaction
+			if (this.transaction) {
+				this.transaction.rollback();
+				this.transaction.destroy();
+			}
+			this.transitionTo('portfolios.show', portfolio);
+		},
+		remove : function(portfolio) {
+			var route = this;
+			// delete portfolio and return to portfolios list
+			portfolio.one('didDelete', function() {
+				console.log('portfolio deleted');
+				route.transitionTo('portfolios.index');
+			});
+			portfolio.deleteRecord();
+			this.transaction.commit();
+		},
+		save : function(portfolio) {
+			var route = this;
+			// commit record if it has changed; exit function will
+			// clean up unused transaction
+			if (portfolio.get('isDirty')) {
+				// callback will show portfolio once the id is available
+				portfolio.one('didUpdate', function() {
+					route.transitionTo('portfolios.show', portfolio);
+				});
+				this.transaction.commit();
+			} else {
+				this.events.cancel(portfolio);
+			}
+		},
 	}
 });
 

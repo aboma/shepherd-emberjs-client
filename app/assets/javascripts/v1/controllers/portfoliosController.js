@@ -6,6 +6,8 @@ Luxin.PortfoliosShowController = Ember.ObjectController.extend({
 
 Luxin.PortfoliosEditController = Ember.ObjectController.extend({});
 
+Luxin.PortfoliosNewController = Ember.ObjectController.extend({});
+
 Luxin.PortfoliosController = Ember.ArrayController.extend({
 	//needs: ['portfolioshow'],
 	content: null,
