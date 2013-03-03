@@ -1,14 +1,2 @@
-<div class='row'>
-	<div id='portfolio-list' class='cell'>
-		{{view Luxin.PortfolioSelect2
-	       contentBinding="controller.arrangedContent"
-	       optionValuePath="content.id"
-	       optionLabelPath="content.name"
-	       selectionBinding="Luxin.portfoliosShowController.selectedPortfolio" 
-	       placeholderText="Please select a Portfolio"
-	       prompt=" "}}
-	</div>
-	<div id='portfolio-details' class='cell'>
-		{{ outlet detail }}
-	</div>
-</div>
+<h3>Showing portfolio</h3>
+{{ outlet }}

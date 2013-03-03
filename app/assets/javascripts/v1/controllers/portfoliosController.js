@@ -1,11 +1,5 @@
 Luxin.PortfoliosIndexController = Ember.ObjectController.extend({});
 
-Luxin.PortfoliosShowController = Ember.ObjectController.extend({
-	selectedPortfolio: null,
-});
-
-Luxin.PortfoliosEditController = Ember.ObjectController.extend({});
-
 Luxin.PortfoliosNewController = Ember.ObjectController.extend({});
 
 Luxin.PortfoliosController = Ember.ArrayController.extend({
@@ -32,3 +26,9 @@ Luxin.PortfoliosController = Ember.ArrayController.extend({
   		//this.set('selectedPortfolio', null);
   	}.observes('content.isLoaded')
 });
+
+Luxin.PortfolioShowController = Ember.ObjectController.extend({
+	selectedPortfolio: null,
+});
+
+Luxin.PortfolioEditController = Ember.ObjectController.extend({});

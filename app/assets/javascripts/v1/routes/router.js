@@ -1,10 +1,12 @@
 Luxin.Router.map(function(match) {
 	this.route("index", { path: "/" });
 	this.resource('portfolios', { path: '/portfolios' }, function() {
-	    this.route('index', { path: '/' });
-	    this.route('show', { path: '/:portfolio_id' });
-	    this.route('edit', { path: '/:portfolio_id/edit' });
+	    //this.route('index', { path: '/' });
 	    this.route('new', { path: '/new' });
+	    this.resource('portfolio', { path: '/:portfolio_id' }, function() {
+		    this.route('show', { path: '/' });	    
+		    this.route('edit', { path: '/edit' });
+	    });
 	});
 });
 
@@ -17,8 +19,8 @@ Luxin.IndexRoute = Ember.Route.extend({
 })
 
 Luxin.PortfoliosRoute = Ember.Route.extend({
-	setupController: function(controller, model) {
-	    return controller.set("content", Luxin.Portfolio.find());
+	model: function() {
+		return Luxin.Portfolio.find();
 	},
 	renderTemplate: function() {
 		this.render('portfolios', {
@@ -32,8 +34,7 @@ Luxin.PortfoliosIndexRoute = Ember.Route.extend({
 	renderTemplate: function() {
 		//var controller = this.controllerFor('portfolios.index');
 		this.render('portfolios.index', {  
-			into: 'portfolios',
-			outlet: 'detail'
+			into: 'portfolios'
 		});
 	}
 });
@@ -41,28 +42,39 @@ Luxin.PortfoliosIndexRoute = Ember.Route.extend({
 Luxin.PortfoliosNewRoute = Ember.Route.extend({
 	renderTemplate: function() {
 		this.render('portfolios.new', {
-			into: 'portfolios',
-			outlet: 'detail'
+			into: 'portfolios'
 		});
 	}
 });
 
-Luxin.PortfoliosShowRoute = Ember.Route.extend({
+Luxin.PortfolioRoute = Ember.Route.extend({
 	renderTemplate: function() {
-		this.render('portfolios.show', {
-			into: 'portfolios',
-			outlet: 'detail'
+		console.log('rendering portfolios.portfolio');
+		this.render('portfolio', {
+			into: 'portfolios'
 		});
 	}
 });
 
-Luxin.PortfoliosEditRoute = Ember.Route.extend({
+Luxin.PortfolioShowRoute = Ember.Route.extend({
+	model: function() {
+		var model = this.modelFor('portfolio');
+		return model;
+	},
+	renderTemplate: function() {
+		this.render('portfolio.show', {
+			into: 'portfolios'
+		});
+	}
+});
+
+Luxin.PortfolioEditRoute = Ember.Route.extend({
 	enter: function() {
 		this.transaction = this.store.transaction();
 		this.transaction.add(this.context);
 	},
 	renderTemplate: function() {
-		this.render('portfolios.edit', {
+		this.render('portfolio.edit', {
 			into: 'portfolios',
 			outlet: 'detail'
 		});
