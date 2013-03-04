@@ -1,2 +1,14 @@
-<h3>Showing portfolio</h3>
+{{#with controller.content as portfolio}}
+	<div class='cell'>
+		<h2 class="portfolio-header">{{name}} Portfolio</h2>
+		<div id="portfolio-options">
+			{{#linkTo portfolio.edit portfolio class="portfolio-header"}}edit{{/linkTo}}
+			/
+			{{#linkTo portfolios.new class="portfolio-header"}}add{{/linkTo}}
+		</div>
+	</div>
+	<div class='row'>
+		<span>Showing assets in {{name}} Portfolio</span>
+	</div>
+{{/with}}
 {{ outlet }}

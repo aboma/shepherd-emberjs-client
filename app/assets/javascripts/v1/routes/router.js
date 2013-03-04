@@ -1,20 +1,40 @@
 Luxin.Router.map(function(match) {
 	this.route("index", { path: "/" });
 	this.resource('portfolios', { path: '/portfolios' }, function() {
-	    //this.route('index', { path: '/' });
 	    this.route('new', { path: '/new' });
 	    this.resource('portfolio', { path: '/:portfolio_id' }, function() {
 		    this.route('show', { path: '/' });	    
 		    this.route('edit', { path: '/edit' });
+		    this.resource('assets', { path: "/assets" }, function() {
+		    	this.route('index', { path: "/" });
+		    	this.route('new', { path: "/new" });
+		    });
 	    });
 	});
 });
+
+Luxin.AssetsRoute = Ember.Route.extend({
+	// get relationships for portfolio; these contain 
+	// portfolio <-> asset relationship
+	model: function() {
+		var id = this.modelFor('portfolio').get('id');
+		return Luxin.Relationship.find({ portfolio: id });
+	},
+	renderTemplate: function() {
+		this.render('assets', {
+			into: 'portfolio'
+		})
+	}
+})
 
 Luxin.IndexRoute = Ember.Route.extend({
 	enter: function() {
 		console.log('hiding loading overlay');
 		$('#loading').hide();
 		$('#loading-overlay').hide();
+	},
+	redirect: function() {
+	   this.transitionTo('portfolios');
 	}
 })
 
@@ -34,7 +54,8 @@ Luxin.PortfoliosIndexRoute = Ember.Route.extend({
 	renderTemplate: function() {
 		//var controller = this.controllerFor('portfolios.index');
 		this.render('portfolios.index', {  
-			into: 'portfolios'
+			into: 'portfolios',
+			outlet: 'master'
 		});
 	}
 });
@@ -42,41 +63,53 @@ Luxin.PortfoliosIndexRoute = Ember.Route.extend({
 Luxin.PortfoliosNewRoute = Ember.Route.extend({
 	renderTemplate: function() {
 		this.render('portfolios.new', {
-			into: 'portfolios'
+			into: 'portfolios',
+			outlet: 'detail'
 		});
 	}
 });
 
 Luxin.PortfolioRoute = Ember.Route.extend({
+	model: function() {
+		var model = this.modelFor('portfolio');
+		return model;
+	},
 	renderTemplate: function() {
 		console.log('rendering portfolios.portfolio');
 		this.render('portfolio', {
-			into: 'portfolios'
+			into: 'portfolios',
+			outlet: 'master'
 		});
 	}
 });
 
 Luxin.PortfolioShowRoute = Ember.Route.extend({
 	model: function() {
-		var model = this.modelFor('portfolio');
-		return model;
+		return this.modelFor('portfolio');
 	},
 	renderTemplate: function() {
 		this.render('portfolio.show', {
-			into: 'portfolios'
+			into: 'portfolio'
 		});
+	},
+	redirect: function() {
+		// forward to show assets route, since show portfolio
+		// means show assets in portfolio to user
+		this.transitionTo('assets');	
 	}
 });
 
 Luxin.PortfolioEditRoute = Ember.Route.extend({
 	enter: function() {
 		this.transaction = this.store.transaction();
-		this.transaction.add(this.context);
+		this.transaction.add(this.modelFor('portfolio'));
+	},
+	model: function() {
+		return this.modelFor('portfolio');
 	},
 	renderTemplate: function() {
 		this.render('portfolio.edit', {
-			into: 'portfolios',
-			outlet: 'detail'
+			into: 'portfolio'
 		});
 	},
 	exit: function() {
@@ -89,7 +122,7 @@ Luxin.PortfolioEditRoute = Ember.Route.extend({
 				this.transaction.rollback();
 				this.transaction.destroy();
 			}
-			this.transitionTo('portfolios.show', portfolio);
+			this.transitionTo('portfolio.show', portfolio);
 		},
 		remove : function(portfolio) {
 			var route = this;
@@ -108,7 +141,7 @@ Luxin.PortfolioEditRoute = Ember.Route.extend({
 			if (portfolio.get('isDirty')) {
 				// callback will show portfolio once the id is available
 				portfolio.one('didUpdate', function() {
-					route.transitionTo('portfolios.show', portfolio);
+					route.transitionTo('portfolio.show', portfolio);
 				});
 				this.transaction.commit();
 			} else {

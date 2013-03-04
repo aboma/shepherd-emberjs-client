@@ -1,6 +1,6 @@
 Luxin.Relationship = DS.Model.extend({
-	//asset : DS.belongsTo('Luxin.Asset'),
-	//portfolio : DS.belongsTo('Luxin.Portfolio'),
+	asset : DS.belongsTo('Luxin.Asset'),
+	portfolio : DS.belongsTo('Luxin.Portfolio'),
 	created_at : DS.attr('string'),
 	updated_at : DS.attr('string')
 });
