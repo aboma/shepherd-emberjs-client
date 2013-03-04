@@ -5,27 +5,13 @@ Luxin.Router.map(function(match) {
 	    this.resource('portfolio', { path: '/:portfolio_id' }, function() {
 		    this.route('show', { path: '/' });	    
 		    this.route('edit', { path: '/edit' });
-		    this.resource('assets', { path: "/assets" }, function() {
+		    this.resource('relationships', { path: "/assets" }, function() {
 		    	this.route('index', { path: "/" });
 		    	this.route('new', { path: "/new" });
 		    });
 	    });
 	});
 });
-
-Luxin.AssetsRoute = Ember.Route.extend({
-	// get relationships for portfolio; these contain 
-	// portfolio <-> asset relationship
-	model: function() {
-		var id = this.modelFor('portfolio').get('id');
-		return Luxin.Relationship.find({ portfolio: id });
-	},
-	renderTemplate: function() {
-		this.render('assets', {
-			into: 'portfolio'
-		})
-	}
-})
 
 Luxin.IndexRoute = Ember.Route.extend({
 	enter: function() {
@@ -64,16 +50,12 @@ Luxin.PortfoliosNewRoute = Ember.Route.extend({
 	renderTemplate: function() {
 		this.render('portfolios.new', {
 			into: 'portfolios',
-			outlet: 'detail'
+			outlet: 'master'
 		});
 	}
 });
 
 Luxin.PortfolioRoute = Ember.Route.extend({
-	model: function() {
-		var model = this.modelFor('portfolio');
-		return model;
-	},
 	renderTemplate: function() {
 		console.log('rendering portfolios.portfolio');
 		this.render('portfolio', {
@@ -95,7 +77,7 @@ Luxin.PortfolioShowRoute = Ember.Route.extend({
 	redirect: function() {
 		// forward to show assets route, since show portfolio
 		// means show assets in portfolio to user
-		this.transitionTo('assets');	
+		this.transitionTo('relationships');	
 	}
 });
 
@@ -148,6 +130,28 @@ Luxin.PortfolioEditRoute = Ember.Route.extend({
 				this.events.cancel(portfolio);
 			}
 		},
+	}
+});
+
+Luxin.RelationshipsRoute = Ember.Route.extend({
+	// get relationships for portfolio; these contain 
+	// portfolio <-> asset relationship
+	model: function() {
+		var id = this.modelFor('portfolio').get('id');
+		return Luxin.Relationship.find({ portfolio: id });
+	},
+	renderTemplate: function() {
+		this.render('relationships', {
+			into: 'portfolio'
+		})
+	}
+});
+
+Luxin.RelationshipsNewRoute = Ember.Route.extend({
+	renderTemplate: function() {
+		this.render('relationships.new', {
+			into: 'relationships'
+		});
 	}
 });
 

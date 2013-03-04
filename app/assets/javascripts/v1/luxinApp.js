@@ -45,4 +45,16 @@ Luxin.Message = Ember.View.extend({
 	messageType : null,
 	message : '',
 	isVisible : false
-})
+});
+
+Handlebars.registerHelper("debug", function(optionalValue) {
+	  console.log("Current Context");
+	  console.log("====================");
+	  console.log(this);
+	 
+	  if (optionalValue) {
+	    console.log("Value");
+	    console.log("====================");
+	    console.log(optionalValue);
+	  }
+});
