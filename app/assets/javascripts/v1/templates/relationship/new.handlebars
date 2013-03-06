@@ -1,0 +1,21 @@
+{{debug}}
+<form id="asset_upload">
+	<h3>Add Asset to Portfolio</h3>
+    <div class="control-group">
+   		<label class="control-label">Asset Name</label>
+   		<div class="controls">
+			<input id="name" type="text" name="name" />
+		</div>
+	</div>
+	<div class="control-group">
+  		<label class="control-label">Description</label>
+   		<div class="controls">
+			<input id="description" type="text" name="description" />
+		</div>
+	</div>
+	<input id="file" type="file" name="file" />
+	<input id="portfolio_id" type="hidden" name="portfolio_id" value="{{unbound controller.portfolio}}" />
+	<div>
+		<button id="upload" {{ action upload content }} class="btn btn-success">Upload</button>
+	</div>
+</form>

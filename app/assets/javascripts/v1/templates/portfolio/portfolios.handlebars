@@ -1,16 +1,20 @@
-<div class='row'>
-	<div id='portfolio-list' class='cell'>
-		{{view Luxin.PortfolioSelect2
-	       contentBinding="controller.arrangedContent"
-	       optionValuePath="content.id"
-	       optionLabelPath="content.name"
-	       selectionBinding="controller.selectedPortfolio" 
-	       placeholderText="Please select a Portfolio"
-	       prompt=" "}}
+<div id="portfolios">
+	<div>
+		<div id='portfolio-list'>
+			{{view Luxin.PortfolioSelect2
+		       contentBinding="controller.arrangedContent"
+		       optionValuePath="content.id"
+		       optionLabelPath="content.name"
+		       selectionBinding="controller.selectedPortfolio" 
+		       placeholderText="Please select a Portfolio"
+		       prompt=" "}}
+		</div>
+		<div id="create-port-link">{{#linkTo portfolios.new}}Create{{/linkTo}}</div>
+		<div id="portfolio">
+			{{ outlet master }}
+		</div>
 	</div>
-	<div>{{#linkTo portfolios.new}}Create{{/linkTo}}</div>
-	{{ outlet master }}
-</div>
-<div class='row>
-	{{ outlet detail }}
+	<div>
+		{{ outlet detail }}
+	</div>
 </div>

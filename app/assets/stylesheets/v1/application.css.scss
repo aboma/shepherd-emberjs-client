@@ -9,6 +9,18 @@
 // And finally bootswatch style itself
 @import "bootswatch/slate/bootswatch";
 
+.row {
+  display: table-row;
+}
+
+.cell {
+  display: table-cell; 
+}
+
+.inline {
+  display: inline;
+}
+
 .chzn-container {
   text-shadow: none;
 }

@@ -2,20 +2,40 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
+#create-port-link {
+  display: inline-block;
+  padding: 12px 10px 0px 10px;
+  vertical-align: top;
+}
+
+#portfolios-index {
+  display: inline-block;
+  padding: 8px 10px 0px 10px;
+  vertical-align: top;
+}
+
+#portfolio {
+  display: inline-block;
+  padding: 4px 20px 0px 20px;
+  min-width: 700px;
+  min-height: 400px;
+}
+
+#portfolio-list,
+#portfolios {
+  display: inline-block;
+}
+
+#portfolio-relationships {
+  display: block;
+}
+
 .isDeleted a {
   color:red;
 }
 
-.row {
-  display: table-row;
-}
-
-.cell {
-  display: table-cell; 
-  min-width: 300px;
-}
-
 div#portfolio-list {
+  padding-right: 10px;
   padding-top: 10px;
   vertical-align: top;
 }
@@ -33,7 +53,15 @@ h2.portfolio-header {
   display: inline;
 }
 
-div#portfolio-options {
+#portfolio-header {
+  display: block;
+}
+
+#portfolio-details {
+  clear: both;
+}
+
+#portfolio-options {
   float: left;
   height:  100%;
   padding: 12px 0 0 12px;

@@ -38,7 +38,6 @@ Luxin.PortfoliosRoute = Ember.Route.extend({
 
 Luxin.PortfoliosIndexRoute = Ember.Route.extend({
 	renderTemplate: function() {
-		//var controller = this.controllerFor('portfolios.index');
 		this.render('portfolios.index', {  
 			into: 'portfolios',
 			outlet: 'master'
@@ -63,8 +62,8 @@ Luxin.PortfoliosNewRoute = Ember.Route.extend({
 		},
 		save: function() {
 			var route = this;
-			this.controller.save(function() {
-				route.transitionTo('portfolio.show', portfolio);
+			this.controller.saveEdits(function() {
+				route.transitionTo('portfolio.show', route.controller.get('content'));
 			});
 		}
 	}
@@ -72,7 +71,6 @@ Luxin.PortfoliosNewRoute = Ember.Route.extend({
 
 Luxin.PortfolioRoute = Ember.Route.extend({
 	renderTemplate: function() {
-		console.log('rendering portfolios.portfolio');
 		this.render('portfolio', {
 			into: 'portfolios',
 			outlet: 'master'
@@ -97,12 +95,12 @@ Luxin.PortfolioShowRoute = Ember.Route.extend({
 });
 
 Luxin.PortfolioEditRoute = Ember.Route.extend({
-	enter: function() {
-		this.transaction = this.store.transaction();
-		this.transaction.add(this.modelFor('portfolio'));
-	},
 	model: function() {
 		return this.modelFor('portfolio');
+	},
+	// create transaction and add model to it
+	setupController: function(controller, model) {
+		controller.startEditing(model);
 	},
 	renderTemplate: function() {
 		this.render('portfolio.edit', {
@@ -113,42 +111,36 @@ Luxin.PortfolioEditRoute = Ember.Route.extend({
 		//
 	},
 	events: {
-		cancel : function(portfolio) {
-			// clean up unused transaction
-			if (this.transaction) {
-				this.transaction.rollback();
-				this.transaction.destroy();
-			}
-			this.transitionTo('portfolio.show', portfolio);
+		cancel: function() {
+			this.controller.stopEditing();
+			this.transitionTo('portfolio.show');
+		},
+		save: function() {
+			var route = this;
+			this.controller.saveEdits(function() {
+				route.transitionTo('portfolio.show', route.controller.get('content'));
+			});
 		},
 		remove : function(portfolio) {
 			var route = this;
-			// delete portfolio and return to portfolios list
-			portfolio.one('didDelete', function() {
+			this.controller.remove(function(){
 				console.log('portfolio deleted');
 				route.transitionTo('portfolios.index');
 			});
-			portfolio.deleteRecord();
-			this.transaction.commit();
-		},
-		save : function(portfolio) {
-			var route = this;
-			// commit record if it has changed; exit function will
-			// clean up unused transaction
-			if (portfolio.get('isDirty')) {
-				// callback will show portfolio once the id is available
-				portfolio.one('didUpdate', function() {
-					route.transitionTo('portfolio.show', portfolio);
-				});
-				this.transaction.commit();
-			} else {
-				this.events.cancel(portfolio);
-			}
-		},
+		}
 	}
 });
 
 Luxin.RelationshipsRoute = Ember.Route.extend({
+	renderTemplate: function() {
+		this.render('relationships', {
+			into: 'portfolio'
+		})
+	}
+});
+
+
+Luxin.RelationshipsIndexRoute = Ember.Route.extend({
 	// get relationships for portfolio; these contain 
 	// portfolio <-> asset relationship
 	model: function() {
@@ -156,8 +148,8 @@ Luxin.RelationshipsRoute = Ember.Route.extend({
 		return Luxin.Relationship.find({ portfolio_id: id });
 	},
 	renderTemplate: function() {
-		this.render('relationships', {
-			into: 'portfolio'
+		this.render('relationships.index', {
+			into: 'relationships'
 		})
 	}
 });
@@ -167,6 +159,9 @@ Luxin.RelationshipsNewRoute = Ember.Route.extend({
 		this.render('relationships.new', {
 			into: 'relationships'
 		});
+	},
+	events: {
+		
 	}
 });
 

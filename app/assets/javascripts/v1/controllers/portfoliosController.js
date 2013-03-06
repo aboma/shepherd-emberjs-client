@@ -39,7 +39,7 @@ Luxin.PortfolioEditController = Ember.ObjectController.extend({
 		
 		return model;			
 	},
-	save: function(callback) {
+	saveEdits: function(callback) {
 		// commit record if it has changed; exit function will
 		// clean up unused transaction
 		var portfolio = this.get('content');
