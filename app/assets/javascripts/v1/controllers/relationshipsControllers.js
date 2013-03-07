@@ -13,7 +13,7 @@ Luxin.RelationshipsNewController = Ember.ObjectController.extend({
 	
 	upload : function(form_data, success_callback, error_callback) {
 		//var assets_url = Luxin.store.adapter.url + '/assets'
-		var url = Luxin.Asset.collection_url;
+		var url = Luxin.CONFIG.url + '/' + Luxin.Asset.collectionUrl;
 		$.ajax({
 			url : url, 
 			type : 'POST', /*

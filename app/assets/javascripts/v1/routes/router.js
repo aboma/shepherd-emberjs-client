@@ -161,7 +161,23 @@ Luxin.RelationshipsNewRoute = Ember.Route.extend({
 		});
 	},
 	events: {
-		
+    	boom: function(event) {
+    		var route = this;
+    		var root = this.get('view');
+    	    var form = event.target.form;
+    	    var view = event.view;
+    	    var form_data = new FormData(form);
+    	    //var uploadModel = new Luxin.Asset();
+    	    var success_callback = function(){
+    			console.log('uploaded!');
+    			route.transitionTo('root.portfolios.show_portfolio', event.context)
+    	    };
+    	    var error_callback = function() {
+    	        console.log('error uploading');
+    	    };
+    	    this.controller.upload(form_data, success_callback, error_callback);
+    	    console.log('upload event triggered');
+	 	}
 	}
 });
 

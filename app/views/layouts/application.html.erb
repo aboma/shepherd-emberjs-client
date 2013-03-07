@@ -8,6 +8,11 @@
 		<%= stylesheet_link_tag    "application" %>
 		<%= javascript_include_tag "application" %>
 		<%= csrf_meta_tags %>
+		<script type='application/javascript'>
+			Luxin.CONFIG = {
+				url : "http://localhost:4444"
+			}
+		</script>
 	</head>
 	<body>
 		<%= yield %>
