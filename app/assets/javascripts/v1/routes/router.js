@@ -47,7 +47,9 @@ Luxin.PortfoliosIndexRoute = Ember.Route.extend({
 
 Luxin.PortfoliosNewRoute = Ember.Route.extend({
 	model: function() {
-		return this.controllerFor(this.routeName).startEditing();
+		var transaction = this.store.transaction();
+		this.controllerFor(this.routeName).startEditing(transaction);
+		return transaction.createRecord(Luxin.Portfolio, {});
 	},
 	renderTemplate: function() {
 		this.render('portfolios.new', {
@@ -100,7 +102,9 @@ Luxin.PortfolioEditRoute = Ember.Route.extend({
 	},
 	// create transaction and add model to it
 	setupController: function(controller, model) {
-		controller.startEditing(model);
+		var transaction = this.store.transaction();
+		transaction.add(model);
+		controller.startEditing(transaction);
 	},
 	renderTemplate: function() {
 		this.render('portfolio.edit', {
@@ -155,6 +159,11 @@ Luxin.RelationshipsIndexRoute = Ember.Route.extend({
 });
 
 Luxin.RelationshipsNewRoute = Ember.Route.extend({
+	model: function() {
+		var transaction = this.store.transaction();
+		this.controllerFor(this.routeName).startEditing(transaction);
+		return transaction.createRecord(Luxin.Asset, {});
+	},
 	renderTemplate: function() {
 		this.render('relationships.new', {
 			into: 'relationships'

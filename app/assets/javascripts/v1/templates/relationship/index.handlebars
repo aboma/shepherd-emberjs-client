@@ -1,8 +1,13 @@
+{{ debug controller.content }}
 <div><span>Showing Portfolio Assets (Relationships)</div>
-<div>
+<div id="asset-list">
 	{{#each content}}
-		<div class="cell">
-			{{ created_at }}
+		<div class="asset">
+			{{#with asset}}
+				{{ name }}
+				{{unbound file_path }}
+				<img src="{{ unbound file_path }}" />
+			{{/with}}
 		</div>
 	{{/each}}
 </div>

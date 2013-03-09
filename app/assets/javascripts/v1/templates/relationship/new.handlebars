@@ -7,7 +7,7 @@
 		</div>
 	</div>
 	<div class="control-group">
-  		<label class="control-label">Description</label>
+   		<label class="control-label">Description</label>
    		<div class="controls">
 			<input id="description" type="text" name="description" />
 		</div>
@@ -15,6 +15,6 @@
 	<input id="file" type="file" name="file" />
 	<input id="portfolio_id" type="hidden" name="portfolio_id" value="{{unbound controller.portfolio}}" />
 	<div>
-		<button {{ action boom this }} class="btn btn-success"> Upload </button>
+		<button type="submit" class="btn btn-success"> Upload </button>
 	</div>
 </form>

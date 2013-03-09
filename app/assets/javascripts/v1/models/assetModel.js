@@ -1,8 +1,8 @@
 Luxin.Asset = DS.Model.extend({
 	name : DS.attr('string'),
-	url : DS.attr('string'),
+	file_path : DS.attr('string'),
 	thumbnail_path : DS.attr('string'),
-	links : DS.attr('links'),
+	//links : DS.attr('links'),
 	relationships: DS.hasMany('Luxin.Relationship'),
 });
 
