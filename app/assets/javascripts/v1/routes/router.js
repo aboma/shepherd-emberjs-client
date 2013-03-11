@@ -136,6 +136,12 @@ Luxin.PortfolioEditRoute = Ember.Route.extend({
 });
 
 Luxin.RelationshipsRoute = Ember.Route.extend({
+	// get relationships for portfolio; these contain 
+	// portfolio <-> asset relationship
+	model: function() {
+		var id = this.modelFor('portfolio').get('id');
+		return Luxin.Relationship.find({ portfolio_id: id });
+	},
 	renderTemplate: function() {
 		this.render('relationships', {
 			into: 'portfolio'
@@ -145,11 +151,8 @@ Luxin.RelationshipsRoute = Ember.Route.extend({
 
 
 Luxin.RelationshipsIndexRoute = Ember.Route.extend({
-	// get relationships for portfolio; these contain 
-	// portfolio <-> asset relationship
 	model: function() {
-		var id = this.modelFor('portfolio').get('id');
-		return Luxin.Relationship.find({ portfolio_id: id });
+		return this.modelFor('relationships');
 	},
 	renderTemplate: function() {
 		this.render('relationships.index', {

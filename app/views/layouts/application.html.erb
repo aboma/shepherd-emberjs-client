@@ -4,7 +4,10 @@
 		<title>LuxinDAM Client</title>
 		<script type='application/javascript'>
 			auth_token = "<%= params[:auth_token] %>";
-		</script>		
+        	ENV = {
+        	    EXPERIMENTAL_CONTROL_HELPER: true
+	        };
+		</script>
 		<%= stylesheet_link_tag    "application" %>
 		<%= javascript_include_tag "application" %>
 		<%= csrf_meta_tags %>

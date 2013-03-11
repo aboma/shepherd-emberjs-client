@@ -21,6 +21,10 @@ window.Luxin = Ember.Application.create({
     LOG_TRANSITIONS: true
 });
 
+// this is needed to use control handlebars template properly per
+// https://github.com/emberjs/ember.js/issues/1990
+Luxin.register('controller:asset', Luxin.AssetController, {singleton: false });
+
 if (!window.console) {
 	window.console = {};
 	window.console.log = function(object) {}

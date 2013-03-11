@@ -5,3 +5,7 @@ Luxin.AssetsView = Ember.View.extend({
 Luxin.NewAssetView = Ember.View.extend({
 	templateName : 'v1/templates/assets/new_asset',
 });
+
+Luxin.AssetView = Ember.View.extend({
+	templateName : 'v1/templates/assets/show'
+});

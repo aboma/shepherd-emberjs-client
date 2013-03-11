@@ -1,3 +1,7 @@
+DS.RESTAdapter.map('Luxin.Relationship', {
+    assets: { embedded: 'load' }
+});
+
 Luxin.Store = DS.Store.extend({
   revision: 12,
   adapter: DS.RESTAdapter.create({ 
