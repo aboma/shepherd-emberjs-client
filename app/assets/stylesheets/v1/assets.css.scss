@@ -1,15 +1,29 @@
-.asset-small {
-  height: 200px;
-  padding: 10px;
-  width: 200px
+#asset-list {
+  margin-top: 30px;
+  margin-bottom: 30px;
+}
+
+#asset-list .ember-view {
+  display: inline-block;
+}
+
+#assets-message {
+  padding-left: 308px;
+  width: 100%;
+}
+
+#asset-upload {
+  margin-top: 30px;
 }
 
 .asset-name {
   text-align: center;
-  padding: 5px;
+  padding: 10px 0px 10px 0px;
 }
 
-#asset-list {
-  margin-top: 20px;
-  margin-bottom: 20px;
+.asset-small {
+  height: 160px;
+  padding: 10px;
+  text-align: center;
+  width: 140px;
 }

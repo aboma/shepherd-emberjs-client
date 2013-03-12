@@ -21,7 +21,14 @@ Luxin.register('controller:asset', Luxin.AssetController, {singleton: false });
 if (!window.console) {
 	window.console = {};
 	window.console.log = function(object) {}
-}
+};
+
+Luxin.TextField = Ember.TextField.extend({
+	attributeBindings: ['required', 'autofocus', 'placeholderText'],
+	required: null,
+	autofocus: null,
+	placeholderText: null
+});
 
 Handlebars.registerHelper("debug", function(optionalValue) {
 	  console.log("Current Context");

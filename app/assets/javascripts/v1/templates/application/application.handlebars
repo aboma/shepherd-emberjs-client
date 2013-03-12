@@ -8,17 +8,8 @@
 			</ul>
 		</div>
 	</header>
-		<div id='MbAppContainer'>
-			<div id='MbHeader'>
-				{{ outlet master }}	
-			</div>
-			<div id='MbLeftNav'>
-				{{ outlet nav }}
-			</div>
-			<div id='MbMain'>
-				{{ outlet detail }}
-			</div>
-			<div id='MbFooter'> {{ outlet footer }} </div>
-		</div>
+	<div id='MbAppContainer'>
+		{{ outlet }}
+	</div>
 	<footer></footer>
 </section>

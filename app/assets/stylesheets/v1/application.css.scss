@@ -9,22 +9,6 @@
 // And finally bootswatch style itself
 @import "bootswatch/slate/bootswatch";
 
-.row {
-  display: table-row;
-}
-
-.cell {
-  display: table-cell; 
-}
-
-.inline {
-  display: inline;
-}
-
-.chzn-container {
-  text-shadow: none;
-}
-
 #app-header {
   width: 100%;
   height: 30px;
@@ -41,6 +25,7 @@
 
 #MbAppContainer {
   margin: 40px;
+  min-width: 1000px;
 }
 
 div.well {
@@ -56,6 +41,12 @@ div.well {
 #MbMain {
   margin-top: 20px;
   min-height: 500px;
+}
+
+#loading {
+  position: fixed;
+  height: 100%;
+  width: 100%;
 }
 
 .inline-heading {
@@ -90,6 +81,23 @@ div.form-horizontal {
   }
 }
 
+.row {
+  display: table-row;
+}
+
+.cell {
+  display: table-cell; 
+}
+
+.inline {
+  display: inline;
+}
+
+.chzn-container {
+  text-shadow: none;
+}
+
+
 .overlay {
   background: #FFF;
   height: 100%;
@@ -123,12 +131,6 @@ div.form-horizontal {
     vertical-align: middle;
     width: 300px;
     z-index: 11111;
-}
-
-#loading {
-  position: fixed;
-  height: 100%;
-  width: 100%;
 }
 
 .floater {

@@ -14,8 +14,9 @@
 	    	<div class="control-group">
 	    		<label class="control-label">Portfolio Name</label>
 	    		<div class="controls">
-	   				{{ view Ember.TextField viewName="pNameTextField" 
-	   				   valueBinding="content.name" disabledBinding="content.isSaving" }}
+   					{{ view Luxin.TextField viewName="portName" 
+   					   valueBinding="name" disabledBinding="view.isDisabled" 
+   				   		required="" autofocus="" }}
 	    		</div>
 	    	</div>
 	    	<div class="control-group">

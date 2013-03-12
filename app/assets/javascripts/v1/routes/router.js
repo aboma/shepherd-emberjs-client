@@ -30,8 +30,7 @@ Luxin.PortfoliosRoute = Ember.Route.extend({
 	},
 	renderTemplate: function() {
 		this.render('portfolios', {
-			into: 'application', 
-			outlet: 'master'
+			into: 'application'
 		})
 	}
 });
@@ -108,7 +107,8 @@ Luxin.PortfolioEditRoute = Ember.Route.extend({
 	},
 	renderTemplate: function() {
 		this.render('portfolio.edit', {
-			into: 'portfolio'
+			into: 'portfolios',
+			outlet: 'detail'	
 		});
 	},
 	exit: function() {
@@ -117,11 +117,12 @@ Luxin.PortfolioEditRoute = Ember.Route.extend({
 	events: {
 		cancel: function() {
 			this.controller.stopEditing();
-			this.transitionTo('portfolio.show');
+			this.transitionTo('portfolio.show', this.controller.get('content'));
 		},
 		save: function() {
 			var route = this;
 			this.controller.saveEdits(function() {
+				console.log('portfolio saved');
 				route.transitionTo('portfolio.show', route.controller.get('content'));
 			});
 		},
@@ -144,7 +145,8 @@ Luxin.RelationshipsRoute = Ember.Route.extend({
 	},
 	renderTemplate: function() {
 		this.render('relationships', {
-			into: 'portfolio'
+			into: 'portfolios',
+			outlet: 'detail'
 		})
 	}
 });
@@ -157,7 +159,7 @@ Luxin.RelationshipsIndexRoute = Ember.Route.extend({
 	renderTemplate: function() {
 		this.render('relationships.index', {
 			into: 'relationships'
-		})
+		});
 	}
 });
 
