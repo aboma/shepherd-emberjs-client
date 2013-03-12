@@ -1,12 +1,16 @@
-DS.RESTAdapter.map('Luxin.Relationship', {
-    assets: { embedded: 'load' }
-});
-
 Luxin.Store = DS.Store.extend({
   revision: 12,
-  adapter: DS.RESTAdapter.create({ 
+  adapter: DS.RESTAdapter.extend({ 
 	  bulkCommit: false,
-	  url: "http://localhost:4444"
+	  url: "http://localhost:4444",
+	  serializer: DS.RESTSerializer.extend({
+	      init: function() {
+	        this._super();
+	        this.map("Luxin.Asset", {
+	          links: { embedded: "load" }
+	        });
+	      }
+	  })
   })
 });
 

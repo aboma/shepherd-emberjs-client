@@ -1,4 +1,10 @@
-Luxin.RelationshipsIndexController = Ember.ArrayController.extend({});
+Luxin.RelationshipsIndexController = Ember.ArrayController.extend({	
+	// broken per http://stackoverflow.com/questions/11267100/is-it-possible-to-use-function-in-handlebars-if
+	empty: function() {
+		var numOfAssets = this.get('content.length');
+		return numOfAssets === 0;
+	}.observes('content.length')
+});
 
 Luxin.RelationshipsController = Ember.ObjectController.extend({});
 
