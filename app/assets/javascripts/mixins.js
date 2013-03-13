@@ -2,14 +2,15 @@ Vilio.EditModelMixin = Ember.Mixin.create({
 	startEditing: function(transaction) {
 		this.transaction = transaction;			
 	},
-	//TODO make this work for both save and edit
+	// works for both save and edit by inspecting record states
 	saveEdits: function(callback) {
 		// commit record if it has changed; exit function will
 		// clean up unused transaction
 		var record = this.get('content');
 		if (record.get('isDirty')) {
+			var method = record.get('isNew') === true ? 'didCreate' : 'didUpdate';
 			// callback will show record once the id is available
-			record.one('didUpdate', function() {
+			record.one(method, function() {
 				if (callback && typeof callback === 'function'){
 					callback.call(this);
 				}
@@ -23,8 +24,8 @@ Vilio.EditModelMixin = Ember.Mixin.create({
 			}
 		}
 	},
+	// delete record and return to records list
 	remove: function(callback) {
-		// delete record and return to records list
 		var record = this.get('content');
 		record.one('didDelete', function() {
 			console.log('record deleted');

@@ -1,11 +1,12 @@
 Vilio.RelationshipsView = Ember.View.extend({
-	templateName: "v1/templates/relationship/relationships"
+	templateName: "relationship/relationships"
 }); 
 
 Vilio.RelationshipsNewView = Ember.View.extend({
-	templateName: "v1/templates/relationship/new",
+	templateName: "relationship/new",
 	
-	// uploads file to server
+	// uploads file to server as new asset with
+	// a relationship to current portfolio
     submit: function(event) {
         event.preventDefault();
         event.stopPropagation();
@@ -16,5 +17,5 @@ Vilio.RelationshipsNewView = Ember.View.extend({
 });
 
 Vilio.RelationshipsIndexView = Ember.View.extend({
-	templateName: "v1/templates/relationship/index"
+	templateName: "relationship/index"
 });

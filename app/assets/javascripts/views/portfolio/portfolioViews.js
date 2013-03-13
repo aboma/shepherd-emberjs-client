@@ -15,25 +15,25 @@ Vilio.PortfolioSelect2 = Vilio.Select2.extend({
 });
 
 Vilio.PortfoliosIndexView = Ember.View.extend({
-  	templateName: 'v1/templates/portfolio/list'
+  	templateName: 'portfolio/list'
 });
 
 Vilio.PortfoliosNewView = Ember.View.extend({
-	templateName: 'v1/templates/portfolio/edit'
+	templateName: 'portfolio/edit'
 });
 
 Vilio.PortfoliosView = Ember.View.extend({
-	templateName: 'v1/templates/portfolio/portfolios'
+	templateName: 'portfolio/portfolios'
 });
 
 Vilio.PortfolioView = Ember.View.extend({
-	templateName: 'v1/templates/portfolio/portfolio'
+	templateName: 'portfolio/portfolio'
 });
 
 Vilio.PortfolioShowView = Ember.View.extend({
-	templateName: 'v1/templates/portfolio/show'
+	templateName: 'portfolio/show'
 });
 
 Vilio.PortfolioEditView = Ember.View.extend({
-	templateName: 'v1/templates/portfolio/edit'
+	templateName: 'portfolio/edit'
 });
