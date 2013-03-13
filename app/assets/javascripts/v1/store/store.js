@@ -1,4 +1,4 @@
-Luxin.Store = DS.Store.extend({
+Vilio.Store = DS.Store.extend({
   revision: 12,
   adapter: DS.RESTAdapter.extend({ 
 	  bulkCommit: false,
@@ -6,7 +6,7 @@ Luxin.Store = DS.Store.extend({
 	  serializer: DS.RESTSerializer.extend({
 	      init: function() {
 	        this._super();
-	        this.map("Luxin.Asset", {
+	        this.map("Vilio.Asset", {
 	          links: { embedded: "load" }
 	        });
 	      }
@@ -16,7 +16,7 @@ Luxin.Store = DS.Store.extend({
 
 // adapter to handle file uploads
 // this does not work due to this bug: https://github.com/emberjs/data/issues/616
-Luxin.FileUploadRESTAdapter = DS.RESTAdapter.extend({
+Vilio.FileUploadRESTAdapter = DS.RESTAdapter.extend({
     bulkCommit: false,
 
     createRecord: function(store, type, record) {
@@ -64,7 +64,7 @@ Luxin.FileUploadRESTAdapter = DS.RESTAdapter.extend({
     }
 });
 
-Luxin.FileUploadRESTAdapter.registerTransform('file', {
+Vilio.FileUploadRESTAdapter.registerTransform('file', {
 	  serialize: function(value) {
 	    return value;
 	  },
@@ -74,4 +74,4 @@ Luxin.FileUploadRESTAdapter.registerTransform('file', {
 });
 
 //use overridden adapter to handle file uploads
-Luxin.Store.registerAdapter(Luxin.Asset, Luxin.FileUploadRESTAdapter.create());
+Vilio.Store.registerAdapter(Vilio.Asset, Vilio.FileUploadRESTAdapter.create());

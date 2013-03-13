@@ -1,5 +1,5 @@
 // select box utilizing Select2 functionality
-Luxin.Select2 = Ember.Select.extend({
+Vilio.Select2 = Ember.Select.extend({
     defaultTemplate: Ember.Handlebars.compile('<option></option>{{#each view.content}}{{view Ember.SelectOption contentBinding="this"}}{{/each}}'),
 
     // initialize Select2 once view inserted in DOM
@@ -7,7 +7,7 @@ Luxin.Select2 = Ember.Select.extend({
 		//this._super();
 		var placeholderText = this.get('placeholderText');
 		if (!this.$().select2)
-			throw new Exception('select2 is required for Luxin.Select2 control');
+			throw new Exception('select2 is required for Vilio.Select2 control');
 		if (!placeholderText)
 			this.set('placeholderText', '');
 		this.$().select2({

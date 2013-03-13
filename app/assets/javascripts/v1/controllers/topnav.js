@@ -1,1 +1,1 @@
-Luxin.TopnavController = Ember.ObjectController.extend({});
+Vilio.TopnavController = Ember.ObjectController.extend({});

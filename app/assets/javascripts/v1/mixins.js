@@ -1,4 +1,4 @@
-Luxin.EditModelMixin = Ember.Mixin.create({
+Vilio.EditModelMixin = Ember.Mixin.create({
 	startEditing: function(transaction) {
 		this.transaction = transaction;			
 	},

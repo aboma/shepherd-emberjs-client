@@ -1,4 +1,4 @@
-Luxin.PortfolioSelect2 = Luxin.Select2.extend({
+Vilio.PortfolioSelect2 = Vilio.Select2.extend({
 	
 	// bind change in selected portfolio to trigger routing 
 	// to show portfolio or portfolio list if null
@@ -14,26 +14,26 @@ Luxin.PortfolioSelect2 = Luxin.Select2.extend({
     }, 'value')
 });
 
-Luxin.PortfoliosIndexView = Ember.View.extend({
+Vilio.PortfoliosIndexView = Ember.View.extend({
   	templateName: 'v1/templates/portfolio/list'
 });
 
-Luxin.PortfoliosNewView = Ember.View.extend({
+Vilio.PortfoliosNewView = Ember.View.extend({
 	templateName: 'v1/templates/portfolio/edit'
 });
 
-Luxin.PortfoliosView = Ember.View.extend({
+Vilio.PortfoliosView = Ember.View.extend({
 	templateName: 'v1/templates/portfolio/portfolios'
 });
 
-Luxin.PortfolioView = Ember.View.extend({
+Vilio.PortfolioView = Ember.View.extend({
 	templateName: 'v1/templates/portfolio/portfolio'
 });
 
-Luxin.PortfolioShowView = Ember.View.extend({
+Vilio.PortfolioShowView = Ember.View.extend({
 	templateName: 'v1/templates/portfolio/show'
 });
 
-Luxin.PortfolioEditView = Ember.View.extend({
+Vilio.PortfolioEditView = Ember.View.extend({
 	templateName: 'v1/templates/portfolio/edit'
 });

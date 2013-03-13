@@ -1,8 +1,8 @@
-Luxin.RelationshipsView = Ember.View.extend({
+Vilio.RelationshipsView = Ember.View.extend({
 	templateName: "v1/templates/relationship/relationships"
 }); 
 
-Luxin.RelationshipsNewView = Ember.View.extend({
+Vilio.RelationshipsNewView = Ember.View.extend({
 	templateName: "v1/templates/relationship/new",
 	
 	// uploads file to server
@@ -15,6 +15,6 @@ Luxin.RelationshipsNewView = Ember.View.extend({
     }
 });
 
-Luxin.RelationshipsIndexView = Ember.View.extend({
+Vilio.RelationshipsIndexView = Ember.View.extend({
 	templateName: "v1/templates/relationship/index"
 });

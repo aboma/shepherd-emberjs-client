@@ -1,12 +1,12 @@
-Luxin.AssetsController = Ember.ArrayController.extend({});
+Vilio.AssetsController = Ember.ArrayController.extend({});
 
-Luxin.AssetController = Ember.ObjectController.extend({});
+Vilio.AssetController = Ember.ObjectController.extend({});
 
-Luxin.AssetsIndexController = Ember.ArrayController.extend({});
+Vilio.AssetsIndexController = Ember.ArrayController.extend({});
 
-Luxin.AssetsNewController = Ember.ObjectController.extend({});
+Vilio.AssetsNewController = Ember.ObjectController.extend({});
 
-Luxin.ThumbnailController = Ember.ArrayController.extend({
+Vilio.ThumbnailController = Ember.ArrayController.extend({
 	thumbnail: (function() {
 		var t = this.get('content').filterProperty('rel', 'thumbnail');
 		return t;

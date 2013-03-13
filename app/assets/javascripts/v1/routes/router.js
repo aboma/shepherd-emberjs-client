@@ -1,4 +1,4 @@
-Luxin.Router.map(function(match) {
+Vilio.Router.map(function(match) {
 	this.route("index", { path: "/" });
 	this.resource('portfolios', { path: '/portfolios' }, function() {
 	    this.route('new', { path: '/new' });
@@ -13,7 +13,7 @@ Luxin.Router.map(function(match) {
 	});
 });
 
-Luxin.IndexRoute = Ember.Route.extend({
+Vilio.IndexRoute = Ember.Route.extend({
 	enter: function() {
 		console.log('hiding loading overlay');
 		$('#loading').hide();
@@ -24,9 +24,9 @@ Luxin.IndexRoute = Ember.Route.extend({
 	}
 })
 
-Luxin.PortfoliosRoute = Ember.Route.extend({
+Vilio.PortfoliosRoute = Ember.Route.extend({
 	model: function() {
-		return Luxin.Portfolio.find();
+		return Vilio.Portfolio.find();
 	},
 	renderTemplate: function() {
 		this.render('portfolios', {
@@ -35,7 +35,7 @@ Luxin.PortfoliosRoute = Ember.Route.extend({
 	}
 });
 
-Luxin.PortfoliosIndexRoute = Ember.Route.extend({
+Vilio.PortfoliosIndexRoute = Ember.Route.extend({
 	renderTemplate: function() {
 		this.render('portfolios.index', {  
 			into: 'portfolios',
@@ -44,11 +44,11 @@ Luxin.PortfoliosIndexRoute = Ember.Route.extend({
 	}
 });
 
-Luxin.PortfoliosNewRoute = Ember.Route.extend({
+Vilio.PortfoliosNewRoute = Ember.Route.extend({
 	model: function() {
 		var transaction = this.store.transaction();
 		this.controllerFor(this.routeName).startEditing(transaction);
-		return transaction.createRecord(Luxin.Portfolio, {});
+		return transaction.createRecord(Vilio.Portfolio, {});
 	},
 	renderTemplate: function() {
 		this.render('portfolios.new', {
@@ -70,7 +70,7 @@ Luxin.PortfoliosNewRoute = Ember.Route.extend({
 	}
 });
 
-Luxin.PortfolioRoute = Ember.Route.extend({
+Vilio.PortfolioRoute = Ember.Route.extend({
 	renderTemplate: function() {
 		this.render('portfolio', {
 			into: 'portfolios',
@@ -79,7 +79,7 @@ Luxin.PortfolioRoute = Ember.Route.extend({
 	}
 });
 
-Luxin.PortfolioShowRoute = Ember.Route.extend({
+Vilio.PortfolioShowRoute = Ember.Route.extend({
 	model: function() {
 		return this.modelFor('portfolio');
 	},
@@ -95,7 +95,7 @@ Luxin.PortfolioShowRoute = Ember.Route.extend({
 	}
 });
 
-Luxin.PortfolioEditRoute = Ember.Route.extend({
+Vilio.PortfolioEditRoute = Ember.Route.extend({
 	model: function() {
 		return this.modelFor('portfolio');
 	},
@@ -136,12 +136,12 @@ Luxin.PortfolioEditRoute = Ember.Route.extend({
 	}
 });
 
-Luxin.RelationshipsRoute = Ember.Route.extend({
+Vilio.RelationshipsRoute = Ember.Route.extend({
 	// get relationships for portfolio; these contain 
 	// portfolio <-> asset relationship
 	model: function() {
 		var id = this.modelFor('portfolio').get('id');
-		return Luxin.Relationship.find({ portfolio_id: id });
+		return Vilio.Relationship.find({ portfolio_id: id });
 	},
 	renderTemplate: function() {
 		this.render('relationships', {
@@ -152,7 +152,7 @@ Luxin.RelationshipsRoute = Ember.Route.extend({
 });
 
 
-Luxin.RelationshipsIndexRoute = Ember.Route.extend({
+Vilio.RelationshipsIndexRoute = Ember.Route.extend({
 	model: function() {
 		return this.modelFor('relationships');
 	},
@@ -163,11 +163,11 @@ Luxin.RelationshipsIndexRoute = Ember.Route.extend({
 	}
 });
 
-Luxin.RelationshipsNewRoute = Ember.Route.extend({
+Vilio.RelationshipsNewRoute = Ember.Route.extend({
 	model: function() {
 		var transaction = this.store.transaction();
 		this.controllerFor(this.routeName).startEditing(transaction);
-		return transaction.createRecord(Luxin.Asset, {});
+		return transaction.createRecord(Vilio.Asset, {});
 	},
 	renderTemplate: function() {
 		this.render('relationships.new', {
@@ -181,7 +181,7 @@ Luxin.RelationshipsNewRoute = Ember.Route.extend({
     	    var form = event.target.form;
     	    var view = event.view;
     	    var form_data = new FormData(form);
-    	    //var uploadModel = new Luxin.Asset();
+    	    //var uploadModel = new Vilio.Asset();
     	    var success_callback = function(){
     			console.log('uploaded!');
     			route.transitionTo('root.portfolios.show_portfolio', event.context)
@@ -197,7 +197,7 @@ Luxin.RelationshipsNewRoute = Ember.Route.extend({
 
 
 /*
-Luxin.Router = Ember.Router.extend({
+Vilio.Router = Ember.Router.extend({
 	enableLogging : true,
 	location : 'hash',
 
@@ -231,8 +231,8 @@ Luxin.Router = Ember.Router.extend({
 					ac.connectOutlet({
 						name : 'portfolios',
 						outletName : 'master',
-						context: Luxin.Portfolio.find()
-						//context : Luxin.store.findAll(Luxin.Portfolio)
+						context: Vilio.Portfolio.find()
+						//context : Vilio.store.findAll(Vilio.Portfolio)
 					});					
 					// clear selected portfolio (needed if coming from substate)
 					portController.clearSelected();
@@ -242,7 +242,7 @@ Luxin.Router = Ember.Router.extend({
 			show_portfolio : Ember.Route.extend({
 				route : '/:id',
 		        deserialize:  function(router, context){
-		            return Luxin.Portfolio.find( context.id );
+		            return Vilio.Portfolio.find( context.id );
 		        },
 		        serialize:  function(router, context){
 		            return {
@@ -256,7 +256,7 @@ Luxin.Router = Ember.Router.extend({
 					// load relationships for this portfolio and add them
 					// to relationships controller
 					var rc = router.get("relationshipsController");
-					var rels = Luxin.Relationship.find({ portfolio_id : portfolio.id });
+					var rels = Vilio.Relationship.find({ portfolio_id : portfolio.id });
 					rc.set('content', rels);
 					var ac = router.get("applicationController");
 					ac.connectOutlet({
@@ -275,7 +275,7 @@ Luxin.Router = Ember.Router.extend({
 				route : '/:id/edit',
 				transaction : null,
 				deserialize : function(router, context) {
-					return Luxin.Portfolio.find(context.id);
+					return Vilio.Portfolio.find(context.id);
 				},
 				serialize : function(router, context) {
 					return {
@@ -317,7 +317,7 @@ Luxin.Router = Ember.Router.extend({
 				connectOutlets : function(router, portfolio) {
 					console.log('showing edit portfolio form for '
 							+ portfolio.get('name'));
-					this.transaction = Luxin.store.transaction();
+					this.transaction = Vilio.store.transaction();
 					this.transaction.add(portfolio);
 					var ac = router.get("applicationController");
 					ac.connectOutlet({
@@ -338,8 +338,8 @@ Luxin.Router = Ember.Router.extend({
 				transaction : null,
 				connectOutlets : function(router) {
 					console.log('showing new portfolio form');
-					this.transaction = Luxin.store.transaction();
-					var newPortfolio = this.transaction.createRecord(Luxin.Portfolio, {});
+					this.transaction = Vilio.store.transaction();
+					var newPortfolio = this.transaction.createRecord(Vilio.Portfolio, {});
 					var ac = router.get("applicationController");
 					ac.connectOutlet({
 						name : 'editPortfolio',
@@ -381,7 +381,7 @@ Luxin.Router = Ember.Router.extend({
 		    add_asset: Ember.Route.extend({
 		    	route: '/:id/add',
 				deserialize : function(router, context) {
-					return Luxin.Portfolio.find(context.id);
+					return Vilio.Portfolio.find(context.id);
 				},
 				serialize : function(router, context) {
 					return {
@@ -403,7 +403,7 @@ Luxin.Router = Ember.Router.extend({
 		    	    var form = event.target.form;
 		    	    var view = event.view;
 		    	    var form_data = new FormData(form);
-		    	    var uploadModel = new Luxin.Asset();
+		    	    var uploadModel = new Vilio.Asset();
 		    	    var success_callback = function(){
 		    			console.log('uploaded!');
 		    			router.transitionTo('root.portfolios.show_portfolio', event.context)

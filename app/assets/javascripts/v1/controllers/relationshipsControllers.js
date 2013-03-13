@@ -1,4 +1,4 @@
-Luxin.RelationshipsIndexController = Ember.ArrayController.extend({	
+Vilio.RelationshipsIndexController = Ember.ArrayController.extend({	
 	// broken per http://stackoverflow.com/questions/11267100/is-it-possible-to-use-function-in-handlebars-if
 	empty: function() {
 		var numOfAssets = this.get('content.length');
@@ -6,9 +6,9 @@ Luxin.RelationshipsIndexController = Ember.ArrayController.extend({
 	}.observes('content.length')
 });
 
-Luxin.RelationshipsController = Ember.ObjectController.extend({});
+Vilio.RelationshipsController = Ember.ObjectController.extend({});
 
-Luxin.RelationshipsNewController = Ember.ObjectController.extend(Luxin.EditModelMixin, {
+Vilio.RelationshipsNewController = Ember.ObjectController.extend(Vilio.EditModelMixin, {
 	needs: ['portfolio'],
 	
 	portfolio: function() {
@@ -25,7 +25,7 @@ Luxin.RelationshipsNewController = Ember.ObjectController.extend(Luxin.EditModel
 	
 	upload: function(formData, success_callback, error_callback) {
         var controller = this;
-        var url = Luxin.CONFIG.url + '/' + Luxin.Asset.collectionUrl;
+        var url = Vilio.CONFIG.url + '/' + Vilio.Asset.collectionUrl;
         
 		$.ajax({
 			url : url, 

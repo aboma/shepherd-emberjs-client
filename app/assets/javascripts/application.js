@@ -11,7 +11,7 @@
 //= require bootstrap-modal
 //= require bootstrap-dropdown
 //= require select2
-//= require ./v1/luxinApp.js
+//= require ./v1/vilioApp.js
 //= require v1/mixins.js
 //= require_tree ./v1/store
 //= require_tree ./v1/models

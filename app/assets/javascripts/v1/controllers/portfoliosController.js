@@ -1,6 +1,6 @@
-Luxin.PortfoliosIndexController = Ember.ObjectController.extend({});
+Vilio.PortfoliosIndexController = Ember.ObjectController.extend({});
 
-Luxin.PortfoliosController = Ember.ArrayController.extend({
+Vilio.PortfoliosController = Ember.ArrayController.extend({
 	//needs: ['portfolioshow'],
 	content: null,
 	sortProperties: ['name'],
@@ -25,10 +25,10 @@ Luxin.PortfoliosController = Ember.ArrayController.extend({
   	}.observes('content.isLoaded')
 });
 
-Luxin.PortfolioShowController = Ember.ObjectController.extend({
+Vilio.PortfolioShowController = Ember.ObjectController.extend({
 	selectedPortfolio: null,
 });
 
-Luxin.PortfolioEditController = Ember.ObjectController.extend(Luxin.EditModelMixin, {});
+Vilio.PortfolioEditController = Ember.ObjectController.extend(Vilio.EditModelMixin, {});
 
-Luxin.PortfoliosNewController = Luxin.PortfolioEditController.extend({});
+Vilio.PortfoliosNewController = Vilio.PortfolioEditController.extend({});

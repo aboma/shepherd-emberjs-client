@@ -1,12 +1,12 @@
-Luxin.Asset = DS.Model.extend({
+Vilio.Asset = DS.Model.extend({
 	name : DS.attr('string'),
 	file_path : DS.attr('string'),
 	thumbnail_path : DS.attr('string'),
-	links : DS.hasMany('Luxin.Link'),
-	relationships: DS.hasMany('Luxin.Relationship')
+	links : DS.hasMany('Vilio.Link'),
+	relationships: DS.hasMany('Vilio.Relationship')
 });
 
-Luxin.Asset.reopenClass({
+Vilio.Asset.reopenClass({
 	collectionUrl : 'assets',
 	resourceUrl : 'assets',
 	url : 'asset',
