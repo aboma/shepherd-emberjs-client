@@ -64,6 +64,7 @@ Vilio.PortfoliosNewRoute = Ember.Route.extend({
 		save: function() {
 			var route = this;
 			this.controller.saveEdits(function() {
+				console.log('portfolio created');
 				route.transitionTo('portfolio.show', route.controller.get('content'));
 			});
 		}

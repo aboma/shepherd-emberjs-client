@@ -1,6 +1,6 @@
 class VilioAPI < Object
-  @host = "localhost"
-  @port = 4444
+  @host = VILIO_CONFIG.api.url.host
+  @port = VILIO_CONFIG.api.url.port
   
   class << self
     attr_reader :host, :port

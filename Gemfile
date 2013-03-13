@@ -4,12 +4,11 @@ gem 'rails', '3.2.6'
 gem 'jquery-rails', '~> 2.0.1'
 #gem 'ember-rails', '~> 0.10.0'
 gem 'yajl-ruby', '~> 1.1.0'
-gem "select2-rails", '~> 3.2.0'
+gem 'select2-rails', '~> 3.2.0'
+gem 'rails_config', '~> 0.3.2'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
-
-gem 'sqlite3'
 
 group :development, :test do
   gem 'ruby-debug19'  
