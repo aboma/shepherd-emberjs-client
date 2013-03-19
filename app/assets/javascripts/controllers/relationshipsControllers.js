@@ -25,7 +25,14 @@ Vilio.RelationshipsNewController = Ember.ObjectController.extend(Vilio.EditModel
 	
 	upload: function(formData, success_callback, error_callback) {
         var controller = this;
-        var url = Vilio.CONFIG.url + '/' + Vilio.Asset.collectionUrl;
+        var url = 'http://' + Vilio.CONFIG.url + '/' + Vilio.Relationship.collectionUrl;
+        var success = function(json) {
+        	// shoe relationships list after creating asset + portfolio relationship
+        	var store = controller.get('store');
+        	store.adapterForType(Luxin.Relationship).load(store, Luxin.Relationship, json);
+        	if (success_callback && typeof success_callback === 'function')
+        		success_callback();
+        };
         
 		$.ajax({
 			url : url, 
@@ -42,11 +49,9 @@ Vilio.RelationshipsNewController = Ember.ObjectController.extend(Vilio.EditModel
 				return myXhr;
 			}, */
 			// Ajax events
-            success: function(json) {
-
-            },
+            success: success_callback,
             error: function(xhr) {
-
+            	console.log('ajax error: ' + xhr);
             },
 			// Form data
 			data : formData,

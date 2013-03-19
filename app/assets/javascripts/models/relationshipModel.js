@@ -5,7 +5,7 @@ Vilio.Relationship = DS.Model.extend({
 	updated_at : DS.attr('string')
 });
 
-Vilio.Relationship.reopenClass = ({
+Vilio.Relationship.reopenClass({
 	collectionUrl: 'relationships',
 	resourceUrl: 'relationships',
 	url: 'relationship',
