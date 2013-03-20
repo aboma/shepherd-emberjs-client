@@ -9,6 +9,10 @@
 // And finally bootswatch style itself
 @import "bootswatch/slate/bootswatch";
 
+#vilio {
+  padding-top: 40px;
+}
+
 #app-header {
   width: 100%;
   height: 30px;
@@ -23,7 +27,7 @@
 //  color: $lightgrey;
 //}
 
-#VilioAppContainer {
+#vilio-main {
   margin: 40px;
   min-width: 1000px;
 }

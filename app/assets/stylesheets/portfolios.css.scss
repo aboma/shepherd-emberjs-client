@@ -14,10 +14,10 @@
   vertical-align: top;
 }
 
-#portfolio {
+#portfolio-metadata {
   display: inline-block;
   padding: 4px 20px 0px 20px;
-  min-width: 700px;
+  min-width: 600px;
 }
 
 #portfolio-list,
@@ -27,6 +27,11 @@
 
 #portfolio-relationships {
   display: block;
+}
+
+#portfolio-header {
+  display: block;
+  min-width: 1000px;
 }
 
 .isDeleted a {
@@ -50,10 +55,6 @@ div#portfolio-list {
 h2.portfolio-header {
   float: left;
   display: inline;
-}
-
-#portfolio-header {
-  display: block;
 }
 
 #portfolio-details {

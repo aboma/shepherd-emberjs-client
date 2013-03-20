@@ -1,6 +1,6 @@
 <div id="portfolios">
-	<div>
-		<div id='portfolio-list'>
+	<div id="portfolio-header">
+		<div id="portfolio-list">
 			{{view Vilio.PortfolioSelect2
 		       contentBinding="controller.arrangedContent"
 		       optionValuePath="content.id"
@@ -10,11 +10,11 @@
 		       prompt=" "}}
 		</div>
 		<div id="create-port-link">{{#linkTo portfolios.new}}Create{{/linkTo}}</div>
-		<div id="portfolio">
+		<div id="portfolio-metadata">
 			{{ outlet master }}
 		</div>
 	</div>
-	<div>
+	<div id="portfolio-details">
 		{{ outlet detail }}
 	</div>
 </div>

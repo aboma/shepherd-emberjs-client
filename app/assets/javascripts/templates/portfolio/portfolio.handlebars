@@ -1,13 +1,10 @@
-	<div id="portfolio-header">
-		{{#with controller.content as portfolio}}
-			<h2 class="portfolio-header">{{name}} Portfolio</h2>
-			<div id="portfolio-options">
-				{{#linkTo portfolio.edit portfolio class="portfolio-header"}}edit{{/linkTo}}
-				/
-				{{#linkTo relationships.new class="portfolio-header"}}add{{/linkTo}}
-			</div>
-		{{/with}}
-	</div>
-	<div id="portfolio-details">
-		{{ outlet }}
-	</div>
+<div>
+	{{#with controller.content as portfolio}}
+		<h2 class="portfolio-header">{{name}} Portfolio</h2>
+		<div id="portfolio-options">
+			{{#linkTo portfolio.edit portfolio class="portfolio-header"}}edit{{/linkTo}}
+			/
+			{{#linkTo relationships.new class="portfolio-header"}}add{{/linkTo}}
+		</div>
+	{{/with}}
+</div>

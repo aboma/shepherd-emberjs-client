@@ -7,7 +7,10 @@ Vilio.Store = DS.Store.extend({
 	      init: function() {
 	        this._super();
 	        this.map("Vilio.Asset", {
-	          links: { embedded: "load" }
+	        	links: { embedded: "load" }
+	        });
+	        this.map("Vilio.Relationship", {
+	        	asset: { embedded: "load" }
 	        });
 	      }
 	  })
