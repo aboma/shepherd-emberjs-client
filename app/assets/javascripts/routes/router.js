@@ -81,18 +81,13 @@ Vilio.PortfolioRoute = Ember.Route.extend({
 });
 
 Vilio.PortfolioShowRoute = Ember.Route.extend({
-	model: function() {
-		return this.modelFor('portfolio');
-	},
 	renderTemplate: function() {
 		this.render('portfolio.show', {
 			into: 'portfolio'
 		});
-	},
-	redirect: function() {
 		// forward to show assets route, since show portfolio
 		// means show assets in portfolio to user
-		this.transitionTo('relationships');	
+		this.transitionTo('relationships');
 	}
 });
 
@@ -174,25 +169,6 @@ Vilio.RelationshipsNewRoute = Ember.Route.extend({
 		this.render('relationships.new', {
 			into: 'relationships'
 		});
-	},
-	events: {
-    	boom: function(event) {
-    		var route = this;
-    		var root = this.get('view');
-    	    var form = event.target.form;
-    	    var view = event.view;
-    	    var form_data = new FormData(form);
-    	    //var uploadModel = new Vilio.Asset();
-    	    var success_callback = function(){
-    			console.log('uploaded!');
-    			route.transitionTo('root.portfolios.show_portfolio', event.context)
-    	    };
-    	    var error_callback = function() {
-    	        console.log('error uploading');
-    	    };
-    	    this.controller.upload(form_data, success_callback, error_callback);
-    	    console.log('upload event triggered');
-	 	}
 	}
 });
 

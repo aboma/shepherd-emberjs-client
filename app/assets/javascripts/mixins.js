@@ -12,7 +12,7 @@ Vilio.EditModelMixin = Ember.Mixin.create({
 			// callback will show record once the id is available
 			record.one(method, function() {
 				if (callback && typeof callback === 'function'){
-					callback.call(this);
+					record.addObserver('id', this, callback);
 				}
 			});
 			// trigger save

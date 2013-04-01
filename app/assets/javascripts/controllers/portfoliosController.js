@@ -1,22 +1,16 @@
 Vilio.PortfoliosIndexController = Ember.ObjectController.extend({});
 
 Vilio.PortfoliosController = Ember.ArrayController.extend({
-	//needs: ['portfolioshow'],
+	needs: ['portfolio'],
 	content: null,
 	sortProperties: ['name'],
 	sortAscending: true,
-	selectedPortfolioBinding: "portfolio.content",
-		
+	selectedBinding: "controllers.portfolio.content",
 	
 	clearSelected : function() {
 		console.log('clearing selected portfolio');
 		this.set('selectedPortfolio', null);
 	},
-	
-	selected: function() {
-		console.log(this.get('selectedPortfolio.name') + " portfolio selected");
-		//this.get('target').transitionTo('root.portfolios.show_portfolio', this.get('selectedPortfolio'));
-	}.observes("selectedPortfolio"),
 	
   	contentLoaded: function() {
   		console.log('controller content is loaded');
@@ -25,9 +19,9 @@ Vilio.PortfoliosController = Ember.ArrayController.extend({
   	}.observes('content.isLoaded')
 });
 
-Vilio.PortfolioShowController = Ember.ObjectController.extend({
-	selectedPortfolio: null,
-});
+Vilio.PortfolioController = Ember.ObjectController.extend({});
+
+Vilio.PortfolioShowController = Ember.ObjectController.extend({});
 
 Vilio.PortfolioEditController = Ember.ObjectController.extend(Vilio.EditModelMixin, {});
 
