@@ -1,19 +1,16 @@
+DS.RESTAdapter.map('Vilio.Asset', {
+  links: { embedded: 'load' },
+});
+DS.RESTAdapter.map('Vilio.Relationship', {
+  asset: { embedded: 'load' }
+});
+	
 Vilio.Store = DS.Store.extend({
   revision: 12,
   adapter: DS.RESTAdapter.extend({ 
 	  bulkCommit: false,
 	  url: "http://localhost:4444",
-	  serializer: DS.RESTSerializer.extend({
-	      init: function() {
-	        this._super();
-	        this.map("Vilio.Asset", {
-	        	links: { embedded: "load" }
-	        });
-	        this.map("Vilio.Relationship", {
-	        	asset: { embedded: "load" }
-	        });
-	      }
-	  })
+	  serializer: DS.RESTSerializer
   })
 });
 

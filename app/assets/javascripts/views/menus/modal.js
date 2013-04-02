@@ -6,13 +6,10 @@ Vilio.Modal = Ember.ContainerView.extend({
 	title: '',
 	hasCloseButton: true,
 	bodyView: Vilio.ModalBodyView,
-	modal: this,
 	
-	/*
-	childViews: (function() {
-		return [modal.get('bodyView')].compact();
-	})().property('bodyView'),
-	*/
+	childViews: function() {
+		return [this.get('bodyView')].compact();
+	}.property('bodyView'),
 	
 	close: function(event) {
 		event.preventDefault();
