@@ -31,17 +31,33 @@ Vilio.Select2 = Ember.Select.extend({
 		});
 	}.observes('controller.content.isLoaded'),
 	
+	setSelectedValue: function(value) {
+		console.log('setting select2 selected value to ' + value);
+		this.$().select2('val', value);		
+	},
+	
 	// observe controller selected content and update select2
 	// selected item if selected item is changed on the 
-	// controller
+	// controller and does not match currently selected value;
+	// this occurs when the selected value is changed outside of
+	// the control; must wait until next ember run since 
+	// it seems that after create, a new item is not yet available
+	// in the list to be selected
 	setSelected : function() {
 		var path = this.get('optionValuePath');
 		var s = path.split('.');
 		var fieldname = s[s.length-1];
-		var fieldvalue = this.get('controller.selected').get(fieldname);
-		if (fieldvalue && this.$().select2('val') !== fieldvalue) {
-			console.log('setting select2 selected value to ' + fieldvalue);
-			this.$().select2('val', fieldvalue);
+		var fieldvalue = '';
+		var selected = this.get('controller.selected');
+		var sel2Val = this.$().select2('val');
+		if (selected) fieldvalue = selected.get(fieldname);
+		if (sel2Val !== fieldvalue || fieldvalue == '') {
+			Ember.run.sync();
+			// trigger change event on selectbox once data
+			// has been loaded to update options values
+			Ember.run.next(this, function() {
+				this.setSelectedValue(fieldvalue);
+			});
 		}
 	}.observes('controller.selected')
 });

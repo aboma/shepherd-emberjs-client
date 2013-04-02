@@ -10,7 +10,11 @@
 @import "bootswatch/slate/bootswatch";
 
 #vilio {
+  background: #272B30 url("classy_fabric.png") repeat scroll 20% 0;
+  height: 100%;
   padding-top: 40px;
+  position: absolute;
+  width: 100%;
 }
 
 #app-header {

@@ -41,6 +41,10 @@ Vilio.PortfoliosIndexRoute = Ember.Route.extend({
 			into: 'portfolios',
 			outlet: 'master'
 		});
+	},
+	activate: function() {
+		// make sure no portfolio is selected
+		this.controllerFor('portfolios').clearSelected();
 	}
 });
 
@@ -107,9 +111,6 @@ Vilio.PortfolioEditRoute = Ember.Route.extend({
 			outlet: 'detail'	
 		});
 	},
-	exit: function() {
-		//
-	},
 	events: {
 		cancel: function() {
 			this.controller.stopEditing();
@@ -124,9 +125,9 @@ Vilio.PortfolioEditRoute = Ember.Route.extend({
 		},
 		remove : function(portfolio) {
 			var route = this;
-			this.controller.remove(function(){
+			this.controller.deleteRecord(function(){
 				console.log('portfolio deleted');
-				route.transitionTo('portfolios.index');
+				route.transitionTo('portfolios');
 			});
 		}
 	}

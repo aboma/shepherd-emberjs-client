@@ -25,9 +25,9 @@ Vilio.EditModelMixin = Ember.Mixin.create({
 		}
 	},
 	// delete record and return to records list
-	remove: function(callback) {
+	deleteRecord: function(callback) {
 		var record = this.get('content');
-		record.one('didDelete', function() {
+		record.one('didDelete', this, function() {
 			console.log('record deleted');
 			if (callback && typeof callback === 'function'){
 				callback.call(this);
