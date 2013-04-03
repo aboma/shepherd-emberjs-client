@@ -1,6 +1,7 @@
 #asset-list {
-  margin-top: 30px;
-  margin-bottom: 30px;
+  border-top: 1px solid;
+  padding-top: 30px;
+  padding-bottom: 30px;
 }
 
 #asset-list .ember-view {
@@ -8,7 +9,8 @@
 }
 
 #assets-message {
-  padding-left: 308px;
+  margin-bottom: 5px;
+  padding-left: 310px;
   width: 100%;
 }
 

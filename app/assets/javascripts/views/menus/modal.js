@@ -1,8 +1,15 @@
 // adapted from https://gist.github.com/rlivsey/2780541
 
+// modal body view
+Vilio.ModalBodyView = Ember.View.extend({
+	 classNames: ["vilio-modal-body"],
+	 contentBinding: "parentView.content",
+	 defaultTemplate: Ember.Handlebars.compile('<p>Modal body</p>')
+});
+
 // container view for modal body, header and other components
-Vilio.Modal = Ember.ContainerView.extend({
-	classNames: ['vilio-modal'],
+Vilio.ModalView = Ember.ContainerView.extend({
+	classNames: ['dialog-modal'],
 	title: '',
 	hasCloseButton: true,
 	bodyView: Vilio.ModalBodyView,
@@ -11,23 +18,15 @@ Vilio.Modal = Ember.ContainerView.extend({
 		return [this.get('bodyView')].compact();
 	}.property('bodyView'),
 	
-	close: function(event) {
-		event.preventDefault();
+	close: function() {
 		this.destroy();
 	}	
 });
 
-// modal body view
-Vilio.ModalBodyView = Ember.View.extend({
-	 classNames: ["vilio-modal-body"],
-	 contentBinding: "parentView.content",
-	 defaultTemplate: Ember.Handlebars.compile('<p>Modal body</p>')
-});
-
-Vilio.Modal.reopenClass({
+Vilio.ModalView.reopenClass({
 	display: function(options) {
-		var modal = this.create(options);
-		modal.appendTo('#modal-container');
+		var modal = Vilio.ModalView.create(options);
+		modal.append();
 		return modal;
 	}
 });

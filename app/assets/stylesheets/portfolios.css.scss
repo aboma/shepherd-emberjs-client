@@ -22,7 +22,7 @@
 
 #portfolio-list,
 #portfolios {
-  display: inline-block;
+  display: inline;
 }
 
 #portfolio-relationships {
@@ -31,7 +31,7 @@
 
 #portfolio-header {
   display: block;
-  min-width: 1000px;
+  width: 100%;
 }
 
 .isDeleted a {

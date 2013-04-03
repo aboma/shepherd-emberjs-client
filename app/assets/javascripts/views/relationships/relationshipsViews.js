@@ -28,5 +28,12 @@ Vilio.RelationshipsNewView = Ember.View.extend({
 });
 
 Vilio.RelationshipsIndexView = Ember.View.extend({
-	templateName: "relationship/index"
+	templateName: "relationship/index",
+	assetModalView: null,
+	
+	click: function() {
+		var options = { classNames: ['dialog-asset'] };
+		if (this.assetModalView) this.assetModalView.close();
+		this.assetModalView = new Vilio.ModalView.display(options);
+	}
 });
