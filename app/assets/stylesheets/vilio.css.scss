@@ -129,7 +129,7 @@ div.form-horizontal {
   //background: -o-linear-gradient(0% 0 -90deg, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.95)) repeat scroll 0 0 transparent;
   border: 2px solid #999999;
   border-radius: 15px 15px 15px 15px;
-  box-shadow: 5px 5px 10px 10px #000000;
+  box-shadow: 15px 15px 15px #000000;
   min-height: 200px;
   opacity: 1;
   padding: 20px;
@@ -144,7 +144,7 @@ div.form-horizontal {
   vertical-align: middle;
 }
 
-.dialog-asset {
+.dialog-modal {
   background: #000000;
   left: 80px;
   top: 80px;
