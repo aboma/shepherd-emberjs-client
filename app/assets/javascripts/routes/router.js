@@ -157,6 +157,11 @@ Vilio.RelationshipsIndexRoute = Ember.Route.extend({
 		this.render('relationships.index', {
 			into: 'relationships'
 		});
+	},
+	events: {
+		removeAsset: function() {
+			console.log('$$$ remove asset called');
+		}
 	}
 });
 

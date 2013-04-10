@@ -8,6 +8,12 @@ Vilio.RelationshipsIndexController = Ember.ArrayController.extend({
 
 Vilio.RelationshipsController = Ember.ObjectController.extend({});
 
+Vilio.RelationshipController = Ember.ObjectController.extend({
+	removeRelationship: function() {
+		console.log('remove relationship triggered');
+	}
+});
+
 Vilio.RelationshipsNewController = Ember.ObjectController.extend(Vilio.EditModelMixin, {
 	needs: ['portfolio'],
 	
@@ -34,7 +40,7 @@ Vilio.RelationshipsNewController = Ember.ObjectController.extend(Vilio.EditModel
         		success_callback();
         };
         
-		$.ajax({
+		var request = $.ajax({
 			url : url, 
 			type : 'POST', 
 			dataType : 'json',
@@ -54,9 +60,6 @@ Vilio.RelationshipsNewController = Ember.ObjectController.extend(Vilio.EditModel
 			}, */
 			// Ajax events
             success: success_callback,
-            error: function(xhr) {
-            	console.log('ajax error: ' + xhr);
-            },
 			// Form data
 			data : formData,
 			// Options to tell JQuery not to process data or worry about
@@ -65,6 +68,13 @@ Vilio.RelationshipsNewController = Ember.ObjectController.extend(Vilio.EditModel
 			contentType : false,
 			processData : false
 		});
+		
+		error_callback || ( error_callback = function(xhr) {
+        	console.log('ajax error: ' + xhr);
+        });
+		
+		request.then(success_callback, error_callback);
+		
         /*
         var fileinput = $(event.target).find('input[type="file"]:first');
         if (fileinput.length > 0 && fileinput[0].files && fileinput[0].files[0]) {
