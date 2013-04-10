@@ -17,6 +17,7 @@ window.Vilio = Ember.Application.create({
 // this is needed to use control handlebars template properly per
 // https://github.com/emberjs/ember.js/issues/1990
 Vilio.register('controller:asset', Vilio.AssetController, {singleton: false });
+Vilio.register('controller:relationship', Vilio.RelationshipController, {singleton: false });
 
 if (!window.console) {
 	window.console = {};

@@ -5,6 +5,7 @@
  *= require_self
  *= require vilio
  *= require portfolios
+ *= require relationships
  *= require assets
  *= require select2
 */

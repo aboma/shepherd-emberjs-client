@@ -121,8 +121,6 @@ div.form-horizontal {
 
 .dialog-loading, 
 .dialog-modal {
-  clear:both; 
-  position:relative;
   background: #333;
   background: -moz-linear-gradient(0% 0 -90deg, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.95)) repeat scroll 0 0 transparent;
   background: -webkit-gradient(linear, left top, left bottom, from(rgba(0, 0, 0, 0.7)), to(rgba(0, 0, 0, 0.95))) repeat scroll 0 0 transparent;
@@ -130,18 +128,21 @@ div.form-horizontal {
   border: 2px solid #999999;
   border-radius: 15px 15px 15px 15px;
   box-shadow: 15px 15px 15px #000000;
+  clear:both; 
   min-height: 200px;
   opacity: 1;
   padding: 20px;
-  width: 300px;
+  position:absolute;
   z-index: 11111;
 }
 
 .dialog-loading {
   margin-right: auto;
   margin-left:auto;
+  position: relative;
   text-align: center;
   vertical-align: middle;
+  width: 300px;
 }
 
 .dialog-modal {

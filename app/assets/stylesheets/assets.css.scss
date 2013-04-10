@@ -23,8 +23,9 @@
 }
 
 .asset-small {
+  cursor: pointer;
   height: 160px;
-  padding: 10px;
+  margin: 10px;
   text-align: center;
   width: 140px;
 }
@@ -35,5 +36,7 @@
 }
 
 .asset-details-header {
-  
+  button {
+    display: inline;
+  }
 }

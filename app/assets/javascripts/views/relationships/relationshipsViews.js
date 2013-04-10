@@ -30,3 +30,49 @@ Vilio.RelationshipsNewView = Ember.View.extend({
 Vilio.RelationshipsIndexView = Ember.View.extend({
 	templateName: "relationship/index"
 });
+
+Vilio.RelationshipView = Ember.View.extend({
+	templateName : 'relationship/show',
+	relationshipModalView: null,
+	
+	click: function() {
+		console.log("relationship view clicked");
+		this.showRelationshipModalView();
+	},
+	
+	close: function() {
+		this.closeModalView();
+	},
+	
+	closeModalView: function() {
+		if (this.relationshipModalView)
+			this.relationshipModalView.close();
+	},
+	
+	// open modal view of relationship to show all
+	// details
+	showRelationshipModalView: function() {
+		this.closeModalView();
+		this.relationshipModalView = Vilio.RelationshipModalView.create({
+			controller: this.controller,
+			baseView: this
+		});
+		this.relationshipModalView.append();		
+	}
+});
+
+Vilio.RelationshipModalView = Ember.View.extend({
+	layoutName : 'layouts/modal',
+	templateName : 'relationship/edit',
+		
+	close: function() {
+		this.destroy();
+	},
+	
+	removeFromPortfolio: function() {
+		var view = this;
+		this.controller.removeRelationship(function() {
+			view.close();			
+		});
+	}
+});

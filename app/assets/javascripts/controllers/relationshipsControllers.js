@@ -8,9 +8,12 @@ Vilio.RelationshipsIndexController = Ember.ArrayController.extend({
 
 Vilio.RelationshipsController = Ember.ObjectController.extend({});
 
-Vilio.RelationshipController = Ember.ObjectController.extend({
-	removeRelationship: function() {
+Vilio.RelationshipController = Ember.ObjectController.extend(Vilio.EditModelMixin, {
+	// event to remove/delete relationship
+	removeRelationship: function(callback) {
 		console.log('remove relationship triggered');
+		this.startEditing();
+		this.deleteRecord(callback);
 	}
 });
 

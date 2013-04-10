@@ -1,5 +1,11 @@
 Vilio.EditModelMixin = Ember.Mixin.create({
+	transaction: null,
+	
 	startEditing: function(transaction) {
+		if (!transaction) {
+			transaction = this.store.transaction();
+			transaction.add(this.get('content'));
+		}
 		this.transaction = transaction;			
 	},
 	// works for both save and edit by inspecting record states

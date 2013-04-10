@@ -1,6 +1,6 @@
 <div id="assets-message">Showing Portfolio Assets</div>
 <div id="asset-list">
-	{{#each relationship in content itemController="relationship"}}
-		{{control 'asset' relationship.asset}}
+	{{#each relationship in content}}
+		{{control 'relationship' relationship}}
 	{{/each}}
 </div>

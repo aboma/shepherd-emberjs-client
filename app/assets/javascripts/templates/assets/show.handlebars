@@ -1,4 +1,6 @@
-<div class="asset-small">
-	{{ control "thumbnail" links }}
-	<div class="asset-name">{{ name }}</div>
+<div class="asset-details">
+	<div class="asset-details-header">
+		<h3>{{ name }} ({{ filename }})</h3>
+		<button {{ action editAsset content }} class="btn btn-warning"> Edit </button>
+	</div>
 </div>

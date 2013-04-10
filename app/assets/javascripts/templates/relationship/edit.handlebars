@@ -1,0 +1,9 @@
+<div id="relationship-show">
+	<div id="relationship-header">
+		<button {{ action removeFromPortfolio content target="view"}} class="btn btn-danger relationship-remove"> Remove </button>
+		<a id="relationship-close" href="#" {{action "close" target="view"}}>close</a>
+	</div>
+	<div id="relationship-asset">
+		{{ control "asset" content.asset }}
+	</div>
+</div>
