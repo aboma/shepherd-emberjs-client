@@ -1,16 +1,10 @@
 #asset-list {
-  border-top: 1px solid;
   padding-top: 30px;
   padding-bottom: 30px;
 }
 
 #asset-list .ember-view {
   display: inline-block;
-}
-
-#assets-message {
-  margin-bottom: 5px;
-  padding-left: 310px;
 }
 
 #asset-upload {
@@ -24,6 +18,7 @@
 
 .asset-small {
   cursor: pointer;
+  display: inline-block;
   height: 160px;
   margin: 10px;
   text-align: center;

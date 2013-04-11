@@ -1,5 +1,6 @@
 Vilio.Router.map(function(match) {
 	this.route("index", { path: "/" });
+	// portfolios
 	this.resource('portfolios', { path: '/portfolios' }, function() {
 	    this.route('new', { path: '/new' });
 	    this.resource('portfolio', { path: '/:portfolio_id' }, function() {
@@ -10,6 +11,12 @@ Vilio.Router.map(function(match) {
 		    	this.route('new', { path: "/new" });
 		    });
 	    });
+	});
+	// assets (outside of relationships)
+	this.resource('assets', { path: '/assets'}, function() {
+		this.resource('asset', { path: '/:asset_id' }, function() {
+			this.route('show', { path: '/'});
+		});
 	});
 });
 
@@ -27,11 +34,6 @@ Vilio.IndexRoute = Ember.Route.extend({
 Vilio.PortfoliosRoute = Ember.Route.extend({
 	model: function() {
 		return Vilio.Portfolio.find();
-	},
-	renderTemplate: function() {
-		this.render('portfolios', {
-			into: 'application'
-		})
 	}
 });
 
@@ -170,6 +172,14 @@ Vilio.RelationshipsNewRoute = Ember.Route.extend({
 		this.render('relationships.new', {
 			into: 'relationships'
 		});
+	}
+});
+
+Vilio.AssetsRoute = Ember.Route.extend({});
+
+Vilio.AssetsIndexRoute = Ember.Route.extend({
+	model: function() {
+		return Vilio.Asset.find();
 	}
 });
 

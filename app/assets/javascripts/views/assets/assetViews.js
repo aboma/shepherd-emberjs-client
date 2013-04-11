@@ -1,6 +1,10 @@
 Vilio.AssetsView = Ember.View.extend({
-	templateName : 'assets/list_assets'
-})
+	templateName : 'assets/assets'
+});
+
+Vilio.AssetsIndexView = Ember.View.extend({
+	templateName : 'assets/index'
+});
 
 Vilio.NewAssetView = Ember.View.extend({
 	templateName : 'assets/new_asset'

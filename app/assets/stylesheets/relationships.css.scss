@@ -10,3 +10,18 @@
 #relationship-asset {
   margin-top: 20px;
 }
+
+#relationship-list {
+  border-top: 1px solid;
+  padding-top: 30px;
+  padding-bottom: 30px;
+}
+
+#relationship-list .ember-view {
+  display: inline-block;
+}
+
+#relationships-message {
+  margin-bottom: 5px;
+  padding-left: 310px;
+}

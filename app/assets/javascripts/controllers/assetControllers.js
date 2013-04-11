@@ -1,6 +1,6 @@
 Vilio.AssetsIndexController = Ember.ArrayController.extend({});
 
-Vilio.AssetsController = Ember.ArrayController.extend({});
+Vilio.AssetsController = Ember.ObjectController.extend({});
 
 Vilio.AssetController = Ember.ObjectController.extend({});
 
