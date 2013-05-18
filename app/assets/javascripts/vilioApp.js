@@ -32,11 +32,19 @@ Vilio.TextField = Ember.TextField.extend({
 	placeholderText: null
 });
 
+Vilio.loadingOverlay = {
+    hide : function() {
+      console.log('hiding loading overlay');
+      $('#loading').hide();
+      $('#loading-overlay').hide();
+    }	
+}
+
 Handlebars.registerHelper("debug", function(optionalValue) {
 	  console.log("Current Context");
 	  console.log("====================");
 	  console.log(this);
-	 
+
 	  if (optionalValue) {
 	    console.log("Value");
 	    console.log("====================");

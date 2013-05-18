@@ -1,4 +1,10 @@
 <div class="overlay"></div>
 <div class="dialog-modal">
+	{{#if view.showHeader}}
+		<div class="modal-header">
+			<a class="modal-close" href="#" {{action "close" target="view"}}>close</a>
+		</div>
+	{{/if}}
+	
 	{{ yield }}
 </div>

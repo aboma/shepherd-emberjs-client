@@ -1,4 +1,6 @@
-Vilio.EditModelMixin = Ember.Mixin.create({
+// Mixin to generalize model create/edit functionality
+// for use in controllers
+Vilio.EditModelControllerMixin = Ember.Mixin.create({
 	transaction: null,
 	
 	startEditing: function(transaction) {
@@ -51,5 +53,33 @@ Vilio.EditModelMixin = Ember.Mixin.create({
 		if (callback && typeof callback === 'function'){
 			callback.call(this);
 		}
+	}
+});
+
+// View mixin to create and control modal view that will
+// be opened when user clicks on view. Method createModalView
+// should be implemented on the view class that uses the mixin.
+Vilio.ViewWithModalMixin = Ember.Mixin.create({
+	modalView: null,
+	
+	click: function() {
+		this.showModalView();
+	},
+	
+	close: function() {
+		this.closeModalView();
+	},
+	
+	closeModalView: function() {
+		if (this.modalView)
+			this.modalView.close();
+	},
+	
+	// open modal view of relationship to show all
+	// details
+	showModalView: function() {
+		this.closeModalView();
+		this.modalView = this.createModalView();
+		this.modalView.append();		
 	}
 });

@@ -8,23 +8,34 @@ Vilio.Router.map(function(match) {
 		    this.route('edit', { path: '/edit' });
 		    this.resource('relationships', { path: "/assets" }, function() {
 		    	this.route('index', { path: "/" });
-		    	this.route('new', { path: "/new" });
+    this.route('new', { path: "/new" });
 		    });
 	    });
 	});
+    this.resource('fields', { path: '/fields' }, function() {
+        this.resource('field', { path: '/:field_id' }, function() {
+            this.route('show', { path: '/' });
+        });
+    });
 	// assets (outside of relationships)
 	this.resource('assets', { path: '/assets'}, function() {
 		this.resource('asset', { path: '/:asset_id' }, function() {
-			this.route('show', { path: '/'});
+			this.route('show', { path: '/' });
 		});
 	});
 });
 
+Vilio.FieldsRoute = Ember.Route.extend({});
+
+Vilio.FieldRoute = Ember.Route.extend({});
+
+Vilio.FieldShowRoute = Ember.Route.extend({});
+
 Vilio.IndexRoute = Ember.Route.extend({
 	enter: function() {
-		console.log('hiding loading overlay');
-		$('#loading').hide();
-		$('#loading-overlay').hide();
+        Vilio.loadingOverlay.hide();
+      //TODO move this to a better location, since this doesn't get 
+        // called unless you enter the root URL
 	},
 	redirect: function() {
 	   this.transitionTo('portfolios');

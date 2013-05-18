@@ -1,7 +1,4 @@
-#asset-list {
-  padding-top: 30px;
-  padding-bottom: 30px;
-}
+#asset-list {}
 
 #asset-list .ember-view {
   display: inline-block;
@@ -18,7 +15,7 @@
 
 .asset-small {
   cursor: pointer;
-  display: inline-block;
+  float: left;
   height: 160px;
   margin: 10px;
   text-align: center;

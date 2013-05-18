@@ -23,6 +23,6 @@ Vilio.PortfolioController = Ember.ObjectController.extend({});
 
 Vilio.PortfolioShowController = Ember.ObjectController.extend({});
 
-Vilio.PortfolioEditController = Ember.ObjectController.extend(Vilio.EditModelMixin, {});
+Vilio.PortfolioEditController = Ember.ObjectController.extend(Vilio.EditModelControllerMixin, {});
 
 Vilio.PortfoliosNewController = Vilio.PortfolioEditController.extend({});
