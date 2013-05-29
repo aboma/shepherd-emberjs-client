@@ -1,0 +1,18 @@
+<div id="metadata-field-definitions">
+  <div>
+    <div class="list-title inline-block">Metadadata Field Definitions</div>
+    <div class="inline-link">{{#linkTo fields.new}}Create{{/linkTo}}</div>
+  </div>
+  <div id="metadata-fields-list" class="left-nav">
+    <ul class="nav nav-list"> 
+    {{#each field in controller}}
+      {{#unless field.isNew}}
+        <li>{{#linkTo "fields.show" field}}{{field.name}}{{/linkTo}}</li>
+      {{/unless}}
+    {{/each}}
+    </ul>
+  </div>
+  <div class="with-left-nav">
+  {{ outlet "main" }}
+  </div>
+</div>
