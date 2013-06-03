@@ -9,6 +9,9 @@ Vilio.FieldsController = Ember.ArrayController.extend({
 
 Vilio.FieldController = Ember.ObjectController.extend({});
 
-Vilio.FieldsNewController = Ember.ObjectController.extend(Vilio.EditModelControllerMixin, {});
+Vilio.FieldsNewController = Ember.ObjectController.extend(Vilio.EditModelControllerMixin, {
+  needs: ['setting'],
+  fieldTypes: Ember.computed.alias('controllers.setting.fieldTypes')
+});
 
-Vilio.FieldsEditController = Ember.ObjectController.extend(Vilio.EditModelControllerMixin, {});
+Vilio.FieldEditController = Vilio.FieldsNewController.extend({});

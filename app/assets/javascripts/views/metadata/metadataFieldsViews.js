@@ -7,13 +7,13 @@ Vilio.FieldsIndexView = Ember.View.extend({
 });
 
 Vilio.FieldsNewView = Ember.View.extend({
-    templateName: 'metadata/metadataFieldsEdit'
+    templateName: 'metadata/metadataFieldEdit'
 });
 
-Vilio.FieldsShowView = Ember.View.extend({
+Vilio.FieldShowView = Ember.View.extend({
     templateName: 'metadata/metadataFieldShow'
 });
 
-Vilio.FieldsEditView = Ember.View.extend({
-    templateName: 'metadata/metadataFieldsEdit'
+Vilio.FieldEditView = Ember.View.extend({
+    templateName: 'metadata/metadataFieldEdit'
 });

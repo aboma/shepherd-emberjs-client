@@ -1,3 +1,1 @@
-Vilio.ApplicationController = Ember.Controller.extend({
-  	templateName: 'application/application'
-});
+Vilio.ApplicationController = Ember.Controller.extend({});

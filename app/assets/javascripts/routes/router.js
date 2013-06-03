@@ -13,9 +13,11 @@ Vilio.Router.map(function(match) {
 	    });
 	});
     this.resource('fields', { path: '/fields' }, function() {
-        this.route('new', { path: '/new' });
-        this.route('show', { path: '/:field_id/show' });
-        this.route('edit', { path: '/:field_id/edit' });
+      this.route('new', { path: '/new' });
+      this.resource('field', { path: '/:field_id' }, function() {
+        this.route('show', { path: '/show' });
+        this.route('edit', { path: '/edit' });
+      });
     });
 	// assets (outside of relationships)
 	this.resource('assets', { path: '/assets'}, function() {
@@ -25,12 +27,16 @@ Vilio.Router.map(function(match) {
 	});
 });
 
-Vilio.IndexRoute = Ember.Route.extend({
-	enter: function() {
+// load application settings and remove loading graphic
+Vilio.ApplicationRoute = Ember.Route.extend({
+    setupController: function() {
+        var settingController = this.controllerFor('setting');
+        settingController.set('model', Vilio.Setting.find(1));
         Vilio.loadingOverlay.hide();
-      //TODO move this to a better location, since this doesn't get 
-        // called unless you enter the root URL
-	},
+    }
+});
+
+Vilio.IndexRoute = Ember.Route.extend({
 	redirect: function() {
 	   this.transitionTo('portfolios');
 	}

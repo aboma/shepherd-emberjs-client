@@ -6,10 +6,3 @@ Vilio.MetadataField = DS.Model.extend({
 	updated_at : DS.attr('string'),
     allowedValuesList: DS.belongsTo('Vilio.MetadataValuesList')
 });
-
-Vilio.MetadataField.reopenClass({
-	collectionUrl : 'fields',
-	resourceUrl : 'fields',
-	url : 'field',
-	resourceName : 'field'
-});

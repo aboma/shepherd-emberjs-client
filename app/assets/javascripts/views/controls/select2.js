@@ -16,7 +16,12 @@ Vilio.Select2 = Ember.Select.extend({
 			allowClear: true
 		});
 	},
-	
+
+    willDestroyElement : function() {
+      console.log('destroying select2');
+        this.$().select2('destroy');
+    },
+
 	// when data is loaded, update select2 to show
 	// this data
 	itemsLoaded : function() {
@@ -27,15 +32,16 @@ Vilio.Select2 = Ember.Select.extend({
 		Ember.run.next(this, function() {
 			console.log('updating select2 options list');
 			// trigger change event on select2
-			this.$().change();
+			if (this.$())
+              this.$().change();
 		});
 	}.observes('controller.content.isLoaded'),
-	
+
 	setSelectedValue: function(value) {
 		console.log('setting select2 selected value to ' + value);
 		this.$().select2('val', value);		
 	},
-	
+
 	// observe controller selected content and update select2
 	// selected item if selected item is changed on the 
 	// controller and does not match currently selected value;

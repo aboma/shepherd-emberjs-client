@@ -16,9 +16,12 @@ Vilio.FieldsIndexRoute = Ember.Route.extend({
 
 Vilio.FieldRoute = Ember.Route.extend({});
 
-Vilio.FieldsShowRoute = Ember.Route.extend({
+Vilio.FieldShowRoute = Ember.Route.extend({
+    model: function() {
+        return this.modelFor('field');
+    },
     renderTemplate: function() {
-        this.render('fields.show', {
+        this.render('field.show', {
           into: 'fields',
           outlet: 'main'
         });
@@ -26,7 +29,7 @@ Vilio.FieldsShowRoute = Ember.Route.extend({
     events: {
         edit: function() {
             var model = this.controller.get('content');
-            this.transitionTo('fields.edit', model);
+            this.transitionTo('field.edit', model);
         }
     }
 });
@@ -51,7 +54,7 @@ Vilio.FieldsNewRoute = Ember.Route.extend({
 		save: function() {
 			var route = this;
 			this.controller.saveEdits(function() {
-				route.transitionTo('fields.show', route.controller.get('content'));
+				route.transitionTo('field.show', route.controller.get('content'));
 			});
 		}
 	},
@@ -60,7 +63,10 @@ Vilio.FieldsNewRoute = Ember.Route.extend({
     }
 });
 
-Vilio.FieldsEditRoute = Ember.Route.extend({
+Vilio.FieldEditRoute = Ember.Route.extend({
+    model: function() {
+        return this.modelFor('field');
+    },
    	// create transaction and add model to it
 	setupController: function(controller, model) {
         this._super(controller, model);
@@ -69,7 +75,7 @@ Vilio.FieldsEditRoute = Ember.Route.extend({
 		controller.startEditing(transaction);
 	},
     renderTemplate: function() {
-        this.render('fields.edit', {
+        this.render('field.edit', {
             into: 'fields',
             outlet: 'main'
         });
@@ -82,7 +88,7 @@ Vilio.FieldsEditRoute = Ember.Route.extend({
 		save: function() {
 			var route = this;
 			this.controller.saveEdits(function() {
-				route.transitionTo('fields.show', route.controller.get('content'));
+				route.transitionTo('field.show', route.controller.get('content'));
 			});
 		}
 	},

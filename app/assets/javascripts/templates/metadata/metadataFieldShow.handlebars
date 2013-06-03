@@ -1,11 +1,17 @@
   <div class="form-horizontal">
-    <legend>{{name}} Metadata Field</legend>
-    <label class="control-label">Field Name: </label>
-    <label class="data-label">{{name}}</label>
-    <label class="control-label">Description: </label>
-    <label class="data-label">{{description}}</label>
-    <label class="control-label">Type: </label>
-    <label class="data-label">{{type}}</label>
+    <div class="form-title">{{name}} Metadata Field</div>
+    <div class="form-display-property-group">
+      <label class="control-label">Field Name: </label>
+      <label class="data-label">{{name}}</label>
+    </div>
+    <div class="form-display-property-group">
+      <label class="control-label">Description: </label>
+      <label class="data-label">{{description}}</label>
+    </div>
+    <div class="form-display-property-group">
+      <label class="control-label">Type: </label>
+      <label class="data-label">{{type}}</label>
+    </div>
    	<div class="control-group button-group">
    		<button {{ action edit content disabledBinding="content.isDirty" }} 
     			class="btn btn-success"> Edit </button>

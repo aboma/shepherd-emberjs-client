@@ -57,6 +57,10 @@ div.well {
   width: 100%;
 }
 
+.form-display-property-group {
+  clear: both;
+}
+
 .left-nav {
   display: inline-block;
   vertical-align: top;
@@ -80,14 +84,24 @@ div.well {
 .inline-link {
   display: inline-block;
   padding: 12px 10px 0px 10px;
-  vertical-align: top;
 }
 
 .control-label {
   font-weight: bold;  
-}  
+} 
 
-.list-title {
+.section-header {
+  border-bottom: 1px solid #FFFFFF;
+  margin-bottom: 20px;
+  padding-bottom: 10px;
+}
+
+.section-title {
+  font-size: 24px;
+  line-height: 28px;
+}
+
+.form-title {
   font-size: 20px;
   padding-top: 10px;
   padding-bottom: 10px;

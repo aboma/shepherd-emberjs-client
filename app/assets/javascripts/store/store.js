@@ -4,7 +4,18 @@ DS.RESTAdapter.map('Vilio.Asset', {
 DS.RESTAdapter.map('Vilio.Relationship', {
   asset: { embedded: 'load' }
 });
-	
+
+DS.RESTAdapter.configure('plurals', { settings: 'settings' });
+
+DS.RESTAdapter.registerTransform('array', {
+  deserialize: function(serialized) {
+    return serialized.split(',');
+  },
+  serialize: function(deserialized) {
+    return deserialized;
+  }
+});
+
 Vilio.Store = DS.Store.extend({
   revision: 12,
   adapter: DS.RESTAdapter.extend({ 
