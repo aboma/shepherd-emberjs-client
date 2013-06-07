@@ -8,7 +8,7 @@
     	{{#unless content.isNew }}
     		<div class="control-group">
 	    		<label class="control-label">Metadata Field URI</label>
-    			<label class="data-label">{{ content.url }}</label>
+    			<label class="data-label">{{ uri }}</label>
 	    	</div>
     	{{/unless}}
     	<div class="control-group">
@@ -26,13 +26,28 @@
    				   valueBinding="content.description" disabledBinding="content.isSaving" }}
     		</div>
     	</div>
-           <div class="control-group">
+        <div class="control-group">
     		<label class="control-label">Type</label>
     		<div class="controls">
                 {{ view Vilio.Select2 
                       viewName="fieldTypeSelect2"
+		              placeholderText="Please select a field type"
                       contentBinding="controller.fieldTypes" 
-                      selectionBinding="content.type" }}
+                      selectionBinding="content.type"
+                      required="" }}
+    		</div>
+    	</div>
+        <div class="control-group">
+    		<label class="control-label">Values List</label>
+    		<div class="controls">
+                {{ view Vilio.Select2 
+                      viewName="fieldValueSelect2"
+		              placeholderText="Please select a value list"
+                      contentBinding="controller.fieldValuesLists" 
+                      optionLabelPath="content.name"
+                      optionValuePath="content.id"
+                      selectionBinding="content.allowedValuesList"
+                      required="" }}
     		</div>
     	</div>
     	{{#unless content.isNew }}

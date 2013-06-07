@@ -1,6 +1,8 @@
 // select box utilizing Select2 functionality
 Vilio.Select2 = Ember.Select.extend({
     defaultTemplate: Ember.Handlebars.compile('<option></option>{{#each view.content}}{{view Ember.SelectOption contentBinding="this"}}{{/each}}'),
+    attributeBindings: ['required'],
+    required: false,
 
     // initialize Select2 once view is inserted in DOM
 	didInsertElement : function() {

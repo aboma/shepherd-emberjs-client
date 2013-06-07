@@ -1,7 +1,14 @@
 Vilio.FieldsRoute = Ember.Route.extend({
     model: function() {
         return Vilio.MetadataField.find();
-    }
+    },
+    // load values lists for forms
+    setupController: function(controller, model) {
+        var metadataValuesListsController = this.controllerFor('metadata_lists');
+        if (metadataValuesListsController) 
+          metadataValuesListsController.set('model', Vilio.MetadataValuesList.find({}));
+        this._super(controller, model);
+    }	
 });
 
 
@@ -40,7 +47,7 @@ Vilio.FieldsNewRoute = Ember.Route.extend({
 		this.controllerFor(this.routeName).startEditing(transaction);
 		return transaction.createRecord(Vilio.MetadataField, {});
 	},
-	renderTemplate: function() {
+    renderTemplate: function() {
 		this.render('fields.new', {
 			into: 'fields',
             outlet: 'main'

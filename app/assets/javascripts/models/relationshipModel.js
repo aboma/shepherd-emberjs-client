@@ -4,10 +4,3 @@ Vilio.Relationship = DS.Model.extend({
 	created_at : DS.attr('string'),
 	updated_at : DS.attr('string')
 });
-
-Vilio.Relationship.reopenClass({
-	collectionUrl: 'relationships',
-	resourceUrl: 'relationships',
-	url: 'relationship',
-	resourcename: 'relationship'	
-});

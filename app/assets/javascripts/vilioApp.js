@@ -1,12 +1,11 @@
-$.ajaxSetup({
-	beforeSend : function(xhr) {
-		//xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr(
-		//		'content'));
-		xhr.setRequestHeader('X-API-VERSION', 'v1');
-		xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
-		xhr.setRequestHeader('X-AUTH-TOKEN', auth_token);
-		return xhr;
-	}
+// Attach API version and authorization token to header of AJAX request
+Ember.$.ajaxPrefilter(function(options ,originalOptions, xhr) {
+	//xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr(
+	//		'content'));
+	xhr.setRequestHeader('X-API-VERSION', 'v1');
+	xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+	xhr.setRequestHeader('X-AUTH-TOKEN', auth_token);
+	return xhr;
 });
 
 window.Vilio = Ember.Application.create({

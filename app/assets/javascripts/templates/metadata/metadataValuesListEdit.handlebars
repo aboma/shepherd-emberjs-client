@@ -1,0 +1,54 @@
+<div class="form-horizontal">
+	<fieldset>
+		{{#if content.isNew }}
+			<legend>Create Metadata Values List</legend>
+		{{else}}
+    		<legend>Edit "{{ content.name }}" Values List</legend>    		
+    	{{/if }}
+    	{{#unless content.isNew }}
+    		<div class="control-group">
+	    		<label class="control-label">List URI</label>
+    			<label class="data-label">{{ content.url }}</label>
+	    	</div>
+    	{{/unless}}
+    	<div class="control-group">
+    		<label class="control-label">List Name</label>
+    		<div class="controls">
+				{{ view Vilio.TextField 
+                      viewName="listName" 
+ 					  valueBinding="name"
+                      disabledBinding="view.isDisabled" 
+ 				   	  required="" 
+                      autofocus="" }}
+    		</div>
+    	</div>
+    	<div class="control-group">
+    		<label class="control-label">Description</label>
+    		<div class="controls">
+   				{{ view Ember.TextArea 
+                      viewName="fDescriptionTextArea" 
+   				      valueBinding="content.description" 
+                      disabledBinding="content.isSaving" }}
+    		</div>
+   		</div>
+        <div class="control-group">
+    		<label class="control-label">Values</label>
+    	</div>
+    	{{#unless content.isNew }}
+	    	<div class="control-group">
+	    		<label class="control-label">Created On</label>
+	    		<label class="data-label">{{ content.created_at }}</label>
+	    	</div>
+	    	<div class="control-group">
+	    		<label class="control-label">Updated On</label>
+	    		<label class="data-label">{{ content.updated_at }}</label>
+	    	</div>
+    	{{/unless}}
+    	<div class="control-group button-group">
+    		<button {{ action save content disabledBinding="content.isDirty" }} 
+    			class="btn btn-success"> Save </button>
+			<button {{ action cancel content disabledBinding="content.isSaving" }} 
+				class="btn btn-warning"> Cancel </button>
+     	</div>
+    </fieldset>
+</div>

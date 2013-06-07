@@ -19,6 +19,13 @@ Vilio.Router.map(function(match) {
         this.route('edit', { path: '/edit' });
       });
     });
+    this.resource('metadata_lists', { path: '/metadata_lists' }, function() {
+      this.route('new', { path: '/new' });
+      this.resource('metadata_list', { path: '/:metadata_list_id' }, function() {
+        this.route('show', { path: '/show' });
+        this.route('edit', { path: '/edit' });
+      });
+    });
 	// assets (outside of relationships)
 	this.resource('assets', { path: '/assets'}, function() {
 		this.resource('asset', { path: '/:asset_id' }, function() {

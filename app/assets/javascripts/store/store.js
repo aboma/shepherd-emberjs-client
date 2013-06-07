@@ -4,6 +4,9 @@ DS.RESTAdapter.map('Vilio.Asset', {
 DS.RESTAdapter.map('Vilio.Relationship', {
   asset: { embedded: 'load' }
 });
+DS.RESTAdapter.map('Vilio.MetadataValuesList', {
+  metadataFields: { embedded: 'always' }
+});
 
 DS.RESTAdapter.configure('plurals', { settings: 'settings' });
 
@@ -20,8 +23,27 @@ Vilio.Store = DS.Store.extend({
   revision: 12,
   adapter: DS.RESTAdapter.extend({ 
 	  bulkCommit: false,
-	  url: "http://localhost:4444",
-	  serializer: DS.RESTSerializer
+	  url: "http://localhost:4444" ,
+      // extend adapter to support foreign keys in belongsTo relationship
+	  serializer: DS.RESTSerializer.extend({
+        addHasMany: function(hash, record, key, relationship) {
+          var type = record.constructor,
+              name = relationship.key,
+              serializedHasMany = [],
+              manyArray, embeddedType;
+
+          embeddedType = this.embeddedType(type, name);
+          if (embeddedType !== 'always') { return; }
+
+          manyArray = record.get(name);
+
+          manyArray.forEach(function(record) {
+            serializedHasMany.push(record.get('id'));
+          }, this);
+
+          hash[this.singularize(key) + '_ids'] = serializedHasMany;
+        }
+      })
   })
 });
 

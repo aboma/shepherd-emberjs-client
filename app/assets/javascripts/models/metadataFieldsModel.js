@@ -4,5 +4,6 @@ Vilio.MetadataField = DS.Model.extend({
     type: DS.attr('string'),
  	created_at : DS.attr('string'),
 	updated_at : DS.attr('string'),
-    allowedValuesList: DS.belongsTo('Vilio.MetadataValuesList')
+    allowedValuesList: DS.belongsTo('Vilio.MetadataValuesList', { embedded: true }),
+	links : DS.hasMany('Vilio.Link', { embedded: 'load' })
 });
