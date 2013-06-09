@@ -7,6 +7,10 @@ DS.RESTAdapter.map('Vilio.Relationship', {
 DS.RESTAdapter.map('Vilio.MetadataValuesList', {
   metadataFields: { embedded: 'always' }
 });
+DS.RESTAdapter.map('Vilio.MetadataField', {
+  links : { embedded: 'load' }
+});
+
 
 DS.RESTAdapter.configure('plurals', { settings: 'settings' });
 

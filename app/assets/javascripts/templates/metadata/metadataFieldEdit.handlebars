@@ -31,7 +31,7 @@
     		<div class="controls">
                 {{ view Vilio.Select2 
                       viewName="fieldTypeSelect2"
-		              placeholderText="Please select a field type"
+		              prompt="Please select a field type"
                       contentBinding="controller.fieldTypes" 
                       selectionBinding="content.type"
                       required="" }}
@@ -42,7 +42,7 @@
     		<div class="controls">
                 {{ view Vilio.Select2 
                       viewName="fieldValueSelect2"
-		              placeholderText="Please select a value list"
+		              prompt="Please select a value list"
                       contentBinding="controller.fieldValuesLists" 
                       optionLabelPath="content.name"
                       optionValuePath="content.id"

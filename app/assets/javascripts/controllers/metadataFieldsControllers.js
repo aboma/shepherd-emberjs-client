@@ -7,7 +7,19 @@ Vilio.FieldsController = Ember.ArrayController.extend({
   selectedBinding: Ember.Binding.oneWay('controllers.field.content')
 });
 
-Vilio.FieldController = Ember.ObjectController.extend({});
+Vilio.FieldController = Ember.ObjectController.extend({
+  uri: function() {
+    var links = this.get('content.links');
+    if (!links) return null;
+    var link = links.findProperty('rel', 'self');
+    return link.get('href');
+  }.property('content.links')
+});
+
+Vilio.FieldShowController = Ember.ObjectController.extend({
+  needs: ['field'],
+  uri: Ember.computed.alias('controllers.field.uri')
+});
 
 Vilio.FieldsNewController = Ember.ObjectController.extend(Vilio.EditModelControllerMixin, {
   needs: ['setting', 'metadata_lists'],
@@ -16,9 +28,6 @@ Vilio.FieldsNewController = Ember.ObjectController.extend(Vilio.EditModelControl
 });
 
 Vilio.FieldEditController = Vilio.FieldsNewController.extend({
-  uri: function() {
-    var links = this.get('content.links');
-    if (!links) return null;
-    return links.findProperty('rel', 'self');
-  }.property('content.links')
+  needs: ['field'],
+  uri: Ember.computed.alias('controllers.field.uri')
 });
