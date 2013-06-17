@@ -2,7 +2,19 @@
 // for use in controllers
 Vilio.EditModelControllerMixin = Ember.Mixin.create({
 	transaction: null,
-	
+    errors: null,
+
+	// Set associations to be associations of the content. These will then be checked for validity on save
+	// and all of the flags, such as isDirty and isLoaded, will take these associations into consideration.
+	associations: [],
+
+  	models: (function() {
+    	var controller = this;
+    	return $.map($.merge(['content'], this.get('associations')), function(value, i) {
+      		return controller.get(value);
+    	});
+	}).property('content', 'associations'),
+
 	startEditing: function(transaction) {
 		if (!transaction) {
 			transaction = this.store.transaction();
@@ -14,13 +26,20 @@ Vilio.EditModelControllerMixin = Ember.Mixin.create({
 	saveEdits: function(callback) {
 		// commit record if it has changed; exit function will
 		// clean up unused transaction
+        var controller = this;
 		var record = this.get('content');
 		if (record.get('isDirty')) {
 			var method = record.get('isNew') === true ? 'didCreate' : 'didUpdate';
 			// callback will show record once the id is available
 			record.one(method, function() {
 				if (callback && typeof callback === 'function'){
+                  if (method === 'didUpdate') {
+                    callback.call();
+                  } else {
+                    // observe for when id is created since we may need this
+                    // for transition
 					record.addObserver('id', this, callback);
+                  }
 				}
 			});
 			// trigger save
@@ -61,20 +80,20 @@ Vilio.EditModelControllerMixin = Ember.Mixin.create({
 // should be implemented on the view class that uses the mixin.
 Vilio.ViewWithModalMixin = Ember.Mixin.create({
 	modalView: null,
-	
+
 	click: function() {
 		this.showModalView();
 	},
-	
+
 	close: function() {
 		this.closeModalView();
 	},
-	
+
 	closeModalView: function() {
 		if (this.modalView)
 			this.modalView.close();
 	},
-	
+
 	// open modal view of relationship to show all
 	// details
 	showModalView: function() {

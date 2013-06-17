@@ -90,6 +90,23 @@ div.well {
   font-weight: bold;  
 } 
 
+.error {
+  color: red;
+}
+
+label.error {
+  display:inline;
+  margin-left: 30px;
+}
+
+div.error {
+  font-size: 16px;
+  line-height: 22px;
+  height: 42px;
+  vertical-align: center;
+  padding: 10px;
+}
+
 .section-header {
   border-bottom: 1px solid #FFFFFF;
   margin-bottom: 20px;
@@ -124,6 +141,11 @@ div.form-horizontal {
     padding-top: 5px;
     margin-left: 160px;
     text-align: left;
+  }
+
+  .controls {
+    display: inline;
+    margin-left: 30px;
   }
 }
 

@@ -47,7 +47,19 @@ Vilio.Store = DS.Store.extend({
 
           hash[this.singularize(key) + '_ids'] = serializedHasMany;
         }
-      })
+      }),
+      // override didError to handle 409 conflict status properly
+	  didError: function(store, type, record, xhr) {
+    	if (xhr.status === 422 || xhr.status === 409) {
+      		var json = JSON.parse(xhr.responseText),
+          	serializer = this.get('serializer'),
+          	errors = serializer.extractValidationErrors(type, json);
+
+      		store.recordWasInvalid(record, errors);
+    	} else {
+      		this._super.apply(this, arguments);
+    	}
+  	  }
   })
 });
 

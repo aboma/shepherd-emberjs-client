@@ -19,6 +19,7 @@ end
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
+  gem 'handlebars-source', '~> 1.0.0.rc4'
   gem 'handlebars_assets', '~> 0.12.0'
   gem 'sass-rails', '~> 3.1'
   gem 'bootstrap-sass', '~> 2.0.4.0'
