@@ -1,8 +1,8 @@
 // Mixin to generalize model create/edit functionality
 // for use in controllers
 Vilio.EditModelControllerMixin = Ember.Mixin.create({
+    needs:['message'],
 	transaction: null,
-    errors: null,
 
 	// Set associations to be associations of the content. These will then be checked for validity on save
 	// and all of the flags, such as isDirty and isLoaded, will take these associations into consideration.
@@ -27,11 +27,14 @@ Vilio.EditModelControllerMixin = Ember.Mixin.create({
 		// commit record if it has changed; exit function will
 		// clean up unused transaction
         var controller = this;
+        var msgController = this.get('controllers.message');
+        msgController.set('message', 'saving record');
 		var record = this.get('content');
 		if (record.get('isDirty')) {
 			var method = record.get('isNew') === true ? 'didCreate' : 'didUpdate';
 			// callback will show record once the id is available
 			record.one(method, function() {
+                msgController.set('message', 'record saved');
 				if (callback && typeof callback === 'function'){
                   if (method === 'didUpdate') {
                     callback.call();
@@ -42,8 +45,13 @@ Vilio.EditModelControllerMixin = Ember.Mixin.create({
                   }
 				}
 			});
+            // callback for invalid or conflict response from server
+            record.one('becameInvalid', function() {
+                msgController.set('message', 'error saving record');
+                controller.resetTransaction();
+            });
 			// trigger save
-			this.transaction.commit();
+			record.get('transaction').commit();
 		} else {
 			this.stopEditing();
 			if (callback && typeof callback === 'function'){
@@ -72,7 +80,13 @@ Vilio.EditModelControllerMixin = Ember.Mixin.create({
 		if (callback && typeof callback === 'function'){
 			callback.call(this);
 		}
-	}
+	},
+    // enable transaction to be submitted again
+    resetTransaction: function() {
+        var record = this.get('content');
+        var state = record.get('id') ? 'loaded.updated.uncommitted' : 'loaded.created.uncommited';
+        record.get('stateManager').transitionTo(state);
+    }
 });
 
 // View mixin to create and control modal view that will

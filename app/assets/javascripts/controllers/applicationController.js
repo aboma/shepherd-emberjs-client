@@ -1,1 +1,3 @@
-Vilio.ApplicationController = Ember.Controller.extend({});
+Vilio.ApplicationController = Ember.Controller.extend({
+    needs: ['message']
+});

@@ -5,8 +5,12 @@
 		{{else}}
     		<legend>Edit "{{ content.name }}" Field</legend>    		
     	{{/if }}
-        {{#if content.errors}}
-            <div class="error">Error saving record</div>
+        {{#if content.errors.length}}
+            <div class="error">Error saving record
+                {{#if content.errors.id}}
+                    {{content.errors.id}}
+                {{/if}}
+            </div>
         {{/if}}
     	{{#unless content.isNew }}
     		<div class="control-group">
@@ -33,6 +37,11 @@
    				{{ view Ember.TextArea viewName="fDescriptionTextArea" 
    				   valueBinding="content.description" disabledBinding="content.isSaving" }}
     		</div>
+            <label class="error">
+               {{#if content.errors}}
+                    {{content.errors.description}}
+               {{/if}}
+            </label>
     	</div>
         <div class="control-group">
     		<label class="control-label">Type</label>
@@ -44,6 +53,11 @@
                       selectionBinding="content.type"
                       required="" }}
     		</div>
+            <label class="error">
+               {{#if content.errors}}
+                    {{content.errors.type}}
+               {{/if}}
+            </label>
     	</div>
         <div class="control-group">
     		<label class="control-label">Values List</label>
@@ -57,6 +71,11 @@
                       selectionBinding="content.allowedValuesList"
                       required="" }}
     		</div>
+           <label class="error">
+               {{#if content.errors}}
+                    {{content.errors.allowedValuesList}}
+               {{/if}}
+            </label>
     	</div>
     	{{#unless content.isNew }}
 	    	<div class="control-group">
