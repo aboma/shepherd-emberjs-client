@@ -2,12 +2,17 @@ DS.RESTAdapter.map('Vilio.Asset', {
   links: { embedded: 'load' },
 });
 DS.RESTAdapter.map('Vilio.Relationship', {
-  asset: { embedded: 'load' }
+  asset: { embedded: 'load' },
+  links : { embedded: 'load' }
 });
 DS.RESTAdapter.map('Vilio.MetadataValuesList', {
-  metadataFields: { embedded: 'always' }
+  metadataFields: { embedded: 'always' },
+  links : { embedded: 'load' }
 });
 DS.RESTAdapter.map('Vilio.MetadataField', {
+  links : { embedded: 'load' }
+});
+DS.RESTAdapter.map('Vilio.Portfolio', {
   links : { embedded: 'load' }
 });
 

@@ -1,3 +1,13 @@
+Vilio.ResourceControllerMixin = Ember.Mixin.create({
+  uri: function() {
+    var links = this.get('content.links');
+    if (!links) return null;
+    var link = links.findProperty('rel', 'self');
+    if (!link) return null;
+    return link.get('href');
+  }.property('content.links')
+});
+
 // Mixin to generalize model create/edit functionality
 // for use in controllers
 Vilio.EditModelControllerMixin = Ember.Mixin.create({
@@ -23,13 +33,17 @@ Vilio.EditModelControllerMixin = Ember.Mixin.create({
 		this.transaction = transaction;			
 	},
 	// works for both save and edit by inspecting record states
+	// commit record if it has changed
 	saveEdits: function(callback) {
-		// commit record if it has changed; exit function will
-		// clean up unused transaction
         var controller = this;
         var msgController = this.get('controllers.message');
         msgController.set('message', 'saving record');
 		var record = this.get('content');
+        // reset transaction if user wants to resubmit record
+        // that is invalid or in error state
+        if (!record.get('isValid') || record.get('isError')) {
+            this.resetTransaction();
+        }
 		if (record.get('isDirty')) {
 			var method = record.get('isNew') === true ? 'didCreate' : 'didUpdate';
 			// callback will show record once the id is available
@@ -45,11 +59,13 @@ Vilio.EditModelControllerMixin = Ember.Mixin.create({
                   }
 				}
 			});
+            var errorHandler = function() {
+              var type = record.get('isError') ? 'error' : 'problem';
+              msgController.set('message', type + ' saving record');
+            }
             // callback for invalid or conflict response from server
-            record.one('becameInvalid', function() {
-                msgController.set('message', 'error saving record');
-                controller.resetTransaction();
-            });
+            record.one('becameInvalid', errorHandler);
+            record.one('becameError', errorHandler);
 			// trigger save
 			record.get('transaction').commit();
 		} else {
@@ -59,7 +75,7 @@ Vilio.EditModelControllerMixin = Ember.Mixin.create({
 			}
 		}
 	},
-	// delete record and return to records list
+	// delete resource and return to resources list
 	deleteRecord: function(callback) {
 		var record = this.get('content');
 		record.one('didDelete', this, function() {
@@ -73,6 +89,10 @@ Vilio.EditModelControllerMixin = Ember.Mixin.create({
 	},
 	stopEditing: function(callback) {
 		// clean up unused transaction
+        var record = this.get('content');
+        if (record && (!record.get('isValid') || record.get('isError'))) {
+            this.resetTransaction();
+        }
 		if (this.transaction) {
 			this.transaction.rollback();
 			this.transaction.destroy();

@@ -253,7 +253,11 @@ div.form-horizontal
 
 	.button-group
 	{
-		margin-right: 320px;
+        border-top: 1px solid;
+        clear: both;
+		margin-right: 200px;
+        margin-top: 50px;
+        padding-top: 20px;
 		text-align: right;
 	}
 	.controls

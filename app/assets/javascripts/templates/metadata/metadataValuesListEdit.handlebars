@@ -5,10 +5,24 @@
 		{{else}}
     		<legend>Edit "{{ content.name }}" Values List</legend>    		
     	{{/if }}
+        {{#unless content.isValid}}
+            <div class="error">List is invalid
+                {{#if content.errors.id}}
+                    {{content.errors.id}}
+                {{/if}}
+            </div>
+        {{/unless}}
+        {{#if content.isError}}
+            <div class="error">There was an error saving the list
+                {{#if content.errors.id}}
+                    {{content.errors.id}}
+                {{/if}}
+            </div>
+        {{/if}}
     	{{#unless content.isNew }}
     		<div class="control-group">
 	    		<label class="control-label">List URI</label>
-    			<label class="data-label">{{ content.url }}</label>
+    			<label class="data-label">{{ uri }}</label>
 	    	</div>
     	{{/unless}}
     	<div class="control-group">
@@ -21,6 +35,11 @@
  				   	  required="" 
                       autofocus="" }}
     		</div>
+            <label class="error">
+              {{#if content.errors}}
+                {{content.errors.name}}
+              {{/if}}
+            </label>
     	</div>
     	<div class="control-group">
     		<label class="control-label">Description</label>
@@ -30,6 +49,11 @@
    				      valueBinding="content.description" 
                       disabledBinding="content.isSaving" }}
     		</div>
+	        <label class="error">
+              {{#if content.errors}}
+                {{content.errors.description}}
+              {{/if}}
+            </label>
    		</div>
         <div class="control-group">
     		<label class="control-label">Values</label>

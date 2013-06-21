@@ -7,14 +7,7 @@ Vilio.FieldsController = Ember.ArrayController.extend({
   selectedBinding: Ember.Binding.oneWay('controllers.field.content')
 });
 
-Vilio.FieldController = Ember.ObjectController.extend({
-  uri: function() {
-    var links = this.get('content.links');
-    if (!links) return null;
-    var link = links.findProperty('rel', 'self');
-    return link.get('href');
-  }.property('content.links')
-});
+Vilio.FieldController = Ember.ObjectController.extend(Vilio.ResourceControllerMixin, {});
 
 Vilio.FieldShowController = Ember.ObjectController.extend({
   needs: ['field'],

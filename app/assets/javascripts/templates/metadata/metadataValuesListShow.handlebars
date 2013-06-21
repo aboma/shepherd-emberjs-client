@@ -1,7 +1,11 @@
   <div class="form-horizontal">
     <div class="form-title">{{name}} Metadata Values List</div>
     <div class="form-display-property-group">
-      <label class="control-label">Field Name: </label>
+      <label class="control-label">List URL: </label>
+      <label class="data-label">{{uri}}</label>
+    </div>
+    <div class="form-display-property-group">
+      <label class="control-label">List Name: </label>
       <label class="data-label">{{name}}</label>
     </div>
     <div class="form-display-property-group">
@@ -9,7 +13,7 @@
       <label class="data-label">{{description}}</label>
     </div>
     <div class="form-display-property-group">
-      <label class="control-label">Values: </label>
+      <label class="control-label">List Values: </label>
     </div>
    	<div class="control-group button-group">
    		<button {{ action edit content disabledBinding="content.isDirty" }} 

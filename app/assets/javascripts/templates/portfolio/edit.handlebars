@@ -5,10 +5,17 @@
 			{{else}}
 	    		<legend>Edit "{{ content.name }}" Portfolio</legend>    		
 	    	{{/if }}
+            {{#unless content.isValid}}
+              <div class="error">Error saving record
+                  {{#if content.errors.id}}
+                      {{content.errors.id}}
+                  {{/if}}
+              </div>
+            {{/unless}}
 	    	{{#unless content.isNew }}
 	    		<div class="control-group">
 		    		<label class="control-label">Portfolio URI</label>
-	    			<label class="data-label">{{ content.url }}</label>
+	    			<label class="data-label">{{ uri }}</label>
 		    	</div>
 	    	{{/unless}}
 	    	<div class="control-group">
@@ -18,6 +25,11 @@
    					   valueBinding="name" disabledBinding="view.isDisabled" 
    				   		required="" autofocus="" }}
 	    		</div>
+                <label class="error">
+                  {{#if content.errors}}
+                    {{content.errors.name}}
+                  {{/if}}
+                </label>
 	    	</div>
 	    	<div class="control-group">
 	    		<label class="control-label">Description</label>
@@ -25,6 +37,11 @@
 	   				{{ view Ember.TextArea viewName="pDescriptionTextArea" 
 	   				   valueBinding="content.description" disabledBinding="content.isSaving" }}
 	    		</div>
+                <label class="error">
+                   {{#if content.errors}}
+                      {{content.errors.description}}
+                   {{/if}}
+                </label>
 	    	</div>
 	    	{{#unless content.isNew }}
 		    	<div class="control-group">

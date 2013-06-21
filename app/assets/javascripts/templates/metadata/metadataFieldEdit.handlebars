@@ -5,13 +5,13 @@
 		{{else}}
     		<legend>Edit "{{ content.name }}" Field</legend>    		
     	{{/if }}
-        {{#if content.errors.length}}
+        {{#unless content.isValid}}
             <div class="error">Error saving record
                 {{#if content.errors.id}}
                     {{content.errors.id}}
                 {{/if}}
             </div>
-        {{/if}}
+        {{/unless}}
     	{{#unless content.isNew }}
     		<div class="control-group">
 	    		<label class="control-label">Metadata Field URI</label>
