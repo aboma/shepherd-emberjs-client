@@ -9,273 +9,277 @@
 // And finally bootswatch style itself
 @import "bootswatch/slate/bootswatch";
 
-html, body {
-  height: 100%;
+html, body
+{
+	height: 100%;
 }
 
-.vilio-container {
-  height: auto;
-  min-height: 100%;
+#app-header
+{
+	#login-info
+	{
+		float: right;
+		vertical-align: center;
+	}
 }
-
-#vilio {
-  background: #272B30 url("classy_fabric.png") repeat scroll 20% 0;
-  height: auto;
-  min-height: 100%;
-  padding-top: 40px;
-  position: absolute;
-  width: 100%;
+#loading
+{
+	height: 100%;
+	position: fixed;
+	width: 100%;
 }
-
-#app-header {
-  width: 100%;
-  height: 30px;
-
-  #login-info {
-    float: right;
-    vertical-align: center;
-  }
+#message
+{
+	position: relative;
 }
-
-//label, legend {
-//  color: $lightgrey;
-//}
-
-#vilio-main {
-  margin: 40px;
-  min-width: 1000px;
+#message-container
+{
+	background-color: #CCCCCC;
+	border: 1px solid #8F8F8F;
+	border-radius: 3px 3px 0 0;
+	bottom: 0;
+	clear: both;
+	color: #0E90D2;
+	left: auto;
+	line-height: 30px;
+	margin-left: 800px;
+	margin-top: -70px;
+	min-width: 100px;
+	padding-left: 10px;
+	padding-right: 10px;
+	position: absolute;
+	right: 100px;
+	text-align: center;
+	z-index: 100;
 }
-
-div.well {
-    min-height: 300px;  
-    border-radius: 6px;
+#vilio
+{
+	background: #272B30 url("classy_fabric.png") repeat scroll 20% 0;
+	height: auto;
+	min-height: 100%;
+	padding-top: 40px;
+	position: absolute;
+	width: 100%;
 }
-
-#VilioLeftNav {
-  width: 270px;
-  float: left;  
+#VilioLeftNav
+{
+	float: left;
+	width: 270px;
 }
-
-#VilioMain {
-  margin-top: 20px;
-  min-height: 500px;
+#vilio-main
+{
+	margin: 40px;
+	min-width: 1000px;
 }
-
-#loading {
-  position: fixed;
-  height: 100%;
-  width: 100%;
+#VilioMain
+{
+	margin-top: 20px;
+	min-height: 500px;
 }
-
-.form-display-property-group {
-  clear: both;
+.cell
+{
+	display: table-cell;
 }
-
-.left-nav {
-  display: inline-block;
-  vertical-align: top;
-  padding-right: 20px;
-  padding-bottom: 20px;
+.chzn-container
+{
+	text-shadow: none;
 }
-
-.with-left-nav {
-  display: inline-block;
-  vertical-align: top;
+.control-label
+{
+	font-weight: bold;
 }
-
-.inline-heading {
-  margin-bottom: 10px;
-  h1, h2, h3, h4, h5, h6 {
-    display: inline;
-    vertical-align: middle;
-  }
+.dialog-loading
+{
+	margin-left: auto;
+	margin-right: auto;
+	position: relative;
+	text-align: center;
+	vertical-align: middle;
+	width: 300px;
 }
-
-.inline-link {
-  display: inline-block;
-  padding: 12px 10px 0px 10px;
-}
-
-.control-label {
-  font-weight: bold;  
-} 
-
-.error {
-  color: red;
-}
-
-#message {
-  position: absolute;
-  color: #0E90D2;
-  background-color: #CCCCCC;
-  bottom: 0;
-  left: 0;
-  padding-left: 10px;
-  padding-right: 10px;
-  margin-left: 800px;
-  margin-top:-70px;
-  line-height: 30px;
-  clear: both;
-  z-index: 100;
-  border-radius: 3px 3px 0 0;
-  border: 1px solid #8F8F8F;
-}
-
-.message-hide {
-  height: 0px;
-  visibility: hidden;
-  transition: height 0.5s linear;
-  -moz-transition: height 0.5s linear;
-}
-
-.message-show {
-  height: 30px;
-  transition: height 0.5s linear;
-  -moz-transition: height 0.5s linear;
-}
-
-label.error {
-  display:inline;
-  margin-left: 30px;
-}
-
-div.error {
-  font-size: 16px;
-  line-height: 22px;
-  height: 42px;
-  vertical-align: center;
-  padding: 10px;
-}
-
-.section-header {
-  border-bottom: 1px solid #FFFFFF;
-  margin-bottom: 20px;
-  padding-bottom: 10px;
-}
-
-.section-title {
-  font-size: 24px;
-  line-height: 28px;
-}
-
-.form-title {
-  font-size: 20px;
-  padding-top: 10px;
-  padding-bottom: 10px;
-}
-
-div.form-horizontal {
-  width: 700px;
-
-  button {
-    text-align: right;
-    margin-left: 10px;
-  }
-
-  .button-group {
-    text-align: right;
-    margin-right: 320px;
-  }
-
-  .data-label {
-    padding-top: 5px;
-    margin-left: 160px;
-    text-align: left;
-  }
-
-  .controls {
-    display: inline;
-    margin-left: 30px;
-  }
-}
-
-.row {
-  display: table-row;
-}
-
-.cell {
-  display: table-cell; 
-}
-
-.inline {
-  display: inline;
-}
-
-.inline-block {
-  display: inline-block;
-}
-
-.chzn-container {
-  text-shadow: none;
-}
-
-
-.overlay {
-  background: #FFF;
-  height: 100%;
-  left: 0;
-  opacity: 0.1;
-  position: fixed;
-  text-align: center;
-  top: 0;
-  width: 100%;
-  vertical-align: middle;
-  z-index: 9999;
-}
-
 .dialog-loading, 
-.dialog-modal {
-  background: #333;
-  background: -moz-linear-gradient(0% 0 -90deg, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.95)) repeat scroll 0 0 transparent;
-  background: -webkit-gradient(linear, left top, left bottom, from(rgba(0, 0, 0, 0.7)), to(rgba(0, 0, 0, 0.95))) repeat scroll 0 0 transparent;
-  //background: -o-linear-gradient(0% 0 -90deg, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.95)) repeat scroll 0 0 transparent;
-  border: 2px solid #999999;
-  border-radius: 15px 15px 15px 15px;
-  box-shadow: 15px 15px 15px #000000;
-  clear:both; 
-  min-height: 200px;
-  opacity: 1;
-  padding: 20px;
-  position:absolute;
-  z-index: 11111;
+.dialog-modal
+{
+	background: #333;
+	background: -moz-linear-gradient(0% 0 -90deg, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.95)) repeat scroll 0 0 transparent;
+	background: -o-linear-gradient(0% 0 -90deg, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.95)) repeat scroll 0 0 transparent;
+	background: -webkit-gradient(linear, left top, left bottom, from(rgba(0, 0, 0, 0.7)), to(rgba(0, 0, 0, 0.95))) repeat scroll 0 0 transparent;
+	border: 2px solid #999999;
+	border-radius: 15px 15px 15px 15px;
+	box-shadow: 15px 15px 15px #000000;
+	clear: both;
+	min-height: 200px;
+	opacity: 1;
+	padding: 20px;
+	position: absolute;
+	z-index: 11111;
+}
+.dialog-message
+{
+	position: absolute;
+	top: 50%;
+}
+.dialog-modal
+{
+	background: #000000;
+	left: 80px;
+	top: 80px;
+}
+.error
+{
+	color: red;
+}
+.floater
+{
+	float: left;
+	height: 50%;
+	margin-bottom: -120px;
+}
+.form-display-property-group
+{
+	clear: both;
+}
+.form-title
+{
+	font-size: 20px;
+	padding-bottom: 10px;
+	padding-top: 10px;
+}
+.inline
+{
+	display: inline;
+}
+.inline-block
+{
+	display: inline-block;
+}
+.inline-heading
+{
+	h1, h2, h3, h4, h5, h6
+	{
+		display: inline;
+		vertical-align: middle;
+	}
+}
+.inline-link
+{
+	display: inline-block;
+	padding: 12px 10px 0px 10px;
+}
+.left-nav
+{
+	display: inline-block;
+	padding-bottom: 20px;
+	padding-right: 20px;
+	vertical-align: top;
+}
+.message-hide
+{
+	height: 0px;
+	moz-transition: all 0.5s linear;
+	transition: all 0.5s linear;
+	visibility: hidden;
+}
+.message-show
+{
+	height: 30px;
+	moz-transition: all 0.5s linear;
+	transition: all 0.5s linear;
+}
+.modal-close
+{
+	float: right;
+}
+.modal-header
+{
+	border-bottom: 1px solid;
+	min-height: 20px;
+	padding-bottom: 10px;
+}
+.overlay
+{
+	background: #FFF;
+	height: 100%;
+	left: 0;
+	opacity: 0.1;
+	position: fixed;
+	text-align: center;
+	top: 0;
+	vertical-align: middle;
+	width: 100%;
+	z-index: 9999;
+}
+.row
+{
+	display: table-row;
+}
+.section-header
+{
+	border-bottom: 1px solid #FFFFFF;
+	margin-bottom: 20px;
+	padding-bottom: 10px;
+}
+.section-title
+{
+	font-size: 24px;
+	line-height: 28px;
+}
+.vilio-container
+{
+	height: auto;
+	min-height: 100%;
+}
+.vilio-top-nav
+{
+	width: 100%;
+}
+.with-left-nav
+{
+	display: inline-block;
+	vertical-align: top;
 }
 
-.dialog-loading {
-  margin-right: auto;
-  margin-left:auto;
-  position: relative;
-  text-align: center;
-  vertical-align: middle;
-  width: 300px;
+div.error
+{
+	font-size: 16px;
+	height: 42px;
+	line-height: 22px;
+	padding: 10px;
+	vertical-align: center;
 }
+div.form-horizontal
+{
+	width: 700px;
 
-.dialog-modal {
-  background: #000000;
-  left: 80px;
-  top: 80px;
+	.button-group
+	{
+		margin-right: 320px;
+		text-align: right;
+	}
+	.controls
+	{
+		display: inline;
+		margin-left: 30px;
+	}
+	.data-label
+	{
+		margin-left: 160px;
+		padding-top: 5px;
+		text-align: left;
+	}
+	button
+	{
+		margin-left: 10px;
+		text-align: right;
+	}
 }
-
-.floater {
-  float: left;
-  height: 50%;
-  margin-bottom: -120px;
+div.well
+{
+	border-radius: 6px;
+	min-height: 300px;
 }
-
-.dialog-message {
-  position: absolute;
-  top: 50%;
-}
-
-.vilio-top-nav {
-  width: 100%;
-}
-
-.modal-header {
-  border-bottom: 1px solid;
-  min-height: 20px;
-  padding-bottom: 10px;
-}
-
-.modal-close {
-  float: right;
+label.error
+{
+	display: inline;
+	margin-left: 30px;
 }

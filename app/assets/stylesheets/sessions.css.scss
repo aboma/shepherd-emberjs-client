@@ -58,6 +58,7 @@ div.flash {
     width: 300px;
     z-index: 1000;
 
+
     h3 {
       font-size: 18px;
       color: $grey;
@@ -80,10 +81,7 @@ div.flash {
         //background: -moz-linear-gradient(0% 0 -90deg, #F1EEEE, #FFFFFF) repeat scroll 0 0 transparent;
         //background: -webkit-gradient(linear, left top, left bottom, from(#F1EEEE), to(#FFFFFF)) repeat scroll 0 0 transparent;
         background: none repeat scroll 0 0 #181818;
-        border-color: #0D0E0E #0D0E0E #333436;
         border-radius: 5px 5px 5px 5px;
-        border-style: solid;
-        border-width: 1px;
         box-shadow: 0 5px 7px black inset;
         border: 1px solid $grey;
         //box-shadow: 0 0 5px rgba(0, 0, 0, 0.25);
