@@ -251,7 +251,16 @@ div.form-horizontal
 {
 	width: 700px;
 
-	.button-group
+    .button-group-edit {
+        background-color: #AFAFAF;
+        border-radius: 5px 5px 5px 5px;
+        box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.4);
+        clear: both;
+        margin-top: 30px;
+        padding: 15px;
+        text-align: right;
+    }
+	.button-group-show
 	{
         border-top: 1px solid;
         clear: both;
@@ -281,6 +290,11 @@ div.well
 {
 	border-radius: 6px;
 	min-height: 300px;
+}
+input.metadata-value-input {
+  display: block;
+  margin-left: 170px;
+  margin-top: 10px;
 }
 label.error
 {

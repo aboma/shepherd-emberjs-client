@@ -25,6 +25,14 @@ Vilio.EditModelControllerMixin = Ember.Mixin.create({
     	});
 	}).property('content', 'associations'),
 
+    changesExist: function() {
+       var changesMade = false;
+       $.each(this.get('models'), function(index, model) {
+           changesMade = model.get('isDirty');
+       });
+       return true;   //TODO fix
+    },
+
 	startEditing: function(transaction) {
 		if (!transaction) {
 			transaction = this.store.transaction();
@@ -33,73 +41,79 @@ Vilio.EditModelControllerMixin = Ember.Mixin.create({
 		this.transaction = transaction;			
 	},
 	// works for both save and edit by inspecting record states
-	// commit record if it has changed
-	saveEdits: function(callback) {
-        var controller = this;
-        var msgController = this.get('controllers.message');
-        msgController.set('message', 'saving record');
-		var record = this.get('content');
-        // reset transaction if user wants to resubmit record
-        // that is invalid or in error state
-        if (!record.get('isValid') || record.get('isError')) {
-            this.resetTransaction();
-        }
-		if (record.get('isDirty')) {
-			var method = record.get('isNew') === true ? 'didCreate' : 'didUpdate';
-			// callback will show record once the id is available
-			record.one(method, function() {
-                msgController.set('message', 'record saved');
-				if (callback && typeof callback === 'function'){
-                  if (method === 'didUpdate') {
-                    callback.call();
-                  } else {
-                    // observe for when id is created since we may need this
-                    // for transition
-					record.addObserver('id', this, callback);
-                  }
-				}
-			});
-            var errorHandler = function() {
-              var type = record.get('isError') ? 'error' : 'problem';
-              msgController.set('message', type + ' saving record');
+	// commit record if it has changed; returns promise of 
+    // record create or update
+	saveEdits: function() {
+        var controller = this,
+            msgController = this.get('controllers.message'),
+		    record = this.get('content');
+        return new Em.RSVP.Promise(function(resolve, reject) {
+            // reset transaction if user wants to resubmit record
+            // that is invalid or in error state
+            if (!record.get('isValid') || record.get('isError')) {
+                this.resetTransaction();
             }
-            // callback for invalid or conflict response from server
-            record.one('becameInvalid', errorHandler);
-            record.one('becameError', errorHandler);
-			// trigger save
-			record.get('transaction').commit();
-		} else {
-			this.stopEditing();
-			if (callback && typeof callback === 'function'){
-				callback.call(this);
-			}
-		}
+            if (controller.changesExist()) {
+                msgController.set('message', 'saving record');
+			    var method = record.get('isNew') === true ? 'didCreate' : 'didUpdate';
+    			// callback will show record once the id is available
+	    		record.one(method, controller, function() {
+                    msgController.set('message', 'record saved');
+                    if (method === 'didUpdate') {
+                        // resolve promise
+                        resolve();
+                    } else {
+                        // observe for when id is created since we may need this
+                        // for transition
+		    	        record.addObserver('id', this, resolve);
+                    }
+		    	});
+                var errorHandler = function() {
+                    // reject promise
+                    reject();
+                    var type = this.get('isError') ? 'error' : 'problem';
+                    msgController.set('message', type + ' saving record');
+                    this.get('transaction').rollback();
+                }
+                // callback for invalid or conflict response from server
+                record.one('becameInvalid', controller, errorHandler);
+                record.one('becameError', controller, errorHandler);
+		    	// trigger save
+			    record.get('transaction').commit();
+    		} else {
+                msgController.set('message', 'no changes to save in model');
+                resolve();
+    		}
+        });
 	},
-	// delete resource and return to resources list
-	deleteRecord: function(callback) {
-		var record = this.get('content');
-		record.one('didDelete', this, function() {
-			console.log('record deleted');
-			if (callback && typeof callback === 'function'){
-				callback.call(this);
-			}
-		});
-		record.deleteRecord();
-		this.transaction.commit();
+	// returns promise to delete resource
+	deleteRecord: function() {
+    	var controller = this,
+            record = this.get('content');
+        return new Em.RSVP.Promise(function(resolve, reject) {
+	    	record.one('didDelete', controller, function() {
+		    	console.log('record deleted');
+                resolve();
+	    	});
+            record.one('didError', controller, function() {
+                console.log('error deleting record');
+                reject();
+            });
+		    record.deleteRecord();
+    		controller.transaction.commit();
+        });
 	},
 	stopEditing: function(callback) {
-		// clean up unused transaction
-        var record = this.get('content');
-        if (record && (!record.get('isValid') || record.get('isError'))) {
-            this.resetTransaction();
-        }
-		if (this.transaction) {
-			this.transaction.rollback();
-			this.transaction.destroy();
-		}
-		if (callback && typeof callback === 'function'){
-			callback.call(this);
-		}
+        var controller = this;
+        return new Em.RSVP.Promise(function(resolve, reject) {
+  	        // clean up unused transaction
+            $.each(controller.models, function(index, model) {
+                if (model && (!model.get('isValid') || model.get('isError'))) {
+                    model.get('transaction').rollback();
+                }
+		    });
+            resolve();
+        });
 	},
     // enable transaction to be submitted again
     resetTransaction: function() {

@@ -33,14 +33,14 @@ Vilio.MetadataListsNewRoute = Ember.Route.extend({
 		},
 		save: function() {
 			var route = this;
-			this.controller.saveEdits(function() {
+			this.controller.saveEdits().then(function() {
 				route.transitionTo('metadata_list.show', route.controller.get('content'));
 			});
 		}
-	},
+    } /*,
     deactivate: function() {
         this.controller.stopEditing();
-    }
+    } */
 });
 
 Vilio.MetadataListRoute = Ember.Route.extend({});
@@ -87,10 +87,16 @@ Vilio.MetadataListEditRoute = Ember.Route.extend({
 		},
 		save: function() {
 			var route = this;
-			this.controller.saveEdits(function() {
+			this.controller.saveEdits().then(function() {
 				route.transitionTo('metadata_list.show', route.controller.get('content'));
 			});
-		}
+		},
+        remove: function() {
+            var route = this;
+            this.controller.deleteRecord().then(function() {
+                route.transitionTo('metadata_lists.index');
+            });
+        }
 	},
     deactivate: function() {
         this.controller.stopEditing();

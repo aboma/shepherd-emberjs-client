@@ -1,3 +1,4 @@
-Vilio.MetadataValueModel = DS.Model.extend({
-    value: DS.attr('string')
+Vilio.MetadataListValue = DS.Model.extend({
+    value: DS.attr('string'),
+    metadata_values_list: DS.belongsTo('Vilio.MetadataValuesList')
 });

@@ -36,10 +36,12 @@ Vilio.PortfoliosNewRoute = Ember.Route.extend({
 		},
 		save: function() {
 			var route = this;
-			this.controller.saveEdits(function() {
+			this.controller.saveEdits().then(function() {
 				console.log('portfolio created');
 				route.transitionTo('portfolio.show', route.controller.get('content'));
-			});
+			}, function() {
+                console.log('error creating portfolio');
+            });
 		}
 	}
 });
@@ -88,17 +90,21 @@ Vilio.PortfolioEditRoute = Ember.Route.extend({
 		},
 		save: function() {
 			var route = this;
-			this.controller.saveEdits(function() {
+			this.controller.saveEdits().then(function() {
 				console.log('portfolio saved');
 				route.transitionTo('portfolio.show', route.controller.get('content'));
-			});
+			}, function() {
+                console.log('error saving portfolio');
+            });
 		},
 		remove : function(portfolio) {
 			var route = this;
-			this.controller.deleteRecord(function(){
+			this.controller.deleteRecord().then(function(){
 				console.log('portfolio deleted');
 				route.transitionTo('portfolios');
-			});
+			}, function() {
+                console.log('error deleting portfolio');
+            });
 		}
 	}
 });

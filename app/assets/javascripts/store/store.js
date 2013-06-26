@@ -6,7 +6,7 @@ DS.RESTAdapter.map('Vilio.Relationship', {
   links : { embedded: 'load' }
 });
 DS.RESTAdapter.map('Vilio.MetadataValuesList', {
-  metadataFields: { embedded: 'always' },
+  metadata_list_values: { embedded: 'always' },
   links : { embedded: 'load' }
 });
 DS.RESTAdapter.map('Vilio.MetadataField', {
@@ -34,8 +34,8 @@ Vilio.Store = DS.Store.extend({
 	  bulkCommit: false,
 	  url: "http://localhost:4444" ,
       // extend adapter to support foreign keys in belongsTo relationship
-	  serializer: DS.RESTSerializer.extend({
-        addHasMany: function(hash, record, key, relationship) {
+/*	  serializer: DS.RESTSerializer.extend({
+          addHasMany: function(hash, record, key, relationship) {
           var type = record.constructor,
               name = relationship.key,
               serializedHasMany = [],
@@ -52,7 +52,7 @@ Vilio.Store = DS.Store.extend({
 
           hash[this.singularize(key) + '_ids'] = serializedHasMany;
         }
-      }),
+      }), */
       // override didError to handle 409 conflict status properly
 	  didError: function(store, type, record, xhr) {
     	if (xhr.status === 422 || xhr.status === 409) {

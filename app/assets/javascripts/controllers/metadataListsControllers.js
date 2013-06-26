@@ -18,7 +18,13 @@ Vilio.MetadataListShowController = Ember.ObjectController.extend({
   uri: Ember.computed.alias('controllers.metadata_list.uri')
 });
 
-Vilio.MetadataListsNewController = Ember.ObjectController.extend(Vilio.EditModelControllerMixin, {});
+Vilio.MetadataListsNewController = Ember.ObjectController.extend(Vilio.EditModelControllerMixin, {
+  addValue: function() {
+    var newValue = this.transaction.createRecord(Vilio.MetadataListValue, {});
+    var values = this.get('content.metadata_list_values');
+    values.pushObject(newValue);
+  }
+});
 
 Vilio.MetadataListEditController = Vilio.MetadataListsNewController.extend({
   needs: ['metadata_list'],

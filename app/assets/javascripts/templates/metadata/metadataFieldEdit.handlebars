@@ -87,7 +87,7 @@
 	    		<label class="data-label">{{ content.updated_at }}</label>
 	    	</div>
     	{{/unless}}
-    	<div class="control-group button-group">
+    	<div class="control-group button-group-edit">
     		<button {{ action save content disabledBinding="content.isDirty" }} 
     			class="btn btn-success"> Save </button>
 			<button {{ action cancel content disabledBinding="content.isSaving" }} 

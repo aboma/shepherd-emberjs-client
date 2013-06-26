@@ -60,9 +60,11 @@ Vilio.FieldsNewRoute = Ember.Route.extend({
 		},
 		save: function() {
 			var route = this;
-			this.controller.saveEdits(function() {
+			this.controller.saveEdits().then(function() {
 				route.transitionTo('field.show', route.controller.get('content'));
-			});
+			}, function() {
+                // error handled on controller
+            });
 		}
 	},
     deactivate: function() {
@@ -94,9 +96,11 @@ Vilio.FieldEditRoute = Ember.Route.extend({
 		},
 		save: function() {
 			var route = this;
-			this.controller.saveEdits(function() {
+			this.controller.saveEdits().then(function() {
 				route.transitionTo('field.show', route.controller.get('content'));
-			});
+			}, function() {
+                // error handled on controller                               
+            });
 		}
 	},
     deactivate: function() {

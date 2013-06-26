@@ -14,8 +14,11 @@
     </div>
     <div class="form-display-property-group">
       <label class="control-label">List Values: </label>
+      {{#each metadata_list_values}}
+          <label class="data-label">{{value}}</label>
+      {{/each}}
     </div>
-   	<div class="control-group button-group">
+   	<div class="control-group button-group-show">
    		<button {{ action edit content disabledBinding="content.isDirty" }} 
     			class="btn btn-success"> Edit </button>
     </div>	

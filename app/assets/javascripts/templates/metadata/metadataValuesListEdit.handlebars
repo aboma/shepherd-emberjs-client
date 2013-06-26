@@ -31,7 +31,7 @@
 				{{ view Vilio.TextField 
                       viewName="listName" 
  					  valueBinding="name"
-                      disabledBinding="view.isDisabled" 
+                      disabledBinding="content.isSaving" 
  				   	  required="" 
                       autofocus="" }}
     		</div>
@@ -45,7 +45,6 @@
     		<label class="control-label">Description</label>
     		<div class="controls">
    				{{ view Ember.TextArea 
-                      viewName="fDescriptionTextArea" 
    				      valueBinding="content.description" 
                       disabledBinding="content.isSaving" }}
     		</div>
@@ -57,6 +56,18 @@
    		</div>
         <div class="control-group">
     		<label class="control-label">Values</label>
+            <div class="controls">
+              {{#each content.metadata_list_values }}
+        			{{ view Vilio.TextField
+                       class="metadata-value-input"
+ 	    	    	   valueBinding="value"
+                       disabledBinding="content.isSaving" 
+ 	        		   required="" 
+                       autofocus="" }}
+              {{/each}}
+            </div>
+            <button {{ action addValue }} 
+    			class="btn btn-success"> Add Value </button>
     	</div>
     	{{#unless content.isNew }}
 	    	<div class="control-group">
@@ -68,11 +79,15 @@
 	    		<label class="data-label">{{ content.updated_at }}</label>
 	    	</div>
     	{{/unless}}
-    	<div class="control-group button-group">
+    	<div class="control-group button-group-edit">
     		<button {{ action save content disabledBinding="content.isDirty" }} 
     			class="btn btn-success"> Save </button>
 			<button {{ action cancel content disabledBinding="content.isSaving" }} 
 				class="btn btn-warning"> Cancel </button>
+            {{#unless content.isNew}}
+				<button {{ action remove content disabledBinding="content.isSaving" }} 
+					class="btn btn-danger"> Delete </button>					
+			{{/unless}}
      	</div>
     </fieldset>
 </div>
