@@ -1,0 +1,20 @@
+<div id="metadata-template-definitions">
+  <div>
+    <div class="section-header">
+      <span class="section-title">Metadata Templates Definitions</span>
+      <div class="inline-link"> / {{#linkTo "templates.new"}}create{{/linkTo}}</div>
+    </div>
+  </div>
+  <div id="metadata-templates-list" class="left-nav">
+    <ul class="nav nav-list"> 
+    {{#each template in controller}}
+      {{#unless template.isnew}}
+        <li>{{#linkTo "template.show" template}}{{template.name}}{{/linkTo}}</li>
+      {{/unless}}
+    {{/each}}
+    </ul>
+  </div>
+  <div class="with-left-nav">
+  {{ outlet "main" }}
+  </div>
+</div>
