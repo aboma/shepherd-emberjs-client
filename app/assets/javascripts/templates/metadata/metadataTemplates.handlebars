@@ -8,8 +8,10 @@
   <div id="metadata-templates-list" class="left-nav">
     <ul class="nav nav-list"> 
     {{#each template in controller}}
-      {{#unless template.isnew}}
-        <li>{{#linkTo "template.show" template}}{{template.name}}{{/linkTo}}</li>
+      {{#unless template.isNew}}
+        {{#unless template.isError}}
+          <li>{{#linkTo "template.show" template}}{{template.name}}{{/linkTo}}</li>
+        {{/unless}}
       {{/unless}}
     {{/each}}
     </ul>

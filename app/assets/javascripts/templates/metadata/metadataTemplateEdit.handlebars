@@ -1,0 +1,81 @@
+<div class="form-horizontal">
+	<fieldset>
+		{{#if content.isNew }}
+			<legend>Create Metadata Template</legend>
+		{{else}}
+    		<legend>Edit "{{ content.name }}" Template</legend>    		
+    	{{/if }}
+        {{#unless content.isValid}}
+            <div class="error">Error saving record
+                {{#if content.errors.id}}
+                    {{content.errors.id}}
+                {{/if}}
+            </div>
+        {{/unless}}
+    	{{#unless content.isNew }}
+    		<div class="control-group">
+	    		<label class="control-label">Template URI</label>
+    			<label class="data-label">{{ uri }}</label>
+	    	</div>
+    	{{/unless}}
+    	<div class="control-group">
+    		<label class="control-label">Template Name</label>
+    		<div class="controls">
+				{{ view Vilio.TextField viewName="fieldName" 
+ 					   valueBinding="name" disabledBinding="view.isDisabled" 
+ 				   		required="" autofocus="" }}
+    		</div>
+            <label class="error">
+               {{#if content.errors}}
+                    {{content.errors.name}}
+               {{/if}}
+            </label>
+    	</div>
+        <div class="control-group">
+    		<label class="control-label">Description</label>
+    		<div class="controls">
+   				{{ view Ember.TextArea viewName="fDescriptionTextArea" 
+   				   valueBinding="content.description" disabledBinding="content.isSaving" }}
+    		</div>
+            <label class="error">
+               {{#if content.errors}}
+                    {{content.errors.description}}
+               {{/if}}
+            </label>
+    	</div>
+        <div id="control-group">
+        <div id="template-field-selection">
+          <div id="available-fields-list">
+            {{#each unselectedFields}}
+              {{#view Vilio.FieldDraggableView contentBinding="this" 
+                    class="field-selection"}}
+                {{name}}
+              {{/view}}
+            {{/each}}
+          </div>
+          {{#view Vilio.FieldsListView id="template-fields-list"}}
+              <div><span>Template Fields</span></div>
+              {{#each metadataTemplateFieldSettings}}
+                  <div class="field-setting-edit">{{field.name}}</div>
+              {{/each}}
+          {{/view}}
+        </div>
+        </div>
+        {{#unless content.isNew }}
+	    	<div class="control-group">
+	    		<label class="control-label">Created On</label>
+	    		<label class="data-label">{{ content.created_at }}</label>
+	    	</div>
+	    	<div class="control-group">
+	    		<label class="control-label">Updated On</label>
+	    		<label class="data-label">{{ content.updated_at }}</label>
+	    	</div>
+    	{{/unless}}
+    	<div class="control-group button-group-edit">
+    		<button {{ action save content disabledBinding="content.isDirty" }} 
+    			class="btn btn-success"> Save </button>
+			<button {{ action cancel content disabledBinding="content.isSaving" }} 
+				class="btn btn-warning"> Cancel </button>
+     	</div>
+    </fieldset>
+</div>

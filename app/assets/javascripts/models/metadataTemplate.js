@@ -1,8 +1,8 @@
 Vilio.MetadataTemplate = DS.Model.extend({
     name: DS.attr('string'),
     description: DS.attr('string'),
-    created_at : DS.attr('string'),
-    updated_at : DS.attr('string'),
-    fields: DS.hasMany('Vilio.MetadataTemplateFieldSetting'),
-	links : DS.hasMany('Vilio.Link', { embedded: 'load' })
+    //createdAt : DS.attr('string'),
+    //updatedAt : DS.attr('string'),
+    metadataTemplateFieldSettings: DS.hasMany('Vilio.MetadataTemplateFieldSetting'), //, { inverse: 'metadata_template' }),
+	links : DS.hasMany('Vilio.Link')
 });

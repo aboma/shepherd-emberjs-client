@@ -36,7 +36,7 @@ Vilio.EditModelControllerMixin = Ember.Mixin.create({
 	startEditing: function(transaction) {
 		if (!transaction) {
 			transaction = this.store.transaction();
-			transaction.add(this.get('content'));
+			// transaction.add(this.get('content'));
 		}
 		this.transaction = transaction;			
 	},
@@ -71,9 +71,9 @@ Vilio.EditModelControllerMixin = Ember.Mixin.create({
                 var errorHandler = function() {
                     // reject promise
                     reject();
-                    var type = this.get('isError') ? 'error' : 'problem';
+                    var type = this.get('content.isError') ? 'error' : 'problem';
                     msgController.set('message', type + ' saving record');
-                    this.get('transaction').rollback();
+                    this.get('content.transaction').rollback();
                 }
                 // callback for invalid or conflict response from server
                 record.one('becameInvalid', controller, errorHandler);
@@ -149,4 +149,30 @@ Vilio.ViewWithModalMixin = Ember.Mixin.create({
 		this.modalView = this.createModalView();
 		this.modalView.append();		
 	}
+});
+
+Vilio.DragNDrop = Ember.Namespace.create();
+
+// adapted from http://stackoverflow.com/questions/10762484/ember-js-html5-drag-and-drop-shopping-cart-demo
+Vilio.DragNDrop.cancel = function(event) {
+    event.preventDefault();
+    return false;
+};
+
+Vilio.DragNDrop.Draggable = Ember.Mixin.create({
+    attributeBindings: 'draggable',
+    draggable: 'true',
+    dragStart: function(event) {
+        var dataTransfer = event.originalEvent.dataTransfer;
+        dataTransfer.setData('Text', this.get('elementId'));
+    }
+});
+
+Vilio.DragNDrop.Droppable = Ember.Mixin.create({
+    dragEnter: Vilio.DragNDrop.cancel,
+    dragOver: Vilio.DragNDrop.cancel,
+    drop: function(event) {
+        event.preventDefault();
+        return false;
+    }
 });

@@ -12,6 +12,10 @@ DS.RESTAdapter.map('Vilio.MetadataValuesList', {
 DS.RESTAdapter.map('Vilio.MetadataField', {
   links : { embedded: 'load' }
 });
+DS.RESTAdapter.map('Vilio.MetadataTemplate', {
+  metadataTemplateFieldSettings: { embedded: 'always' }, 
+  links : { embedded: 'load' }
+});
 DS.RESTAdapter.map('Vilio.Portfolio', {
   links : { embedded: 'load' }
 });

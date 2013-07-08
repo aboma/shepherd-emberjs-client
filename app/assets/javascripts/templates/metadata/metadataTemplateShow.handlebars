@@ -1,0 +1,19 @@
+<div class="form-horizontal">
+    <div class="form-title">{{name}} Metadata Template</div>
+    <div class="form-display-property-group">
+	  <label class="control-label">Template URI</label>
+      <label class="data-label">{{ uri }}</label>
+	</div>
+    <div class="form-display-property-group">
+      <label class="control-label">Template Name: </label>
+      <label class="data-label">{{name}}</label>
+    </div>
+    <div class="form-display-property-group">
+      <label class="control-label">Description: </label>
+      <label class="data-label">{{description}}</label>
+    </div>
+  	<div class="control-group button-group-show">
+   		<button {{ action edit content disabledBinding="content.isDirty" }} 
+    			class="btn btn-success"> Edit </button>
+    </div>	
+</div>

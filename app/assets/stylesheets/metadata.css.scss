@@ -1,0 +1,55 @@
+#available-fields-list {
+  float: left;
+  vertical-align: top;
+  width: 200px;
+}
+
+#available-fields-list:after {
+  content: ".";
+  visibility: hidden;
+}
+
+#template-field-selection {
+  border: 5px solid #0E90D2;
+  border-radius: 10px;
+  display: table;
+  padding: 30px;
+  margin: 20px;
+  width: 650px;
+
+}
+
+#template-fields-list {
+  border: 5px solid #0E90D2;
+  border-radius: 10px;
+  float: left;
+  margin-left: 30px;
+  min-height: 300px;
+  padding: 30px;
+  vertical-align: top;
+  width: 350px;
+}
+
+.drop-target {
+  background-color: green;
+  height: 100%;
+  width: 100%;
+}
+
+.field-selection {
+  background-color: green;
+  border: 5px solid #0E90D2;
+  border-radius: 5px;
+  display: block;
+  margin-bottom: 10px;
+  padding: 10px;
+}
+
+.field-setting-edit {
+  background-color: #0E90D2;
+  border: 5px solid #0E90D2;
+  border-radius: 5px;
+  display: block;
+  padding: 10px;
+  margin: 10px;
+}
