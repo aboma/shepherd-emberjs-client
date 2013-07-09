@@ -55,8 +55,20 @@
           </div>
           {{#view Vilio.FieldsListView id="template-fields-list"}}
               <div><span>Template Fields</span></div>
-              {{#each metadataTemplateFieldSettings}}
-                  <div class="field-setting-edit">{{field.name}}</div>
+              {{#each orderedFieldSettings}}
+                  <div class="field-setting-edit">
+                    <span class="field-name"
+                     {{field.name}}
+                    </span>
+                    <span class="required-edit">
+                      Required? :
+                      {{view Ember.Checkbox checkedBinding="required"}} 
+                    </span>
+                    <div class="field-setting-actions">
+                      <div class="field-setting-action" {{ action promote this }} >+</div>
+                      <div class="field-setting-action" {{ action demote this }} >-</div>
+                    </div>
+                  </div>
               {{/each}}
           {{/view}}
         </div>
@@ -64,11 +76,11 @@
         {{#unless content.isNew }}
 	    	<div class="control-group">
 	    		<label class="control-label">Created On</label>
-	    		<label class="data-label">{{ content.created_at }}</label>
+	    		<label class="data-label">{{ content.createdAt }}</label>
 	    	</div>
 	    	<div class="control-group">
 	    		<label class="control-label">Updated On</label>
-	    		<label class="data-label">{{ content.updated_at }}</label>
+	    		<label class="data-label">{{ content.updatedAt }}</label>
 	    	</div>
     	{{/unless}}
     	<div class="control-group button-group-edit">
@@ -76,6 +88,11 @@
     			class="btn btn-success"> Save </button>
 			<button {{ action cancel content disabledBinding="content.isSaving" }} 
 				class="btn btn-warning"> Cancel </button>
+            {{#unless content.isNew}}
+				<button {{ action remove content disabledBinding="content.isSaving" }} 
+					class="btn btn-danger"> Delete </button>					
+			{{/unless}}
+
      	</div>
     </fieldset>
 </div>

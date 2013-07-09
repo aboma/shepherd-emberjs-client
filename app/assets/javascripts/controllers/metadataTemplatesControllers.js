@@ -10,10 +10,18 @@ Vilio.TemplateController = Ember.ObjectController.extend(Vilio.ResourceControlle
 Vilio.TemplateShowController = Ember.ObjectController.extend({
   needs: ['fields', 'template'],
   uri: Ember.computed.alias('controllers.template.uri'),
-  fields: Ember.computed.alias('controllers.fields.content')
+  fields: Ember.computed.alias('controllers.fields.content'),
+
+  // sort the field settings by the order selected by the user
+  orderedFieldSettings: function() {
+    return Ember.ArrayProxy.createWithMixins(Ember.SortableMixin, {
+      sortProperties: ['order'],
+      content: this.get('content.metadataTemplateFieldSettings')
+    });
+  }.property('content.metadataTemplateFieldSettings.@each')
 });
 
-Vilio.TemplatesNewController = Ember.ObjectController.extend(Vilio.EditModelControllerMixin, {
+Vilio.TemplatesNewController = Vilio.TemplateShowController.extend(Vilio.EditModelControllerMixin, {
   needs: ['fields', 'template'],
   uri: Ember.computed.alias('controllers.template.uri'),
   fields: Ember.computed.alias('controllers.fields.content'),
@@ -41,12 +49,28 @@ Vilio.TemplatesNewController = Ember.ObjectController.extend(Vilio.EditModelCont
   // add a field setting to collection
   addFieldSetting: function(field) {
     var template = this.get('content');
+    var length = this.get('orderedFieldSettings.length');
     this.get('content.metadataTemplateFieldSettings').createRecord({
         field: field, 
         required: false, 
-        order: 1
+        order: length + 1
     });
-}
+  },
+
+  promote: function(fieldSetting) {
+    this.reorderSettings(fieldSetting, fieldSetting.get('order') - 1);
+  },
+
+  demote: function(fieldSetting) {
+    this.reorderSettings(fieldSetting, fieldSetting.get('order') + 1);
+  },
+
+  reorderSettings: function(fieldSetting, newOrder) {
+    var order = fieldSetting.get('order');
+    var fs = this.get('orderedFieldSettings');
+    fs.objectAt(newOrder - 1).set('order', order);
+    fieldSetting.set('order', newOrder);
+  }
 });
 
 Vilio.TemplateEditController = Vilio.TemplatesNewController.extend({});

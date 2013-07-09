@@ -69,7 +69,7 @@ Vilio.TemplatesNewRoute = Ember.Route.extend({
 			}, function() {
                 // error handled on controller
             });
-		}
+        }
 	},
     deactivate: function() {
         this.controller.stopEditing();
@@ -105,7 +105,13 @@ Vilio.TemplateEditRoute = Ember.Route.extend({
 			}, function() {
                 // error handled on controller                               
             });
-		}
+		},
+        remove: function() {
+          var route = this;
+          this.controller.deleteRecord().then(function() {
+              route.transitionTo('templates.index');
+          });
+        }
 	},
     deactivate: function() {
         this.controller.stopEditing();

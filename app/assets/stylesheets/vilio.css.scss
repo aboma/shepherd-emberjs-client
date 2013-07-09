@@ -14,6 +14,11 @@ html, body
 	height: 100%;
 }
 
+legend, .page-header {
+  border-bottom: 1px solid #A4A4A4;
+  width: 500px;
+}
+
 #app-header
 {
 	#login-info
@@ -172,6 +177,7 @@ html, body
 	padding-bottom: 20px;
 	padding-right: 20px;
 	vertical-align: top;
+    width: 200px;
 }
 .message-hide
 {
