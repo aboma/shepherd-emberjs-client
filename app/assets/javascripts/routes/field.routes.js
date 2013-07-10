@@ -101,7 +101,13 @@ Vilio.FieldEditRoute = Ember.Route.extend({
 			}, function() {
                 // error handled on controller                               
             });
-		}
+		},
+        remove: function() {
+            var route = this;
+            this.controller.deleteRecord().then(function() {
+                route.transitionTo('fields.index');
+            });
+        }
 	},
     deactivate: function() {
         this.controller.stopEditing();

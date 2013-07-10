@@ -92,6 +92,11 @@
     			class="btn btn-success"> Save </button>
 			<button {{ action cancel content disabledBinding="content.isSaving" }} 
 				class="btn btn-warning"> Cancel </button>
+            {{#unless content.isNew}}
+				<button {{ action remove content disabledBinding="content.isSaving" }} 
+					class="btn btn-danger"> Delete </button>					
+			{{/unless}}
+
      	</div>
     </fieldset>
 </div>

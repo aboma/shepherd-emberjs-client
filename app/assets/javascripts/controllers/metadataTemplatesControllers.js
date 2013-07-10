@@ -51,7 +51,7 @@ Vilio.TemplatesNewController = Vilio.TemplateShowController.extend(Vilio.EditMod
     var template = this.get('content');
     var length = this.get('orderedFieldSettings.length');
     this.get('content.metadataTemplateFieldSettings').createRecord({
-        field: field, 
+        metadataField: field, 
         required: false, 
         order: length + 1
     });
