@@ -1,5 +1,6 @@
 Vilio.PortfolioSelect2 = Vilio.Select2.extend({
-	
+    classNames: ['select2-portfolio'],
+
 	// bind change in selected portfolio to trigger routing 
 	// to show portfolio or portfolio list if null
     valueDidChange: Ember.observer(function() {

@@ -43,10 +43,25 @@ Vilio.Router.map(function(match) {
 
 // load application settings and remove loading graphic
 Vilio.ApplicationRoute = Ember.Route.extend({
-    setupController: function() {
+    setupController: function(controller, model) {
+        // load application settings
         var settingController = this.controllerFor('setting');
         settingController.set('model', Vilio.Setting.find(1));
         Vilio.loadingOverlay.hide();
+        // load values lists for forms
+        var metadataValuesListsController = this.controllerFor('metadata_lists');
+        if (metadataValuesListsController) 
+          metadataValuesListsController.set('model', Vilio.MetadataValuesList.find({}));
+        // load fields
+        var metadataFieldsController = this.controllerFor('fields');
+        if (metadataFieldsController)
+          metadataFieldsController.set('model', Vilio.MetadataField.find({}));
+        // load metadata templates
+        var metadataTemplatesController = this.controllerFor('templates'); 
+        if (metadataTemplatesController)
+          metadataTemplatesController.set('model', Vilio.MetadataTemplate.find());
+
+        this._super(controller, model);
     }
 });
 

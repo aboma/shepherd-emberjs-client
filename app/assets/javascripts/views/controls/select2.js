@@ -34,6 +34,7 @@
 Vilio.Select2 = Ember.Select.extend({
     defaultTemplate: Ember.Handlebars.compile('<option>{{#if prompt}}{{unbound prompt}}{{/if}}</option>{{#each view.content}}{{view Ember.SelectOption contentBinding="this"}}{{/each}}'),
     attributeBindings: ['required'],
+    classNames: [],
     required: false,
     width: 'resolve',
     allowClear: true,
@@ -46,7 +47,7 @@ Vilio.Select2 = Ember.Select.extend({
         if (!this.$().select2)
 			throw new Exception('select2 is required for Vilio.Select2 control');
 		this.$().select2({
-			containerCssClass: 'select2-portfolio',
+			containerCssClass: this.get('classNames.first'),
 			placeholder: placeholderText,
 			allowClear: this.get('allowClear'),
             closeOnSelect: this.get('closeOnSelect'),

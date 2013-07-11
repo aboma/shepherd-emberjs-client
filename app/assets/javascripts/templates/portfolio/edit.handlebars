@@ -43,6 +43,25 @@
                    {{/if}}
                 </label>
 	    	</div>
+            <div class="control-group">
+                <label class="control-label">Metadata Template</label>
+                <div class="controls">
+                    {{ view Vilio.Select2 
+                          viewName="metadataTemplateSelect2"
+                          prompt="Please select a metadata template"
+                          contentBinding="controller.metadataTemplates" 
+                          optionLabelPath="content.name"
+                          optionValuePath="content.id"
+                          selectionBinding="content.metadataTemplate"
+                          required="" }}
+                </div>
+              <label class="error">
+                  {{#if content.errors}}
+                        {{content.errors.metadataTemplate}}
+                  {{/if}}
+                </label>
+            </div>
+
 	    	{{#unless content.isNew }}
 		    	<div class="control-group">
 		    		<label class="control-label">Created On</label>

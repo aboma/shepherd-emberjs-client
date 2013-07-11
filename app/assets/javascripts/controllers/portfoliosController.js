@@ -24,8 +24,9 @@ Vilio.PortfolioController = Ember.ObjectController.extend(Vilio.ResourceControll
 Vilio.PortfolioShowController = Ember.ObjectController.extend({});
 
 Vilio.PortfolioEditController = Ember.ObjectController.extend(Vilio.EditModelControllerMixin, {
-  needs: ['portfolio'],
-  uri: Ember.computed.alias('controllers.portfolio.uri') 
+  needs: ['portfolio', 'templates'],
+  uri: Ember.computed.alias('controllers.portfolio.uri'),
+  metadataTemplates: Ember.computed.alias('controllers.templates.content')
 });
 
 Vilio.PortfoliosNewController = Vilio.PortfolioEditController.extend({});
