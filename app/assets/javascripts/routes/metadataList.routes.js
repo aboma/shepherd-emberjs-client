@@ -33,6 +33,7 @@ Vilio.MetadataListsNewRoute = Ember.Route.extend({
 		},
 		save: function() {
 			var route = this;
+            this.controller.removeBlankValues();
 			this.controller.saveEdits().then(function() {
 				route.transitionTo('metadata_list.show', route.controller.get('content'));
 			});
@@ -87,6 +88,7 @@ Vilio.MetadataListEditRoute = Ember.Route.extend({
 		},
 		save: function() {
 			var route = this;
+            this.controller.removeBlankValues();
 			this.controller.saveEdits().then(function() {
 				route.transitionTo('metadata_list.show', route.controller.get('content'));
 			});

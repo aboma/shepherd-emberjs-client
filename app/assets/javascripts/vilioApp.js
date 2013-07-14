@@ -25,10 +25,14 @@ if (!window.console) {
 };
 
 Vilio.TextField = Ember.TextField.extend({
-	attributeBindings: ['required', 'autofocus', 'placeholderText'],
-	required: null,
+	attributeBindings: ['required', 'placeholderText'],
+	required: false,
 	autofocus: null,
-	placeholderText: null
+	placeholderText: null,
+
+    didInsertElement: function() {
+      this.$().focus();
+    }
 });
 
 Vilio.loadingOverlay = {

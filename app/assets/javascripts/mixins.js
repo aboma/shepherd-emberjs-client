@@ -14,17 +14,6 @@ Vilio.EditModelControllerMixin = Ember.Mixin.create({
     needs:['message'],
 	transaction: null,
 
-	// Set associations to be associations of the content. These will then be checked for validity on save
-	// and all of the flags, such as isDirty and isLoaded, will take these associations into consideration.
-	associations: [],
-
-  	models: (function() {
-    	var controller = this;
-    	return $.map($.merge(['content'], this.get('associations')), function(value, i) {
-      		return controller.get(value);
-    	});
-	}).property('content', 'associations'),
-
     changesExist: function() {
        var changesMade = false;
        $.each(this.get('models'), function(index, model) {
@@ -106,13 +95,8 @@ Vilio.EditModelControllerMixin = Ember.Mixin.create({
 	stopEditing: function(callback) {
         var controller = this;
         return new Em.RSVP.Promise(function(resolve, reject) {
-  	        // clean up unused transaction
-            $.each(controller.models, function(index, model) {
-                if (model && (!model.get('isValid') || model.get('isError'))) {
-                    model.get('transaction').rollback();
-                }
-		    });
-            resolve();
+          controller.get('content.transaction').rollback();
+          resolve();
         });
 	},
     // enable transaction to be submitted again

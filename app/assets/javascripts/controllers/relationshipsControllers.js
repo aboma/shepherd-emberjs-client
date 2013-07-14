@@ -19,22 +19,22 @@ Vilio.RelationshipController = Ember.ObjectController.extend(Vilio.EditModelCont
 
 Vilio.RelationshipsNewController = Ember.ObjectController.extend(Vilio.EditModelControllerMixin, {
 	needs: ['portfolio'],
-	
+
 	portfolio: function() {
 		var cont = this.get('controllers.portfolio');
 		var content = this.get('controllers.portfolio.content');
 		return this.get('controllers.portfolio.content.id');
 	}.property('controllers.portfolio.content.id'),
-	
+
 	addFile: function(rawfile) {
 		var content = this.get('content');
 		content.set('file', rawfile);
 		console.log('added content to file');
 	},
-	
+
 	upload: function(formData, success_callback, error_callback) {
         var controller = this;
-        var url = 'http://' + Vilio.CONFIG.url + '/' + Vilio.Relationship.collectionUrl;
+        var url = 'http://' + Vilio.CONFIG.url + '/relationships';
         var success = function(json) {
         	// load new relationship
         	var store = controller.get('store');
@@ -42,7 +42,7 @@ Vilio.RelationshipsNewController = Ember.ObjectController.extend(Vilio.EditModel
         	if (success_callback && typeof success_callback === 'function')
         		success_callback();
         };
-        
+
 		var request = $.ajax({
 			url : url, 
 			type : 'POST', 
@@ -71,13 +71,13 @@ Vilio.RelationshipsNewController = Ember.ObjectController.extend(Vilio.EditModel
 			contentType : false,
 			processData : false
 		});
-		
+
 		error_callback || ( error_callback = function(xhr) {
         	console.log('ajax error: ' + xhr);
         });
-		
+
 		request.then(success_callback, error_callback);
-		
+
         /*
         var fileinput = $(event.target).find('input[type="file"]:first');
         if (fileinput.length > 0 && fileinput[0].files && fileinput[0].files[0]) {
@@ -99,5 +99,5 @@ Vilio.RelationshipsNewController = Ember.ObjectController.extend(Vilio.EditModel
         }
         */
 	}
-	
+
 });

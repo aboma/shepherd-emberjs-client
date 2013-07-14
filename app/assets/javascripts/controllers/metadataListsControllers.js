@@ -23,6 +23,17 @@ Vilio.MetadataListsNewController = Ember.ObjectController.extend(Vilio.EditModel
     var newValue = this.transaction.createRecord(Vilio.MetadataListValue, {});
     var values = this.get('content.metadata_list_values');
     values.pushObject(newValue);
+  },
+  removeBlankValues: function() {
+    var values = this.get('content.metadata_list_values');
+    var blankValues = values.filter(function(item, index) {
+      var value = item.get('value');
+      if (!value || value.trim().length === 0)
+        return true;
+      return false;
+    }, this);
+    // remove blank values from values array
+    values.removeObjects(blankValues);
   }
 });
 
