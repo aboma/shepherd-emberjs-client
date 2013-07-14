@@ -1,10 +1,10 @@
 Vilio.AssetsView = Ember.View.extend(Vilio.ViewWithModalMixin, {
 	templateName : 'assets/assets',
-	
+
 	createModalView: function() {
 		return Vilio.AssetModalView.create({
 			controller: this.controller,
-			baseView: this
+            container: this.get('container')
 		});
 	}
 });
@@ -25,7 +25,7 @@ Vilio.AssetModalView = Ember.View.extend({
 	layoutName : 'layouts/modal',
 	templateName : 'assets/edit',
 	showHeader: true,
-		
+
 	close: function() {
 		this.destroy();
 	}

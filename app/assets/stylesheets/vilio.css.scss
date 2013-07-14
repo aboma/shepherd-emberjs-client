@@ -9,9 +9,18 @@
 // And finally bootswatch style itself
 @import "bootswatch/slate/bootswatch";
 
+// custom font from http://www.dafont.com/streetvertising-public.font
+@font-face {
+  font-family: 'Streetvertising';
+  src: font-url('/assets/Streetvertising%20Medium%20public.ttf') format('truetype');
+}
+
 html, body
 {
+    font-family: 'Streetvertising';
 	height: 100%;
+    font-weight: normal;
+    font-style: normal;
 }
 
 legend, .page-header {

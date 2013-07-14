@@ -3,9 +3,9 @@ require File.expand_path('../boot', __FILE__)
 #require 'rails/all'
 
 require "action_controller/railtie"
-require "action_mailer/railtie"
-require "active_resource/railtie"
-require "rails/test_unit/railtie"
+#require "action_mailer/railtie"
+#require "active_resource/railtie"
+#require "rails/test_unit/railtie"
 require "sprockets/railtie"
 
 if defined?(Bundler)
@@ -64,9 +64,6 @@ module VilioEmberjsClient
 
     # Version of your assets, change this if you want to expire all your assets
     config.assets.version = '1.2'
-  
-    #ember-rails gem configuration  
-    #Rails.configuration.handlebars.templates_root = 'v1/templates'
 
   end
 end

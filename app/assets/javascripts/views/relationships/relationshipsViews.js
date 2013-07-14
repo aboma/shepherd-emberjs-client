@@ -4,7 +4,7 @@ Vilio.RelationshipsView = Ember.View.extend({
 
 Vilio.RelationshipsNewView = Ember.View.extend({
 	templateName: "relationship/new",
-	
+
 	// uploads file to server as new asset with
 	// a relationship to current portfolio
     submit: function(event) {
@@ -31,48 +31,57 @@ Vilio.RelationshipsIndexView = Ember.View.extend({
 	templateName: "relationship/index"
 });
 
-Vilio.RelationshipView = Ember.View.extend({
-	templateName : 'relationship/show',
+Vilio.RelationshipModalView = Ember.View.extend({
+	layoutName : 'layouts/modal',
+	templateName : 'relationship/edit',
+
+	close: function() {
+		this.destroy();
+	},
+
+	removeFromPortfolio: function() {
+		var view = this;
+        //TODO make this call a promise
+		this.controller.removeRelationship(function() {
+			view.close();			
+		});
+	}
+});
+
+Vilio.RelationshipView = Ember.ContainerView.extend({
+    childViews: ['relationshipShow'],
 	relationshipModalView: null,
-	
+
+    relationshipShow: Em.View.extend({
+        templateName : 'relationship/show'
+    }),
+
 	click: function() {
 		console.log("relationship view clicked");
 		this.showRelationshipModalView();
 	},
-	
+
 	close: function() {
 		this.closeModalView();
 	},
-	
+
 	closeModalView: function() {
-		if (this.relationshipModalView)
+		if (this.relationshipModalView) {
+            this.removeObject(this.relationshipModelView);
 			this.relationshipModalView.close();
+            this.relationshipModalView = null;
+        }
 	},
-	
+
 	// open modal view of relationship to show all
 	// details
 	showRelationshipModalView: function() {
 		this.closeModalView();
 		this.relationshipModalView = Vilio.RelationshipModalView.create({
 			controller: this.controller,
-			baseView: this
+			baseView: this,
+            container: this.get('container')
 		});
-		this.relationshipModalView.append();		
-	}
-});
-
-Vilio.RelationshipModalView = Ember.View.extend({
-	layoutName : 'layouts/modal',
-	templateName : 'relationship/edit',
-		
-	close: function() {
-		this.destroy();
-	},
-	
-	removeFromPortfolio: function() {
-		var view = this;
-		this.controller.removeRelationship(function() {
-			view.close();			
-		});
+		this.pushObject(this.relationshipModalView);		
 	}
 });

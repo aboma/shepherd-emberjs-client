@@ -8,8 +8,7 @@ Vilio.AssetsNewController = Ember.ObjectController.extend({});
 
 Vilio.ThumbnailController = Ember.ArrayController.extend({
 	thumbnail: (function() {
-		var t = this.get('content').filterProperty('rel', 'thumbnail');
-		return t;
+		return this.get('content').filterProperty('rel', 'thumbnail');
 	}).property('content.@each'),
 
 	full_path: function() {
@@ -17,4 +16,10 @@ Vilio.ThumbnailController = Ember.ArrayController.extend({
 		if (!url) return null;
 		return url + '?x-api-key=' + auth_token;
 	}.property('content.@each.href'),
+});
+
+Vilio.AssetImageController = Ember.ArrayController.extend({
+    fullSizeImage: (function() {
+		return this.get('content').filterProperty('rel', 'self');
+    }).property('content.@each')
 });
