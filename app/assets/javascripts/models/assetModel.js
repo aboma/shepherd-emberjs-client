@@ -5,5 +5,6 @@ Vilio.Asset = DS.Model.extend({
     createdAt : DS.attr('date'),
     updatedAt : DS.attr('date'), 
 	links : DS.hasMany('Vilio.Link', { embedded: 'load' }),
-	relationships: DS.hasMany('Vilio.Relationship', { embedded: 'load' })
+	relationships: DS.hasMany('Vilio.Relationship', { embedded: 'load' }),
+    metadataValues: DS.hasMany('Vilio.MetadataValue', { embedded: 'load' })
 });

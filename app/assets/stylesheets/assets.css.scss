@@ -8,6 +8,22 @@
   margin-top: 30px;
 }
 
+.asset-details {
+  min-height: 500px;
+  width: 900px;
+}
+
+.asset-details-header {
+  button {
+    display: inline;
+  }
+}
+
+.asset-details-image {
+  height: 400px;
+  margin: 30px 0px 30px 0px;
+}
+
 .asset-name {
   text-align: center;
   padding: 10px 0px 10px 0px;
@@ -20,15 +36,4 @@
   margin: 10px;
   text-align: center;
   width: 140px;
-}
-
-.asset-details {
-  min-height: 500px;
-  width: 900px;
-}
-
-.asset-details-header {
-  button {
-    display: inline;
-  }
 }

@@ -1,6 +1,9 @@
 <div class="asset-details">
 	<div class="asset-details-header">
-		<h3>{{ name }} ({{ filename }})</h3>
+		<h2>{{ name }} ({{ filename }})</h2>
+        <div class="asset-details-image">
+           {{ render "assetImage" content.links }}    
+        </div>
 		<button {{ action editAsset content }} class="btn btn-warning"> Edit </button>
 	</div>
 </div>
