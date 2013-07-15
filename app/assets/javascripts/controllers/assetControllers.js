@@ -2,21 +2,30 @@ Vilio.AssetsIndexController = Ember.ArrayController.extend({});
 
 Vilio.AssetsController = Ember.ObjectController.extend({});
 
-Vilio.AssetController = Ember.ObjectController.extend({});
 
 Vilio.AssetEditController = Ember.ObjectController.extend(Vilio.ResourceControllerMixin, {
+    needs: ['portfolio'],
+
+    //TODO fix
+    init: function() {
+        var portfolio = this.get('controllers.portfolio.content');
+        this.createMetadataValues(portfolio);
+    },
     createMetadataValues: function(portfolio) {
         if (!portfolio) return;
-        var fieldSettings = portfolio.get('metadataTemplate.metadataTemplateFieldSettings');
-        if (fieldSettings !== null) return;
+        var fieldSettings = portfolio.get('metadataTemplate.metadataTemplateFieldSettings'),
+            metaValues = this.get('content.metadataValues');
+        if ((fieldSettings === null) || (metaValues !== null)) return;
         fieldSettings.forEach(function(item, index) {
-            this.get('content.metadataValues').pushObject(new Vilio.MetadataValue({
+            metaValues.pushObject(new Vilio.MetadataValue({
                 metadataField: item.get('metadataField'),
                 metadataValue: null
             }));
         }, this);
     }
 });
+
+Vilio.AssetController = Vilio.AssetEditController.extend({});
 
 Vilio.AssetsNewController = Vilio.AssetEditController.extend({});
 

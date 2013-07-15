@@ -15,10 +15,6 @@ Vilio.EditModelControllerMixin = Ember.Mixin.create({
 	transaction: null,
 
     changesExist: function() {
-       var changesMade = false;
-       $.each(this.get('models'), function(index, model) {
-           changesMade = model.get('isDirty');
-       });
        return true;   //TODO fix
     },
 

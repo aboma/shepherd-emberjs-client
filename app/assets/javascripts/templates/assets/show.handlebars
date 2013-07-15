@@ -4,6 +4,11 @@
         <div class="asset-details-image">
            {{ render "assetImage" content.links }}    
         </div>
+        <div class="asset-details-metadata">
+            {{#each value in metadataValues}}
+                {{value.metadataField.name}}
+            {{/each}}
+        </div>
 		<button {{ action editAsset content }} class="btn btn-warning"> Edit </button>
 	</div>
 </div>
