@@ -44,7 +44,6 @@ Vilio.FieldShowRoute = Ember.Route.extend({
 Vilio.FieldsNewRoute = Ember.Route.extend({
 	model: function() {
 		var transaction = this.store.transaction();
-		this.controllerFor(this.routeName).startEditing(transaction);
 		return transaction.createRecord(Vilio.MetadataField, {});
 	},
     renderTemplate: function() {
@@ -79,9 +78,7 @@ Vilio.FieldEditRoute = Ember.Route.extend({
    	// create transaction and add model to it
 	setupController: function(controller, model) {
         this._super(controller, model);
-		var transaction = this.store.transaction();
-		transaction.add(model);
-		controller.startEditing(transaction);
+		this.store.transaction().add(model);
 	},
     renderTemplate: function() {
         this.render('field.edit', {

@@ -17,7 +17,6 @@ Vilio.MetadataListsIndexRoute = Ember.Route.extend({
 Vilio.MetadataListsNewRoute = Ember.Route.extend({
 	model: function() {
 		var transaction = this.store.transaction();
-		this.controllerFor(this.routeName).startEditing(transaction);
 		return transaction.createRecord(Vilio.MetadataValuesList, {});
 	},
 	renderTemplate: function() {
@@ -71,9 +70,7 @@ Vilio.MetadataListEditRoute = Ember.Route.extend({
    	// create transaction and add model to it
 	setupController: function(controller, model) {
         this._super(controller, model);
-		var transaction = this.store.transaction();
-		transaction.add(model);
-		controller.startEditing(transaction);
+		this.store.transaction().add(model);
 	},
     renderTemplate: function() {
         this.render('metadata_list.edit', {

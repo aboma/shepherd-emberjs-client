@@ -37,7 +37,6 @@ Vilio.TemplateShowRoute = Ember.Route.extend({
 Vilio.TemplatesNewRoute = Ember.Route.extend({
 	model: function() {
 		var transaction = this.store.transaction();
-		this.controllerFor(this.routeName).startEditing(transaction);
 		return transaction.createRecord(Vilio.MetadataTemplate, {});
 	},
     renderTemplate: function() {
@@ -72,9 +71,7 @@ Vilio.TemplateEditRoute = Ember.Route.extend({
    	// create transaction and add model to it
 	setupController: function(controller, model) {
         this._super(controller, model);
-		var transaction = this.store.transaction();
-		transaction.add(model);
-		controller.startEditing(transaction);
+		this.store.transaction().add(model);
 	},
     renderTemplate: function() {
         this.render('template.edit', {

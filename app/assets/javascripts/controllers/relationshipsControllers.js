@@ -12,7 +12,6 @@ Vilio.RelationshipController = Ember.ObjectController.extend(Vilio.EditModelCont
 	// event to remove/delete relationship
 	removeRelationship: function(callback) {
 		console.log('remove relationship triggered');
-		this.startEditing();
 		this.deleteRecord(callback);
 	}
 });

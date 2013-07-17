@@ -12,19 +12,11 @@ Vilio.ResourceControllerMixin = Ember.Mixin.create({
 // for use in controllers
 Vilio.EditModelControllerMixin = Ember.Mixin.create({
     needs:['message'],
-	transaction: null,
 
     changesExist: function() {
        return true;   //TODO fix
     },
 
-	startEditing: function(transaction) {
-		if (!transaction) {
-			transaction = this.store.transaction();
-			// transaction.add(this.get('content'));
-		}
-		this.transaction = transaction;			
-	},
 	// works for both save and edit by inspecting record states
 	// commit record if it has changed; returns promise of 
     // record create or update
@@ -85,7 +77,7 @@ Vilio.EditModelControllerMixin = Ember.Mixin.create({
                 reject();
             });
 		    record.deleteRecord();
-    		controller.transaction.commit();
+    		controller.get('content.transaction').commit();
         });
 	},
 	stopEditing: function(callback) {

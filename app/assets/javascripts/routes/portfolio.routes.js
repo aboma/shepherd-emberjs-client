@@ -20,7 +20,6 @@ Vilio.PortfoliosIndexRoute = Ember.Route.extend({
 Vilio.PortfoliosNewRoute = Ember.Route.extend({
 	model: function() {
 		var transaction = this.store.transaction();
-		this.controllerFor(this.routeName).startEditing(transaction);
 		return transaction.createRecord(Vilio.Portfolio, {});
 	},
 	renderTemplate: function() {
@@ -73,9 +72,7 @@ Vilio.PortfolioEditRoute = Ember.Route.extend({
 	// create transaction and add model to it
 	setupController: function(controller, model) {
         this._super(controller, model);
-		var transaction = this.store.transaction();
-		transaction.add(model);
-		controller.startEditing(transaction);
+		this.store.transaction().add(model);
 	},
 	renderTemplate: function() {
 		this.render('portfolio.edit', {
@@ -101,7 +98,7 @@ Vilio.PortfolioEditRoute = Ember.Route.extend({
 			var route = this;
 			this.controller.deleteRecord().then(function(){
 				console.log('portfolio deleted');
-				route.transitionTo('portfolios');
+				route.transitionTo('portfolios.index');
 			}, function() {
                 console.log('error deleting portfolio');
             });
