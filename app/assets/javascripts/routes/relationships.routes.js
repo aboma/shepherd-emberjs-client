@@ -30,7 +30,7 @@ Vilio.RelationshipsNewRoute = Ember.Route.extend({
 		});
 	},
     events: {
-        create: function(event) {
+        create: function(evt) {
             console.log('CREATED');
             if (event.formData) {
                 var route = this,
@@ -41,8 +41,11 @@ Vilio.RelationshipsNewRoute = Ember.Route.extend({
                 var error = function(xhr) {
                     //TODO show message
                 };
-                this.controller.upload(event.formData, success, error);
+                this.controller.upload(evt.formData, success, error);
             }
+        },
+        cancel: function(evt) {
+            this.transitionTo('relationships.index');
         }
     }
 });

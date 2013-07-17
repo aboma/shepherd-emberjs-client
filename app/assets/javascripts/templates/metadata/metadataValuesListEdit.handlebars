@@ -79,13 +79,10 @@
 	    	</div>
     	{{/unless}}
     	<div class="control-group button-group-edit">
-    		<button {{ action save content disabledBinding="content.isDirty" }} 
-    			class="btn btn-success"> Save </button>
-			<button {{ action cancel content disabledBinding="content.isSaving" }} 
-				class="btn btn-warning"> Cancel </button>
+            {{#view Vilio.SaveButton }} Save {{/view}}
+            {{#view Vilio.CancelButton }} Cancel {{/view}}
             {{#unless content.isNew}}
-				<button {{ action remove content disabledBinding="content.isSaving" }} 
-					class="btn btn-danger"> Delete </button>					
+                {{#view Vilio.DeleteButton }} Delete {{/view}}
 			{{/unless}}
      	</div>
     </fieldset>

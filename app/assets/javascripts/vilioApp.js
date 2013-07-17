@@ -35,6 +35,42 @@ Vilio.TextField = Ember.TextField.extend({
     }
 });
 
+Vilio.Button = Ember.View.extend(Ember.TargetActionSupport, {
+    tagName: 'button',
+    classNames: ['btn'],
+    content: Ember.computed.alias('controller.content'),
+    target: Ember.computed.alias('controller.target'),
+    actionContext: Ember.computed.alias('context'),
+    click: function(){
+      this.triggerAction(); // Sends the `save` action, along with the current context
+                            // to the target
+    }
+});
+
+Vilio.SaveButton = Vilio.Button.extend({
+    classNames: ['btn-success'], 
+    attributeBindings: ['disabled'],
+    //disabled: !Ember.Binding.oneWay('content.isDirty'),
+    disabled: function() {
+        return !this.get('content.isDirty') || this.get('content.isSaving');
+    }.property('content.isDirty', 'content.isSaving').cacheable(),
+
+    action: 'save'
+});
+
+Vilio.CancelButton = Vilio.Button.extend({
+    classNames: ['btn-warning'],
+    action: 'cancel'
+});
+
+Vilio.DeleteButton = Vilio.Button.extend({
+    classNames: ['btn-danger'],
+    action: 'remove',
+    disabled: function() {
+        return this.get('content.isSaving');
+    }.property('content.isSaving').cacheable(),
+});
+
 Vilio.loadingOverlay = {
     hide : function() {
       console.log('hiding loading overlay');

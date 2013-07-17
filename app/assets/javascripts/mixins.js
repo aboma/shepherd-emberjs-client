@@ -9,13 +9,9 @@ Vilio.ResourceControllerMixin = Ember.Mixin.create({
 });
 
 // Mixin to generalize model create/edit functionality
-// for use in controllers
+// for use in controllers. Typical use in route:
 Vilio.EditModelControllerMixin = Ember.Mixin.create({
     needs:['message'],
-
-    changesExist: function() {
-       return true;   //TODO fix
-    },
 
 	// works for both save and edit by inspecting record states
 	// commit record if it has changed; returns promise of 
@@ -28,9 +24,9 @@ Vilio.EditModelControllerMixin = Ember.Mixin.create({
             // reset transaction if user wants to resubmit record
             // that is invalid or in error state
             if (!record.get('isValid') || record.get('isError')) {
-                this.resetTransaction();
+                this.resetRecordState();
             }
-            if (controller.changesExist()) {
+            if (record.get('isDirty')) {
                 msgController.set('message', 'saving record');
 			    var method = record.get('isNew') === true ? 'didCreate' : 'didUpdate';
     			// callback will show record once the id is available
@@ -38,7 +34,7 @@ Vilio.EditModelControllerMixin = Ember.Mixin.create({
                     msgController.set('message', 'record saved');
                     if (method === 'didUpdate') {
                         // resolve promise
-                        resolve();
+                        resolve(record);
                     } else {
                         // observe for when id is created since we may need this
                         // for transition
@@ -46,11 +42,11 @@ Vilio.EditModelControllerMixin = Ember.Mixin.create({
                     }
 		    	});
                 var errorHandler = function() {
-                    // reject promise
-                    reject();
                     var type = this.get('content.isError') ? 'error' : 'problem';
                     msgController.set('message', type + ' saving record');
                     this.get('content.transaction').rollback();
+                    // reject promise
+                    reject(record);
                 }
                 // callback for invalid or conflict response from server
                 record.one('becameInvalid', controller, errorHandler);
@@ -59,22 +55,24 @@ Vilio.EditModelControllerMixin = Ember.Mixin.create({
 			    record.get('transaction').commit();
     		} else {
                 msgController.set('message', 'no changes to save in model');
-                resolve();
+                resolve(record);
     		}
         });
 	},
 	// returns promise to delete resource
 	deleteRecord: function() {
     	var controller = this,
+            msgController = this.get('controllers.message'),
             record = this.get('content');
         return new Em.RSVP.Promise(function(resolve, reject) {
+            msgController.set('message', 'deleting record');
 	    	record.one('didDelete', controller, function() {
-		    	console.log('record deleted');
+                msgController.set('message', 'record deleted');
                 resolve();
 	    	});
             record.one('didError', controller, function() {
-                console.log('error deleting record');
-                reject();
+                msgController.set('message', 'error deleting record');
+                reject(record);
             });
 		    record.deleteRecord();
     		controller.get('content.transaction').commit();
@@ -83,12 +81,12 @@ Vilio.EditModelControllerMixin = Ember.Mixin.create({
 	stopEditing: function(callback) {
         var controller = this;
         return new Em.RSVP.Promise(function(resolve, reject) {
-          controller.get('content.transaction').rollback();
-          resolve();
+            controller.get('content.transaction').rollback();
+            resolve();
         });
 	},
     // enable transaction to be submitted again
-    resetTransaction: function() {
+    resetRecordState: function() {
         var record = this.get('content');
         var state = record.get('id') ? 'loaded.updated.uncommitted' : 'loaded.created.uncommited';
         record.get('stateManager').transitionTo(state);

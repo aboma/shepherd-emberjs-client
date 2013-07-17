@@ -1,5 +1,6 @@
-<form id="asset-upload">
-	<h3>Add Asset to Portfolio</h3>
+<div class="form-horizontal">
+  <form id="asset-upload">
+	<legend>Upload Asset to Portfolio</legend>
     <div class="control-group">
    		<label class="control-label">Asset Name</label>
    		<div class="controls">
@@ -12,9 +13,16 @@
 			<input type="text" name="description" />
 		</div>
 	</div>
-	<input type="file" name="file" />
+    <div class="control-group">
+   		<label class="control-label">File</label>
+   		<div class="controls">
+        	<input type="file" name="file" />
+        </div>
+    </div>
 	<input type="hidden" name="portfolio_id" value="{{unbound controller.portfolio}}" />
-	<div>
+    <div class="control-group button-group-edit">
 		<button type="submit" class="btn btn-success"> Upload </button>
+        {{#view Vilio.CancelButton }} Cancel {{/view}}
 	</div>
-</form>
+  </form>
+</div>
