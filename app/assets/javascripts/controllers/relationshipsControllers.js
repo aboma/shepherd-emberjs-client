@@ -34,16 +34,23 @@ Vilio.RelationshipsNewController = Ember.ObjectController.extend(Vilio.EditModel
 
 	upload: function(formData, success_callback, error_callback) {
         var controller = this;
-        var url = 'http://' + Vilio.CONFIG.url + '/relationships';
+        var type = Vilio.Relationship;
+        var store = controller.get('store');
+        var adapter = store.adapterForType(type);
+        var root = adapter.get('serializer').rootForType(type), json = {};
+        var url = adapter.buildURL(root);
         var success = function(json) {
         	// load new relationship
-        	var store = controller.get('store');
-        	store.adapterForType(Luxin.Relationship).load(store, Luxin.Relationship, json);
-        	if (success_callback && typeof success_callback === 'function')
+            var result = adapter.load(store, Vilio.Relationship, json);
+            //adapter.didCreateRecord(store, type, null, json);
+         	if (success_callback && typeof success_callback === 'function')
         		success_callback();
         };
+        error_callback || ( error_callback = function(xhr) {
+        	console.log('ajax error: ' + xhr);
+        });
 
-		var request = $.ajax({
+		$.ajax({
 			url : url, 
 			type : 'POST', 
 			dataType : 'json',
@@ -61,8 +68,6 @@ Vilio.RelationshipsNewController = Ember.ObjectController.extend(Vilio.EditModel
 				}
 				return myXhr;
 			}, */
-			// Ajax events
-            success: success_callback,
 			// Form data
 			data : formData,
 			// Options to tell JQuery not to process data or worry about
@@ -70,13 +75,7 @@ Vilio.RelationshipsNewController = Ember.ObjectController.extend(Vilio.EditModel
 			cache : false,
 			contentType : false,
 			processData : false
-		});
-
-		error_callback || ( error_callback = function(xhr) {
-        	console.log('ajax error: ' + xhr);
-        });
-
-		request.then(success_callback, error_callback);
+		}).then(success, error_callback);
 
         /*
         var fileinput = $(event.target).find('input[type="file"]:first');

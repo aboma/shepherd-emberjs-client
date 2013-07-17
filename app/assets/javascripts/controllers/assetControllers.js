@@ -9,7 +9,7 @@ Vilio.AssetEditController = Ember.ObjectController.extend(Vilio.ResourceControll
     //TODO fix
     init: function() {
         var portfolio = this.get('controllers.portfolio.content');
-        this.createMetadataValues(portfolio);
+        //this.createMetadataValues(portfolio);
     },
     createMetadataValues: function(portfolio) {
         if (!portfolio) return;
