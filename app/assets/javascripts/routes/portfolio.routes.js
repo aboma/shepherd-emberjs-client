@@ -42,7 +42,10 @@ Vilio.PortfoliosNewRoute = Ember.Route.extend({
                 console.log('error creating portfolio');
             });
 		}
-	}
+	},
+    deactivate: function() {
+        this.controller.stopEditing();
+    }
 });
 
 Vilio.PortfolioRoute = Ember.Route.extend({

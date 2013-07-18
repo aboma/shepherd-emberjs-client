@@ -26,37 +26,37 @@ Vilio.EditModelControllerMixin = Ember.Mixin.create({
             if (!record.get('isValid') || record.get('isError')) {
                 this.resetRecordState();
             }
-            if (record.get('isDirty')) {
-                msgController.set('message', 'saving record');
-			    var method = record.get('isNew') === true ? 'didCreate' : 'didUpdate';
-    			// callback will show record once the id is available
-	    		record.one(method, controller, function() {
-                    msgController.set('message', 'record saved');
-                    if (method === 'didUpdate') {
-                        // resolve promise
-                        resolve(record);
-                    } else {
-                        // observe for when id is created since we may need this
-                        // for transition
-		    	        record.addObserver('id', this, resolve);
-                    }
-		    	});
-                var errorHandler = function() {
-                    var type = this.get('content.isError') ? 'error' : 'problem';
-                    msgController.set('message', type + ' saving record');
-                    this.get('content.transaction').rollback();
-                    // reject promise
-                    reject(record);
-                }
-                // callback for invalid or conflict response from server
-                record.one('becameInvalid', controller, errorHandler);
-                record.one('becameError', controller, errorHandler);
-		    	// trigger save
-			    record.get('transaction').commit();
-    		} else {
+            if (!record.get('isDirty')) {
                 msgController.set('message', 'no changes to save in model');
                 resolve(record);
-    		}
+                return;
+            }
+            msgController.set('message', 'saving record');
+    	    var method = record.get('isNew') === true ? 'didCreate' : 'didUpdate';
+    		// callback will show record once the id is available
+	   		record.one(method, controller, function() {
+                msgController.set('message', 'record saved');
+                if (method === 'didUpdate') {
+                    // resolve promise
+                    resolve(record);
+                } else {
+                    // observe for when id is created since we may need this
+                    // for transition
+	    	        record.addObserver('id', this, resolve);
+                }
+	    	});
+            var errorHandler = function() {
+                var type = this.get('content.isError') ? 'error' : 'problem';
+                msgController.set('message', type + ' saving record');
+                this.get('content.transaction').rollback();
+                // reject promise
+                reject(record);
+            }
+            // callback for invalid or conflict response from server
+            record.one('becameInvalid', controller, errorHandler);
+            record.one('becameError', controller, errorHandler);
+	    	// trigger save
+		    record.get('transaction').commit();
         });
 	},
 	// returns promise to delete resource
@@ -81,7 +81,11 @@ Vilio.EditModelControllerMixin = Ember.Mixin.create({
 	stopEditing: function(callback) {
         var controller = this;
         return new Em.RSVP.Promise(function(resolve, reject) {
+            var content = controller.get('content');
             controller.get('content.transaction').rollback();
+            if (content.get('isNew')) {
+                content.deleteRecord();
+            }
             resolve();
         });
 	},

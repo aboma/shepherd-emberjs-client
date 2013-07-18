@@ -8,7 +8,7 @@
   <div id="metadata-lists-list" class="left-nav">
     <ul class="nav nav-list"> 
     {{#each list in controller}}
-      {{#unless list.isnew}}
+      {{#unless list.isNew}}
         <li>{{#linkTo "metadata_list.show" list}}{{list.name}}{{/linkTo}}</li>
       {{/unless}}
     {{/each}}
