@@ -8,8 +8,10 @@ Vilio.PortfoliosController = Ember.ArrayController.extend({
 	selectedBinding: Ember.Binding.oneWay("controllers.portfolio.content"),
 
     savedSortedContent: function() {
-        return this.get('arrangedContent').filterProperty('isNew', false);
-    }.property('content.@each'),
+        return this.get('arrangedContent').filter(function(item) {
+          return item.get('isNew') === false;
+        });
+    }.property('content.@each.isNew'),
 
 	clearSelected : function() {
 		console.log('clearing selected portfolio');

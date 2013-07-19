@@ -1,12 +1,17 @@
 Vilio.RelationshipsIndexController = Ember.ArrayController.extend({	
-	// broken per http://stackoverflow.com/questions/11267100/is-it-possible-to-use-function-in-handlebars-if
+	// broken per https://github.com/emberjs/data/issues/587
 	empty: function() {
 		var numOfAssets = this.get('content.length');
 		return numOfAssets === 0;
-	}.observes('content.length')
+	}.property('content.length')
 });
 
-Vilio.RelationshipsController = Ember.ObjectController.extend({});
+Vilio.RelationshipsController = Ember.ObjectController.extend({
+    added: function() {
+        var length = this.get('content.length');
+        console.log('content changed; length is ' + length);
+    }.property('content.@each')
+});
 
 Vilio.RelationshipController = Ember.ObjectController.extend(Vilio.EditModelControllerMixin, {
 	// event to remove/delete relationship
@@ -31,7 +36,12 @@ Vilio.RelationshipsNewController = Ember.ObjectController.extend(Vilio.EditModel
 		console.log('added content to file');
 	},
 
-	upload: function(formData, success_callback, error_callback) {
+    upload: function(formData) {
+        var record = this.get('store').transaction().createRecord(Vilio.Relationship, {});
+        record.set('formData', formData);
+        record.get('transaction').commit();
+    },
+	upload_archive: function(formData, success_callback, error_callback) {
         var controller = this;
         var type = Vilio.Relationship;
         var store = controller.get('store');
@@ -41,7 +51,9 @@ Vilio.RelationshipsNewController = Ember.ObjectController.extend(Vilio.EditModel
         var success = function(json) {
         	// load new relationship
             var result = adapter.load(store, Vilio.Relationship, json);
-            //adapter.didCreateRecord(store, type, null, json);
+            var newRecord = store.transaction().createRecord(Vilio.Relationship, {});
+            adapter.didCreateRecord(store, type, newRecord, json);
+            //var rel = this.get('controllers.relationships.content');
          	if (success_callback && typeof success_callback === 'function')
         		success_callback();
         };

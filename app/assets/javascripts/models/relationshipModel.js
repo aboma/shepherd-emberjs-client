@@ -3,5 +3,7 @@ Vilio.Relationship = DS.Model.extend({
 	portfolio : DS.belongsTo('Vilio.Portfolio'),
 	createdAt : DS.attr('date'),
 	updatedAt : DS.attr('date'),
-	links : DS.hasMany('Vilio.Link', { embedded: 'load' })
+	links : DS.hasMany('Vilio.Link', { embedded: 'load' }),
+
+    formData : null
 });

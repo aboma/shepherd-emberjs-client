@@ -1,6 +1,4 @@
 Vilio.RelationshipsRoute = Ember.Route.extend({
-	// get relationships for portfolio; these contain 
-	// portfolio <-> asset relationship
 	renderTemplate: function() {
 		this.render('relationships', {
 			into: 'portfolios',
@@ -10,6 +8,8 @@ Vilio.RelationshipsRoute = Ember.Route.extend({
 });
 
 Vilio.RelationshipsIndexRoute = Ember.Route.extend({
+    // get relationships for portfolio; these contain 
+	// portfolio <-> asset relationship
     model: function() {
 		var id = this.modelFor('portfolio').get('id');
 		return Vilio.Relationship.find({ portfolio_id: id });
@@ -24,6 +24,10 @@ Vilio.RelationshipsIndexRoute = Ember.Route.extend({
 // This route post FormData to the server, so it does not
 // use the edit controller mixin nor create a model for editing
 Vilio.RelationshipsNewRoute = Ember.Route.extend({
+    model: function() {
+        var port = this.modelFor('portfolio');
+        return this.store.transaction().createRecord(Vilio.Relationship, { portfolio: port });
+    },
 	renderTemplate: function() {
 		this.render('relationships.new', {
 			into: 'relationships'
@@ -31,17 +35,15 @@ Vilio.RelationshipsNewRoute = Ember.Route.extend({
 	},
     events: {
         create: function(evt) {
-            console.log('CREATED');
-            if (event.formData) {
-                var route = this,
-                    portfolio = this.controllerFor('portfolio').get('content');
-                var success = function() {
-                    route.transitionTo('relationships.index');
-                };
-                var error = function(xhr) {
-                    //TODO show message
-                };
-                this.controller.upload(evt.formData, success, error);
+            if (evt.formData) {
+                var route = this;
+                route.controller.get('content').set('formData', evt.formData);
+			    this.controller.saveEdits().then(function(record) {
+				    console.log('relationship created');
+    				route.transitionTo('relationships.index');
+	    		}, function() {
+                    console.log('error creating relationship');
+                });
             }
         },
         cancel: function(evt) {
