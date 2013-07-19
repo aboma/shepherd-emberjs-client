@@ -30,14 +30,6 @@ Vilio.RelationshipsIndexView = Ember.View.extend({
 Vilio.RelationshipModalView = Ember.View.extend({
 	layoutName : 'layouts/modal',
 	templateName : 'relationship/edit',
-
-	removeFromPortfolio: function() {
-		var view = this;
-        //TODO make this call a promise
-		this.controller.removeRelationship(function() {
-			view.close();			
-		});
-	}
 });
 
 Vilio.RelationshipView = Ember.ContainerView.extend({
@@ -49,15 +41,18 @@ Vilio.RelationshipView = Ember.ContainerView.extend({
     }),
 
 	click: function() {
-		console.log("relationship view clicked");
-		this.showRelationshipModalView();
+        this.get('controller').send('select');
 	},
 
-	close: function() {
-		this.closeModalView();
-	},
+    selectionChanged: function() {
+        if (this.get('controller.selected')) {
+		    this.showRelationshipModalView();
+        } else {
+            this.closeModalView();
+        }
+    }.observes('controller.selected'),
 
-	closeModalView: function() {
+    closeModalView: function() {
 		if (this.relationshipModalView) {
             this.removeObject(this.relationshipModelView);
 			this.relationshipModalView.destroy();

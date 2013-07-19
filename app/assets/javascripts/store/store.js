@@ -64,14 +64,8 @@ Vilio.FileUploadRESTAdapter = Vilio.RESTAdapter.extend({
         var root = this.rootForType(type), json = {};
         var formData = record.get('formData');
     	console.log('FileUploadRestAdapter saving record with file');
-        //var form_data = new FormData();
-        //for(var prop in record) {
-        //	form_data.append(record.key, record.value);
-        //}
-        //data.append('username', record.get('username'));
-        //data.append('attachment', record.get('attachment'));
 
-		return $.ajax({
+        return $.ajax({
 			url : this.buildURL(root), 
 			type : 'POST', 
 			context : this,  
