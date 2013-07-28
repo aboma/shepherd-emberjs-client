@@ -4,11 +4,20 @@
         <div class="asset-details-image">
            {{ render "assetImage" content.links }}    
         </div>
-        <div class="asset-details-metadata">
-            {{#each value in metadataValues}}
-                {{value.metadataField.name}}
-            {{/each}}
-        </div>
-		<button {{ action editAsset content }} class="btn btn-warning"> Edit </button>
-	</div>
+    </div>
+    <div class="asset-details-metadata">
+        {{#each metadatum in metadata}}
+            <div class="asset-metadatum">
+              {{metadatum.metadatumField.name}}
+              {{#if metadatum.value}}
+                  {{metadatum.value}}
+              {{else}}
+                  --
+              {{/if}}
+            </div>
+        {{/each}}
+    </div>
+    <div class="asset-actions">
+        <button {{ action editAsset content }} class="btn btn-warning"> Edit </button>
+    </div>
 </div>

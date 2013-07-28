@@ -1,31 +1,40 @@
 Vilio.AssetsIndexController = Ember.ArrayController.extend({});
 
-Vilio.AssetsController = Ember.ObjectController.extend({});
-
-
-Vilio.AssetEditController = Ember.ObjectController.extend(Vilio.ResourceControllerMixin, {
+Vilio.AssetController = Ember.ObjectController.extend({
     needs: ['portfolio'],
 
-    //TODO fix
-    init: function() {
-        var portfolio = this.get('controllers.portfolio.content');
-        //this.createMetadataValues(portfolio);
-    },
-    createMetadataValues: function(portfolio) {
-        if (!portfolio) return;
-        var fieldSettings = portfolio.get('metadataTemplate.metadataTemplateFieldSettings'),
-            metaValues = this.get('content.metadataValues');
-        if ((fieldSettings === null) || (metaValues !== null)) return;
-        fieldSettings.forEach(function(item, index) {
-            metaValues.pushObject(new Vilio.MetadataValue({
-                metadataField: item.get('metadataField'),
-                metadataValue: null
-            }));
+    metadataTemplate: function() {
+        return this.get('controllers.portfolio.content.metadataTemplate');
+    }.property('controllers.portfolio.content'),
+
+    metadata: function() {
+        var metadata = Ember.ArrayProxy.createWithMixins(Ember.SortableMixin, {
+          sortProperties: ['order'],
+          content: Ember.A()
+        });
+        var fieldSettings = this.get('metadataTemplate.metadataTemplateFieldSettings');
+        // copy template field settings and asset metadata to new temp object
+        // for editing and display purposes
+        fieldSettings.forEach(function(fieldSetting, index) {
+           // does metadata exist on asset?
+           var metadatumField = fieldSetting.get('metadataField');
+           var metadatum = this.get('content.metadata').findProperty('metadatumField', metadatumField); 
+           var metadatumValue = metadatum ? metadatum.get('metadatumValue') : null;
+           metadatumForEditing = Ember.Object.create({
+               order: fieldSetting.get('order'), 
+               metadatumField: metadatumField,
+               metadatumValue: metadatumValue
+           });
+           metadata.pushObject(metadatumForEditing);
         }, this);
-    }
+        return metadata;
+    }.property('content'),
 });
 
-Vilio.AssetController = Vilio.AssetEditController.extend({});
+
+Vilio.AssetEditController = Vilio.AssetController.extend(Vilio.ResourceControllerMixin, {});
+
+Vilio.AssetsController = Ember.ObjectController.extend({});
 
 Vilio.AssetsNewController = Vilio.AssetEditController.extend({});
 

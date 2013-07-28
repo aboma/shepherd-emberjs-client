@@ -8,15 +8,22 @@
   margin-top: 30px;
 }
 
+.asset-actions{
+  clear: both;
+  width: 100%;
+  button {
+    clear: both;
+    display: inline;
+  }
+}
+
 .asset-details {
   min-height: 500px;
   width: 900px;
 }
 
 .asset-details-header {
-  button {
-    display: inline;
-  }
+  float: left;
 }
 
 .asset-details-image {
@@ -32,8 +39,9 @@
 
 .asset-details-metadata {
   float:right;
+  padding: 15px;
   width: 250px;
-  border: 1px solid white;
+  vertical-align: top;
 }
 
 .asset-name {
@@ -48,4 +56,11 @@
   margin: 10px;
   text-align: center;
   width: 140px;
+}
+
+.asset-metadatum {
+  padding: 5px 15px 5px 15px;
+  box-shadow: 2px 2px 2px #A1A1A1;
+  margin: 5px;
+  padding: 5px 15px;
 }

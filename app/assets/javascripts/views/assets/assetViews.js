@@ -38,3 +38,8 @@ Vilio.ThumbnailView = Ember.View.extend({
 Vilio.AssetImageView = Ember.View.extend({
     templateName: 'assets/image'
 });
+
+
+Vilio.AssetMetadataView = Ember.View.extend({
+
+});
