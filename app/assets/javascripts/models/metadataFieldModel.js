@@ -5,5 +5,5 @@ Vilio.MetadataField = DS.Model.extend({
     createdAt : DS.attr('date'),
     updatedAt : DS.attr('date'),
     allowedValuesList: DS.belongsTo('Vilio.MetadataValuesList', { embedded: true }),
-	links : DS.hasMany('Vilio.Link', { embedded: 'load' })
+	links : DS.hasMany('Vilio.Link')
 });

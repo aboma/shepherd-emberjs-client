@@ -1,29 +1,51 @@
-DS.RESTAdapter.map('Vilio.Asset', {
-  links: { embedded: 'load' },
+Vilio.RESTAdapter = DS.RESTAdapter.extend({ 
+  bulkCommit: false,
+  url: "http://localhost:4444" ,
+  // override didError to handle 409 conflict status properly
+  didError: function(store, type, record, xhr) {
+   	if (xhr.status === 422 || xhr.status === 409) {
+   		var json = JSON.parse(xhr.responseText),
+      	serializer = this.get('serializer'),
+      	errors = serializer.extractValidationErrors(type, json);
+   		store.recordWasInvalid(record, errors);
+   	} else {
+   		this._super.apply(this, arguments);
+   	}
+  }
 });
-DS.RESTAdapter.map('Vilio.Relationship', {
+
+Vilio.RESTAdapter.map('Vilio.Asset', {
+  links: { embedded: 'load' },
+  metadata: { embedded: 'always' }
+});
+Vilio.RESTAdapter.map('Vilio.Relationship', {
   asset: { embedded: 'load' },
   links : { embedded: 'load' }
 });
-DS.RESTAdapter.map('Vilio.MetadataValuesList', {
+Vilio.RESTAdapter.map('Vilio.MetadataValuesList', {
   metadata_list_values: { embedded: 'always' },
   links : { embedded: 'load' }
 });
-DS.RESTAdapter.map('Vilio.MetadataField', {
+Vilio.RESTAdapter.map('Vilio.MetadataField', {
   links : { embedded: 'load' }
+
 });
-DS.RESTAdapter.map('Vilio.MetadataTemplate', {
+Vilio.RESTAdapter.map('Vilio.MetadataTemplate', {
   metadataTemplateFieldSettings: { embedded: 'always' }, 
   links : { embedded: 'load' }
 });
-DS.RESTAdapter.map('Vilio.Portfolio', {
+Vilio.RESTAdapter.map('Vilio.Portfolio', {
   links : { embedded: 'load' }
 });
 
+Vilio.RESTAdapter.configure('Vilio.MetadatumValue', {
+    sideloadAs: 'metadata'
+});
 
-DS.RESTAdapter.configure('plurals', { settings: 'settings' });
+Vilio.RESTAdapter.configure('plurals', { settings: 'settings' });
+Vilio.RESTAdapter.configure('plurals', { metadata: 'metadata' });
 
-DS.RESTAdapter.registerTransform('array', {
+Vilio.RESTAdapter.registerTransform('array', {
   deserialize: function(serialized) {
     return serialized.split(',');
   },
@@ -32,26 +54,7 @@ DS.RESTAdapter.registerTransform('array', {
   }
 });
 
-Vilio.RESTAdapter = DS.RESTAdapter.extend({ 
-	  bulkCommit: false,
-	  url: "http://localhost:4444" ,
-      // override didError to handle 409 conflict status properly
-	  didError: function(store, type, record, xhr) {
-    	if (xhr.status === 422 || xhr.status === 409) {
-      		var json = JSON.parse(xhr.responseText),
-          	serializer = this.get('serializer'),
-          	errors = serializer.extractValidationErrors(type, json);
-
-      		store.recordWasInvalid(record, errors);
-    	} else {
-      		this._super.apply(this, arguments);
-    	}
-  	  }
-  })
-
-
 Vilio.Store = DS.Store.extend({
-  revision: 12,
   adapter: Vilio.RESTAdapter 
 });
 

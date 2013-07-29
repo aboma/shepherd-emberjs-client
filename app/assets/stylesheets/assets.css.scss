@@ -40,8 +40,23 @@
 .asset-details-metadata {
   float:right;
   padding: 15px;
-  width: 250px;
+  width: 300px;
   vertical-align: top;
+
+  label {
+    width: 100px;
+    display: inline-block;
+  }
+
+  input[type="text"] {
+    width: 150px;
+    display: inline-block;
+  }
+}
+
+.asset-metadatum-value {
+  display: inline-block;
+  width: 150px;
 }
 
 .asset-name {

@@ -1,0 +1,21 @@
+ <div class="asset-details-metadata">
+     {{#each metadatum in metadata2}}
+        <div class="asset-metadatum">
+          <label>{{metadatum.metadatum.metadatumField.name}}</label>
+              <div class="asset-metadatum-value">
+                {{#if isEditing}}
+                    {{ view Vilio.TextField
+ 		      	   	   valueBinding="metadatum.metadatum.metadatumValue" 
+                       disabledBinding="content.isSaving" 
+                    }}
+                {{else}}
+                    {{#if metadatum.metadatum.metadatumValue}}
+                        {{metadatum.metadatum.metadatumValue}}
+                    {{else}}
+                        --
+                    {{/if}}
+                {{/if}}
+             </div>
+        </div>
+    {{/each}}
+</div>

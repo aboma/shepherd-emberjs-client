@@ -1,14 +1,26 @@
 Vilio.AssetsIndexController = Ember.ArrayController.extend({});
 
-Vilio.AssetController = Ember.ObjectController.extend({
+Vilio.AssetController = Ember.ObjectController.extend(Vilio.ResourceControllerMixin, 
+                                                      Vilio.EditModelControllerMixin, { 
     needs: ['portfolio'],
+    isEditing: false,
+    metadataForEditing: null,
 
     metadataTemplate: function() {
         return this.get('controllers.portfolio.content.metadataTemplate');
     }.property('controllers.portfolio.content'),
 
-    metadata: function() {
-        var metadata = Ember.ArrayProxy.createWithMixins(Ember.SortableMixin, {
+    metadata2: function() {
+        var metadata = this.get('metadataForEditing');
+        if (!metadata) {
+            metadata = this.createMetadataForEditing();
+        }
+        return metadata;
+    }.property('content'),
+
+    createMetadataForEditing: function() {
+        var metadatas = this.get('content.metadata');
+        var metadataForEditing = Ember.ArrayProxy.createWithMixins(Ember.SortableMixin, {
           sortProperties: ['order'],
           content: Ember.A()
         });
@@ -19,16 +31,34 @@ Vilio.AssetController = Ember.ObjectController.extend({
            // does metadata exist on asset?
            var metadatumField = fieldSetting.get('metadataField');
            var metadatum = this.get('content.metadata').findProperty('metadatumField', metadatumField); 
-           var metadatumValue = metadatum ? metadatum.get('metadatumValue') : null;
+           // if metadatum value does not exist yet, create for purposes of editing;
+           // remove null values before committing
+           if (!metadatum) {
+              metadatum = Vilio.MetadatumValue.createRecord({
+                  metadatumField: metadatumField,
+                  metadatumValue: null
+              });
+              this.get('content.metadata').pushObject(metadatum);
+           }
            metadatumForEditing = Ember.Object.create({
                order: fieldSetting.get('order'), 
-               metadatumField: metadatumField,
-               metadatumValue: metadatumValue
+               metadatum: metadatum,
            });
-           metadata.pushObject(metadatumForEditing);
+           metadataForEditing.pushObject(metadatumForEditing);
         }, this);
-        return metadata;
-    }.property('content'),
+        this.set('metadataForEditing', metadataForEditing);
+        return metadataForEditing;
+    },
+
+    editAsset: function() {
+        this.set('isEditing', true);
+    },
+    cancel: function() {
+		this.set('isEditing', false);
+	},
+    save: function() {
+        this.saveEdits();
+    }
 });
 
 
