@@ -23,13 +23,13 @@
 }
 
 .asset-details-header {
-  float: left;
 }
 
 .asset-details-image {
+  float: left;
   height: 400px;
-  width: 400px;
   margin: 30px 0px 30px 0px;
+  width: 400px;
 
   img {
     max-height: 400px;

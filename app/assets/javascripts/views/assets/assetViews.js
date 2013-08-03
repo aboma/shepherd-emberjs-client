@@ -41,5 +41,6 @@ Vilio.AssetImageView = Ember.View.extend({
 
 
 Vilio.AssetMetadataView = Ember.View.extend({
-    templateName: 'assets/assetMetadata'
+    templateName: 'assets/assetMetadata',
+    classNames: ['asset-details-metadata']
 });

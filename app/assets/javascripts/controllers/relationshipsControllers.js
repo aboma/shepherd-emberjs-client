@@ -6,7 +6,14 @@ Vilio.RelationshipsIndexController = Ember.ArrayController.extend({
 	empty: function() {
 		var numOfAssets = this.get('content.length');
 		return numOfAssets === 0;
-	}.property('content.length')
+	}.property('content.length'),
+
+    clearSelected: function() {
+        this.set('selectedRelationship', null);
+    },
+    setSelected: function(relationship) {
+        this.set('selectedRelationshipo', relationship);
+    }
 });
 
 Vilio.RelationshipsController = Ember.ObjectController.extend({});
@@ -21,18 +28,8 @@ Vilio.RelationshipController = Ember.ObjectController.extend(Vilio.EditModelCont
         return (this.get('content') === this.get('controllers.relationshipsIndex.selectedRelationship'));
     }.property('controllers.relationshipsIndex.selectedRelationship'),
 
-	// event to remove/delete relationship
-	removeRelationship: function(callback) {
-		console.log('remove relationship triggered');
-        this.deselect();
-		this.deleteRecord();
-	},
-    // mark this relationship as the one selected from the list
-    select: function() {
-        this.set('controllers.relationshipsIndex.selectedRelationship', this.get('content'));
-    },
     deselect: function() {
-        this.set('controllers.relationshipsIndex.selectedRelationship', null);
+        this.get('controllers.relationshipsIndex').clearSelected();
     },
     destroyRelationship: function(relationship) {
         var controller = this;

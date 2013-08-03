@@ -1,10 +1,11 @@
 <div class="asset-details">
 	<div class="asset-details-header">
 		<h2>{{ name }} ({{ filename }})</h2>
-        <div class="asset-details-image">
-           {{ render "assetImage" content.links }}    
-        </div>
     </div>
+    <div class="asset-details-image">
+        {{ render "assetImage" content.links }}    
+    </div>
+
     {{ view Vilio.AssetMetadataView 
         contentBinding="content.metadata"
         controllerBinding=controller

@@ -40,10 +40,6 @@ Vilio.RelationshipView = Ember.ContainerView.extend({
         templateName : 'relationship/show'
     }),
 
-	click: function() {
-        this.get('controller').send('select');
-	},
-
     selectionChanged: function() {
         if (this.get('controller.selected')) {
 		    this.showRelationshipModalView();

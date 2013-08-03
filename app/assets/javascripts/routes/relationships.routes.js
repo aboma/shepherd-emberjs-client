@@ -18,7 +18,12 @@ Vilio.RelationshipsIndexRoute = Ember.Route.extend({
 		this.render('relationships.index', {
 			into: 'relationships'
 		});
-	}
+	},
+    events: {
+        editAsset: function(relationship) {
+            this.controller.set('selectedRelationship', relationship);
+        }
+    }
 });
 
 // This route post FormData to the server, so it does not
