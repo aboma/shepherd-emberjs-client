@@ -24,6 +24,8 @@ Vilio.AssetController = Ember.ObjectController.extend(Vilio.ResourceControllerMi
           sortProperties: ['order'],
           content: Ember.A()
         });
+        var portfolio = this.get('controllers.portfolio');
+        //TODO if (!portfolio)
         var fieldSettings = this.get('metadataTemplate.metadataTemplateFieldSettings');
         // copy template field settings and asset metadata to new temp object
         // for editing and display purposes
@@ -57,7 +59,10 @@ Vilio.AssetController = Ember.ObjectController.extend(Vilio.ResourceControllerMi
 		this.set('isEditing', false);
 	},
     save: function() {
-        this.saveEdits();
+        var controller = this;
+        this.saveEdits().then(function() {
+            controller.set('isEditing', false);
+        });
     }
 });
 

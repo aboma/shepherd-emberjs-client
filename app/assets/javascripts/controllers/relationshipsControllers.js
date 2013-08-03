@@ -33,6 +33,17 @@ Vilio.RelationshipController = Ember.ObjectController.extend(Vilio.EditModelCont
     },
     deselect: function() {
         this.set('controllers.relationshipsIndex.selectedRelationship', null);
+    },
+    destroyRelationship: function(relationship) {
+        var controller = this;
+        this.deleteRecord().then(function() {
+            controller.deselect();
+        }, function() {
+            //TODO handle error
+        });
+    },
+    removeFromPortfolio: function(relationship) {
+        this.destroyRelationship(relationship);
     }
 });
 

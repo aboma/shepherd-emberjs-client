@@ -1,7 +1,7 @@
 <h3>All Assets</h3>
-{{#each content}}
-	<div class="asset-small">
-		{{ control "thumbnail" links }}
-		<div class="asset-name">{{ name }}</div>
-	</div>
+{{#unless content.isLoaded}}
+    Loading...
+{{/unless}}
+{{#each asset in content}}
+	{{control 'asset' asset}}
 {{/each}}
