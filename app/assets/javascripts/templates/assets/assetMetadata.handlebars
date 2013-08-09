@@ -3,10 +3,18 @@
        <label>{{metadatum.metadatum.metadatumField.name}}</label>
           <div class="asset-metadatum-value">
             {{#if isEditing}}
-                {{ view Vilio.TextField
-         	   	   valueBinding="metadatum.metadatum.metadatumValue" 
-                   disabledBinding="content.isSaving" 
-                }}
+                {{#if metadatum.isText}}
+                    {{ view Vilio.TextField
+         	   	       valueBinding="metadatum.metadatum.metadatumValue" 
+                       disabledBinding="content.isSaving" 
+                    }}
+                {{/if}}
+                {{#if metadatum.isBoolean}}
+                    {{ view Vilio.Checkbox
+                       checkedBinding="metadatum.metadatum.metadatumValue"
+                       disabledBinding="content.isSaving" 
+                    }}
+                {{/if}}
             {{else}}
                 {{#if metadatum.metadatum.metadatumValue}}
                     {{metadatum.metadatum.metadatumValue}}

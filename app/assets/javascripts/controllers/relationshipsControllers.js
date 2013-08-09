@@ -12,7 +12,7 @@ Vilio.RelationshipsIndexController = Ember.ArrayController.extend({
         this.set('selectedRelationship', null);
     },
     setSelected: function(relationship) {
-        this.set('selectedRelationshipo', relationship);
+        this.set('selectedRelationship', relationship);
     }
 });
 
@@ -24,7 +24,7 @@ Vilio.RelationshipController = Ember.ObjectController.extend(Vilio.EditModelCont
     // determine if this is the relationship selected from the list; 
     // allows for setting the selected relationship programmatically 
     // and then having the appropriate individual view respond
-    selected: function() {
+    isSelected: function() {
         return (this.get('content') === this.get('controllers.relationshipsIndex.selectedRelationship'));
     }.property('controllers.relationshipsIndex.selectedRelationship'),
 

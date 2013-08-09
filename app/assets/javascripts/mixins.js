@@ -103,10 +103,6 @@ Vilio.EditModelControllerMixin = Ember.Mixin.create({
 Vilio.ViewWithModalMixin = Ember.Mixin.create({
 	modalView: null,
 
-	click: function() {
-		this.showModalView();
-	},
-
 	close: function() {
 		this.closeModalView();
 	},

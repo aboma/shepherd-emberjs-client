@@ -76,5 +76,10 @@ Vilio.AssetsRoute = Ember.Route.extend({});
 Vilio.AssetsIndexRoute = Ember.Route.extend({
 	model: function() {
 		return Vilio.Asset.find();
-	}
+	},
+    events: {
+        editAsset: function(asset) {
+            this.controller.setSelected(asset);
+        }
+    }
 });

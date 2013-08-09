@@ -11,7 +11,7 @@
         controllerBinding=controller
     }}
     <div class="asset-actions">
-        <button {{ action editAsset content }} {{bindAttr disabled="controller.isEditing"}} class="btn btn-warning"> 
+        <button {{ action edit content }} {{bindAttr disabled="controller.isEditing"}} class="btn btn-warning"> 
             {{#if controller.isEditing}} Editing {{/if}}
             {{#unless controller.isEditing}} Edit {{/unless}}
         </button>

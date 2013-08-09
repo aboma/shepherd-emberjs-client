@@ -41,16 +41,16 @@ Vilio.RelationshipView = Ember.ContainerView.extend({
     }),
 
     selectionChanged: function() {
-        if (this.get('controller.selected')) {
+        if (this.get('controller.isSelected')) {
 		    this.showRelationshipModalView();
         } else {
             this.closeModalView();
         }
-    }.observes('controller.selected'),
+    }.observes('controller.isSelected'),
 
     closeModalView: function() {
 		if (this.relationshipModalView) {
-            this.removeObject(this.relationshipModelView);
+            this.removeObject(this.relationshipModalView);
 			this.relationshipModalView.destroy();
             this.relationshipModalView = null;
         }

@@ -17,8 +17,45 @@ Vilio.NewAssetView = Ember.View.extend({
 	templateName : 'assets/new_asset'
 });
 
-Vilio.AssetView = Ember.View.extend({
-	templateName : 'assets/show'
+Vilio.AssetView = Ember.ContainerView.extend({
+    childViews: ['assetMini'],
+
+    assetMini: Em.View.extend({
+        templateName : 'assets/mini'
+    }),
+
+    selectionChanged: function() {
+        if (this.get('controller.isSelected')) {
+		    this.showAssetModalView();
+        } else {
+            this.closeModalView();
+        }
+    }.observes('controller.isSelected'),
+
+    closeModalView: function() {
+		if (this.assetModalView) {
+            this.removeObject(this.assetModalView);
+			this.assetModalView.destroy();
+            this.assetModalView = null;
+        }
+	},
+
+	// open modal view of relationship to show all
+	// details
+	showAssetModalView: function() {
+		this.closeModalView();
+		this.assetModalView = Vilio.AssetModalView.create({
+			controller: this.controller,
+			baseView: this,
+            container: this.get('container')
+		});
+		this.pushObject(this.assetModalView);		
+	}
+
+});
+
+Vilio.AssetEditView = Ember.View.extend({
+	templateName : 'assets/edit',
 });
 
 Vilio.AssetModalView = Ember.View.extend({
