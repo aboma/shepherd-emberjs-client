@@ -44,6 +44,19 @@ Vilio.FieldDraggableView = Ember.View.extend(Vilio.DragNDrop.Draggable, {
     }
 });
 
+Vilio.FieldSelectionView = Ember.View.extend(Vilio.DragNDrop.Droppable, {
+  classNames: ['drop-target'],
+  drop: function(event) {
+    console.log('dropping field');
+    event.preventDefault();
+    var viewId = event.originalEvent.dataTransfer.getData('Text'),
+        view = Ember.View.views[viewId],
+        fieldSetting = view.get('content');
+    this.get('controller').removeFieldSetting(fieldSetting);
+    return false;
+  }
+});
+
 Vilio.FieldsListView = Ember.View.extend(Vilio.DragNDrop.Droppable, {
   classNames: ['drop-target'],
   drop: function(event) {

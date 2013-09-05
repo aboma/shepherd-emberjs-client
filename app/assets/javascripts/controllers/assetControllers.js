@@ -76,7 +76,10 @@ Vilio.AssetController = Ember.ObjectController.extend(Vilio.ResourceControllerMi
         this.set('isEditing', true);
     },
     cancel: function() {
-		this.set('isEditing', false);
+        var controller = this;
+        this.stopEditing().then(function() {
+            controller.set('isEditing', false);
+        });
 	},
     save: function() {
         var controller = this;

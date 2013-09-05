@@ -1,7 +1,11 @@
 #available-fields-list {
+  border: 5px solid #0E90D2;
+  border-radius: 10px;
   float: left;
+  min-height: 300px;
+  padding: 5px;
   vertical-align: top;
-  width: 200px;
+  width: 180px;
 }
 
 #available-fields-list:after {
@@ -20,6 +24,7 @@
 }
 
 #template-fields-list {
+  background-color: green;
   border: 5px solid #0E90D2;
   border-radius: 10px;
   float: left;
@@ -31,7 +36,6 @@
 }
 
 .drop-target {
-  background-color: green;
   height: 100%;
   width: 100%;
 }
@@ -66,6 +70,7 @@
   background-color: #0E90D2;
   border: 5px solid #0E90D2;
   border-radius: 5px;
+  cursor: move;
   display: block;
   padding: 10px;
   margin: 10px;

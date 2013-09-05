@@ -48,7 +48,6 @@ Vilio.EditModelControllerMixin = Ember.Mixin.create({
             var errorHandler = function() {
                 var type = this.get('content.isError') ? 'error' : 'problem';
                 msgController.set('message', type + ' saving record');
-                this.get('content.transaction').rollback();
                 // reject promise
                 reject(record);
             }
@@ -82,6 +81,9 @@ Vilio.EditModelControllerMixin = Ember.Mixin.create({
         var controller = this;
         return new Em.RSVP.Promise(function(resolve, reject) {
             var content = controller.get('content');
+            if (!content.get('isValid')) {
+                content.send('becameValid');
+            }
             controller.get('content.transaction').rollback();
             if (content.get('isNew')) {
                 content.deleteRecord();

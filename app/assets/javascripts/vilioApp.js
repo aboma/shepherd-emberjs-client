@@ -38,7 +38,7 @@ Vilio.TextField = Ember.TextField.extend({
 Vilio.Checkbox = Ember.View.extend({
   defaultTemplate: Ember.Handlebars.compile('<div class="vilio-checkbox"><input type="checkbox" {{bindAttr checked="view.checked" disabled="view.disabled"}}/><div for="vilio-checkbox"></div></div>'),
 
-  checked: false,
+  checked: null,
   disabled: false,
 
   init: function() {

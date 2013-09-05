@@ -45,32 +45,33 @@
     	</div>
         <div id="control-group">
         <div id="template-field-selection">
-          <div id="available-fields-list">
+          {{#view Vilio.FieldSelectionView id="available-fields-list"}}
             {{#each unselectedFields}}
-              {{#view Vilio.FieldDraggableView contentBinding="this" 
+                {{#view Vilio.FieldDraggableView contentBinding="this" 
                     class="field-selection"}}
-                {{name}}
-              {{/view}}
-            {{/each}}
-          </div>
+                    {{name}}
+                {{/view}}
+              {{/each}}
+          {{/view}}
           {{#view Vilio.FieldsListView id="template-fields-list"}}
               <div><span>Template Fields</span></div>
               {{#each orderedFieldSettings}}
-                  <div class="field-setting-edit">
-                    <span class="field-name"
-                     {{metadataField.name}}
-                    </span>
-                    <span class="required-edit">
-                      Required? :
-                      {{view Ember.Checkbox checkedBinding="required"}} 
-                    </span>
-                    <div class="field-setting-actions">
-                      <div class="field-setting-action" {{ action promote this }} >+</div>
-                      <div class="field-setting-action" {{ action demote this }} >-</div>
-                    </div>
-                  </div>
+                  {{#view Vilio.FieldDraggableView contentBinding="this" 
+                    class="field-setting-edit"}}
+                        <span class="field-name"
+                         {{metadataField.name}}
+                        </span>
+                        <span class="required-edit">
+                          Required? :
+                          {{view Ember.Checkbox checkedBinding="required"}} 
+                        </span>
+                        <div class="field-setting-actions">
+                          <div class="field-setting-action" {{ action promote this }} >+</div>
+                          <div class="field-setting-action" {{ action demote this }} >-</div>
+                        </div>
+                  {{/view}}
               {{/each}}
-          {{/view}}
+           {{/view}}
         </div>
         </div>
         {{#unless content.isNew }}
