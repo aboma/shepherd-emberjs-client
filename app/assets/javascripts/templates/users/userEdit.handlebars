@@ -1,0 +1,101 @@
+<div class="form-horizontal">
+	<fieldset>
+		{{#if content.isNew }}
+			<legend>Create Vilio User</legend>
+		{{else}}
+    		<legend>Edit "{{ unbound content.nameFormatFirstLast }}" User Account</legend>    		
+    	{{/if }}
+        {{#unless content.isValid}}
+            <div class="error">Error saving record
+                {{#if content.errors.id}}
+                    {{content.errors.id}}
+                {{/if}}
+            </div>
+        {{/unless}}
+    	{{#unless content.isNew }}
+    		<div class="control-group">
+	    		<label class="control-label">User Account URI</label>
+    			<label class="data-label">{{ uri }}</label>
+	    	</div>
+    	{{/unless}}
+    	<div class="control-group">
+    		<label class="control-label">Email</label>
+    		<div class="controls">
+				{{ view Vilio.TextField viewName="email" 
+ 					   valueBinding="email" disabledBinding="view.isDisabled" 
+ 				    	required="" autofocus="" }}
+    		</div>
+            <label class="error">
+               {{#if content.errors}}
+                    {{content.errors.email}}
+               {{/if}}
+            </label>
+    	</div>
+    	<div class="control-group">
+    		<label class="control-label">First Name</label>
+    		<div class="controls">
+				{{ view Vilio.TextField viewName="firstName" 
+ 					   valueBinding="firstName" disabledBinding="view.isDisabled" 
+ 				    	required="" autofocus="" }}
+    		</div>
+            <label class="error">
+               {{#if content.errors}}
+                    {{content.errors.firstName}}
+               {{/if}}
+            </label>
+    	</div>
+    	<div class="control-group">
+    		<label class="control-label">Last Name</label>
+    		<div class="controls">
+				{{ view Vilio.TextField viewName="lastName" 
+ 					   valueBinding="lastName" disabledBinding="view.isDisabled" 
+ 				    	required="" autofocus="" }}
+    		</div>
+            <label class="error">
+               {{#if content.errors}}
+                    {{content.errors.lastName}}
+               {{/if}}
+            </label>
+    	</div>
+    	<div class="control-group">
+    		<label class="control-label">Password</label>
+    		<div class="controls">
+				{{ view Vilio.TextField viewName="password" 
+ 					   valueBinding="password" disabledBinding="view.isDisabled" 
+ 				    	required="" autofocus="" type="password" }}
+    		</div>
+            <label class="error">
+               {{#if content.errors}}
+                    {{content.errors.password}}
+               {{/if}}
+            </label>
+    	</div>
+    	<div class="control-group">
+    		<label class="control-label">Password Confirmation</label>
+    		<div class="controls">
+				{{ view Vilio.TextField viewName="passwordConf" 
+ 					   valueBinding="passwordConfirmation" disabledBinding="view.isDisabled" 
+ 				    	required="" autofocus="" type="password" }}
+    		</div>
+            <label class="error">
+               {{#if content.errors}}
+                    {{content.errors.password}}
+               {{/if}}
+            </label>
+    	</div>
+    	{{#unless content.isNew }}
+	    	<div class="control-group">
+	    		<label class="control-label">Created On</label>
+	    		<label class="data-label">{{ content.createdAt }}</label>
+	    	</div>
+	    	<div class="control-group">
+	    		<label class="control-label">Updated On</label>
+	    		<label class="data-label">{{ content.updatedAt }}</label>
+	    	</div>
+    	{{/unless}}
+    	<div class="control-group button-group-edit">
+            {{#view Vilio.SaveButton }} Save {{/view}}
+            {{#view Vilio.CancelButton }} Cancel {{/view}}
+     	</div>
+    </fieldset>
+</div>

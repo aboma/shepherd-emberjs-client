@@ -5,5 +5,5 @@ Vilio.Portfolio = DS.Model.extend({
 	updatedAt : DS.attr('date'),
 	relationships: DS.hasMany('Vilio.Relationship'),
     metadataTemplate: DS.belongsTo('Vilio.MetadataTemplate'),
-	links : DS.hasMany('Vilio.Link', { embedded: 'load' })
+	links : DS.hasMany('Vilio.Link')
 });

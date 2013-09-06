@@ -1,0 +1,17 @@
+<div id="users-definitions">
+  <div class="section-header">
+      <span class="section-title">Users</span>
+      <div class="inline-link"> / {{#linkTo users.new}}Create{{/linkTo}}</div>
+  </div>
+  <div id="users-list" class="left-nav">
+    <ul class="nav nav-list"> 
+    {{#each user in controller}}
+      {{#unless user.isNew}}
+        <li>{{#linkTo "user.show" user}}{{user.nameFormatLastFirst}}{{/linkTo}}</li>
+      {{/unless}}
+    {{/each}}
+    </ul>
+  </div>
+  <div class="with-left-nav">
+  {{ outlet "detail" }}
+</div>

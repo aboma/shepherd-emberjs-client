@@ -3,7 +3,7 @@
 		{{#if content.isNew }}
 			<legend>Create Metadata Field</legend>
 		{{else}}
-    		<legend>Edit "{{ content.name }}" Field</legend>    		
+    		<legend>Edit "{{ unbound content.name }}" Field</legend>    		
     	{{/if }}
         {{#unless content.isValid}}
             <div class="error">Error saving record

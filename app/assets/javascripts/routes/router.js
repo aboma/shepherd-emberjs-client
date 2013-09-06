@@ -39,6 +39,13 @@ Vilio.Router.map(function(match) {
 			this.route('show', { path: '/' });
 		});
 	});
+    this.resource('users', { path: '/users' }, function() {
+        this.route('new', { path: '/new' });
+        this.resource('user', { path: '/:user_id' }, function() {
+            this.route('show', { path: '/' });
+            this.route('edit', { path: '/edit' });
+        });
+    });
 });
 
 // load application settings and remove loading graphic

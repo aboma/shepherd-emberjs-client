@@ -42,6 +42,10 @@ Vilio.RESTAdapter.configure('Vilio.MetadatumValue', {
     sideloadAs: 'metadata'
 });
 
+Vilio.RESTAdapter.map('Vilio.User', {
+  links : { embedded: 'load' }
+});
+
 Vilio.RESTAdapter.configure('plurals', { settings: 'settings' });
 Vilio.RESTAdapter.configure('plurals', { metadata: 'metadata' });
 

@@ -1,0 +1,31 @@
+<div class="form-horizontal">
+    <legend>{{nameFormatFirstLast}} User Account</legend>
+    <div class="form-display-property-group">
+	  <label class="control-label">User Account URI</label>
+      <label class="data-label">{{ uri }}</label>
+	</div>
+    <div class="form-display-property-group">
+      <label class="control-label">Email: </label>
+      <label class="data-label">{{email}}</label>
+    </div>
+    <div class="form-display-property-group">
+      <label class="control-label">First Name: </label>
+      <label class="data-label">{{firstName}}</label>
+    </div>
+    <div class="form-display-property-group">
+      <label class="control-label">Last Name: </label>
+      <label class="data-label">{{lastName}}</label>
+    </div>
+    <div class="form-display-property-group">
+      <label class="control-label">Created At: </label>
+      <label class="data-label">{{createdAt}}</label>
+    </div>
+    <div class="form-display-property-group">
+      <label class="control-label">Updated At: </label>
+      <label class="data-label">{{updatedAt}}</label>
+    </div>
+   	<div class="control-group button-group-show">
+   		<button {{ action edit content disabledBinding="content.isDirty" }} 
+    			class="btn btn-success"> Edit </button>
+    </div>	
+</div>
