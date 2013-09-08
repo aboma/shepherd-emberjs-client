@@ -4,10 +4,20 @@
           <div class="asset-metadatum-value">
             {{#if isEditing}}
                 {{#if metadatum.isText}}
-                    {{ view Vilio.TextField
-         	   	       valueBinding="metadatum.metadatum.metadatumValue" 
-                       disabledBinding="content.isSaving" 
-                    }}
+                    {{#if metadatum.metadatum.metadatumField.allowedValuesList}}
+                        {{ view Vilio.Select2 
+    		                  prompt="Please select a value"
+                              contentBinding="metadatum.metadatumValues" 
+                              selectionBinding="metadatum.metadatum.metadatumValue"
+                              width="160px"
+                              disabledBinding="content.isSaving" 
+                        }}
+                    {{else}}
+                        {{ view Vilio.TextField
+             	   	       valueBinding="metadatum.metadatum.metadatumValue" 
+                           disabledBinding="content.isSaving" 
+                        }}
+                    {{/if}}
                 {{/if}}
                 {{#if metadatum.isBoolean}}
                     {{ view Vilio.Checkbox

@@ -23,7 +23,7 @@ Vilio.RESTAdapter.map('Vilio.Relationship', {
   links : { embedded: 'load' }
 });
 Vilio.RESTAdapter.map('Vilio.MetadataValuesList', {
-  metadata_list_values: { embedded: 'always' },
+  metadataListValues: { embedded: 'always' },
   links : { embedded: 'load' }
 });
 Vilio.RESTAdapter.map('Vilio.MetadataField', {

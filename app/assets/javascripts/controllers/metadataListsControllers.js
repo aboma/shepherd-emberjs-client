@@ -21,11 +21,11 @@ Vilio.MetadataListShowController = Ember.ObjectController.extend({
 Vilio.MetadataListsNewController = Ember.ObjectController.extend(Vilio.EditModelControllerMixin, {
   addValue: function() {
     var newValue = this.get('content.transaction').createRecord(Vilio.MetadataListValue, {});
-    var values = this.get('content.metadata_list_values');
+    var values = this.get('content.metadataListValues');
     values.pushObject(newValue);
   },
   removeBlankValues: function() {
-    var values = this.get('content.metadata_list_values');
+    var values = this.get('content.metadataListValues');
     var blankValues = values.filter(function(item, index) {
       var value = item.get('value');
       if (!value || value.trim().length === 0)

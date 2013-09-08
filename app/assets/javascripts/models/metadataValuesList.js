@@ -3,6 +3,6 @@ Vilio.MetadataValuesList = DS.Model.extend({
     description: DS.attr('string'),
     createdAt : DS.attr('date'),
     updatedAt : DS.attr('date'),
-    metadata_list_values : DS.hasMany('Vilio.MetadataListValue'),
+    metadataListValues : DS.hasMany('Vilio.MetadataListValue'),
 	links : DS.hasMany('Vilio.Link', { embedded: 'load' })
 });

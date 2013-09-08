@@ -126,7 +126,7 @@ legend, .page-header {
 	opacity: 1;
 	padding: 20px;
 	position: absolute;
-	z-index: 11111;
+	z-index: 999;
 }
 .dialog-message
 {
@@ -222,7 +222,7 @@ legend, .page-header {
 	top: 0;
 	vertical-align: middle;
 	width: 100%;
-	z-index: 9999;
+	z-index: 999;
 }
 .row
 {

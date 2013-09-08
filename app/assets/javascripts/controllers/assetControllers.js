@@ -51,7 +51,8 @@ Vilio.AssetController = Ember.ObjectController.extend(Vilio.ResourceControllerMi
            // does metadata exist on asset?
            var metadatumField = fieldSetting.get('metadataField');
            var fieldType = metadatumField.get('type');
-           var metadatum = this.get('content.metadata').findProperty('metadatumField', metadatumField); 
+           var metadatum = this.get('content.metadata').findProperty('metadatumField', metadatumField);
+           var metadatumValues;
            // if metadatum value does not exist yet, create for purposes of editing;
            // remove null values before committing
            if (!metadatum) {
@@ -61,9 +62,14 @@ Vilio.AssetController = Ember.ObjectController.extend(Vilio.ResourceControllerMi
               });
               this.get('content.metadata').pushObject(metadatum);
            }
+           if (metadatum.get('metadatumField.allowedValuesList')) {
+               metadatumValues = metadatum.get('metadatumField.allowedValuesList.metadataListValues');
+               metadatumValues = metadatumValues.mapProperty('value');
+           }
            metadatumForEditing = Ember.Object.create({
                order: fieldSetting.get('order'), 
                metadatum: metadatum,
+               metadatumValues: metadatumValues,
                isText: (fieldType === 'text'),
                isBoolean: (fieldType === 'boolean')
            });
