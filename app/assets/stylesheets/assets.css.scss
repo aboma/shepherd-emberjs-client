@@ -54,11 +54,18 @@
   }
 }
 
-.asset-metadatum-value {
+.asset-metadatum-value,
+.asset-metadatum-value-edit
+{
   display: inline-block;
+  vertical-align: top;
   width: 150px;
 }
 
+.asset-metadatum-value
+{
+  font-weight: bold;
+}
 .asset-name {
   text-align: center;
   padding: 10px 0px 10px 0px;

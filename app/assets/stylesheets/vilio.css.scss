@@ -102,17 +102,7 @@ legend, .page-header {
 {
 	font-weight: bold;
 }
-.dialog-loading
-{
-	margin-left: auto;
-	margin-right: auto;
-	position: relative;
-	text-align: center;
-	vertical-align: middle;
-	width: 300px;
-}
-.dialog-loading, 
-.dialog-modal
+@mixin modal
 {
 	background: #333;
 	background: -moz-linear-gradient(0% 0 -90deg, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.95)) repeat scroll 0 0 transparent;
@@ -125,17 +115,29 @@ legend, .page-header {
 	min-height: 200px;
 	opacity: 1;
 	padding: 20px;
-	position: absolute;
-	z-index: 999;
+	z-index: 4444;
+}
+.dialog-loading
+{
+    @include modal;
+	margin-left: auto;
+	margin-right: auto;
+	position: relative;
+	text-align: center;
+	vertical-align: middle;
+	width: 300px;
 }
 .dialog-message
 {
-	position: absolute;
-	top: 50%;
+    font-size: 22px;
+    margin-top: 80px;
+    vertical-align: middle;
 }
 .dialog-modal
 {
+    @include modal;
 	background: #000000;
+    position: absolute;
 	left: 80px;
 	top: 80px;
 }
@@ -145,7 +147,6 @@ legend, .page-header {
 }
 .floater
 {
-	float: left;
 	height: 50%;
 	margin-bottom: -120px;
 }
@@ -222,7 +223,7 @@ legend, .page-header {
 	top: 0;
 	vertical-align: middle;
 	width: 100%;
-	z-index: 999;
+	z-index: 4444;
 }
 .row
 {
