@@ -12,7 +12,7 @@ Vilio.AssetsIndexController = Ember.ArrayController.extend({
 
 Vilio.AssetController = Ember.ObjectController.extend(Vilio.ResourceControllerMixin, 
                                                       Vilio.EditModelControllerMixin, { 
-    needs: ['portfolio', 'assetsIndex', 'assetEdit'],
+    needs: ['portfolio', 'assetsIndex', 'assetEdit', 'assetImage'],
     metadataForEditing: null,
     isEditing: false,
 
@@ -22,6 +22,12 @@ Vilio.AssetController = Ember.ObjectController.extend(Vilio.ResourceControllerMi
     isSelected: function() {
         return (this.get('content') === this.get('controllers.assetsIndex.selectedAsset'));
     }.property('controllers.assetsIndex.selectedAsset'),
+
+    originalFileUrl: (function() {
+		var fileLink = this.get('content.links').findProperty('rel', 'file');
+        var fileUrl = fileLink.get('href');
+        return fileUrl;
+    }).property('content.@each'),
 
     metadataTemplate: function() {
         return this.get('controllers.portfolio.content.metadataTemplate');
@@ -92,6 +98,11 @@ Vilio.AssetController = Ember.ObjectController.extend(Vilio.ResourceControllerMi
         this.saveEdits().then(function() {
             controller.set('isEditing', false);
         });
+    },
+    download: function() {
+        console.log('download');
+        var fileUrl = this.get('originalFileUrl');
+        window.location = fileUrl;
     }
 });
 

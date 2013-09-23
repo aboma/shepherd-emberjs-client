@@ -5,8 +5,17 @@ Ember.$.ajaxPrefilter(function(options ,originalOptions, xhr) {
 	xhr.setRequestHeader('X-API-VERSION', 'v1');
 	xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
 	xhr.setRequestHeader('X-AUTH-TOKEN', auth_token);
+    // enable browser to receive cookies from cross-domain requests
 	return xhr;
 });
+
+jQuery.ajaxSetup({
+    xhrFields: {
+        withCredentials: true
+    },
+    crossDomain: true
+});
+
 
 window.Vilio = Ember.Application.create({
     //rootElement: "body",
