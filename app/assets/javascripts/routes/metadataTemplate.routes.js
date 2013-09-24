@@ -1,6 +1,10 @@
 Vilio.TemplatesRoute = Ember.Route.extend({
     model: function() {
         return Vilio.MetadataTemplate.find();
+    },
+	setupController: function(controller, model) {
+        this._super(controller, model);
+        this.controllerFor('topNav').set('selected', 'Metadata Templates');
     }
 });
 

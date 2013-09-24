@@ -1,7 +1,11 @@
 Vilio.UsersRoute = Ember.Route.extend({
     model: function() {
         return Vilio.User.find();
-    }
+    },
+	setupController: function(controller, model) {
+        this._super(controller, model);
+        this.controllerFor('topNav').set('selected', 'Users');
+    },
 });
 
 Vilio.UsersIndexRoute = Ember.Route.extend({

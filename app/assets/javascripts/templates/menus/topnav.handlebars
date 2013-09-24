@@ -6,30 +6,30 @@
 				    <a href='/'>Vilio</a>
 			    </li>
 			 	<ul class="nav">
-			 	   <li class="active">
+                   {{#view view.navItemView item="Portfolios" }}
 			 		   {{#linkTo "portfolios.index"}}Portfolios{{/linkTo}}
-				    </li>
-			 	   <li>
+                   {{/view}}
+                   {{#view view.navItemView item="Assets" }}
 			 		   {{#linkTo "assets.index"}}Assets{{/linkTo}}
-				    </li>
+                   {{/view}}
 				    <li class="divider-vertical"></li>
 				    <li class="dropdown">
 						<a class="dropdown-toggle"
 							data-toggle="dropdown"
 							href="#"> Admin <b class="caret"></b> </a>
 						<ul class="dropdown-menu">
-                            <li>
+                            {{#view view.navItemView item="Users" }}
                                 {{#linkTo "users.index"}}Users{{/linkTo}}
-                            </li>
-                            <li>
+                            {{/view}}
+                            {{#view view.navItemView item="Metadata Templates" }}
                                 {{#linkTo "templates.index"}}Metadata Templates{{/linkTo}}
-                            </li>
-							<li>
+                            {{/view}}
+                            {{#view view.navItemView item="Metadata Fields" }}
 								{{#linkTo "fields.index"}}Metadata Fields{{/linkTo}}
-							</li>
-                            <li>
+							{{/view}}
+                            {{#view view.navItemView item="Metadata Values Lists" }}
 								{{#linkTo "metadata_lists.index"}}Metadata Values Lists{{/linkTo}}
-							</li>
+							{{/view}}
 						</ul>
 					</li>
                  </ul>

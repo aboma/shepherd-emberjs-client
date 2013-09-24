@@ -1,7 +1,11 @@
 Vilio.PortfoliosRoute = Ember.Route.extend({
 	model: function() {
 		return Vilio.Portfolio.find();
-	}
+	},
+	setupController: function(controller, model) {
+        this._super(controller, model);
+        this.controllerFor('topNav').set('selected', 'Portfolios');
+    },
 });
 
 Vilio.PortfoliosIndexRoute = Ember.Route.extend({

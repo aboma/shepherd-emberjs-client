@@ -1,6 +1,10 @@
 Vilio.MetadataListsRoute = Ember.Route.extend({
     model: function() {
         return Vilio.MetadataValuesList.find();
+    },
+	setupController: function(controller, model) {
+        this._super(controller, model);
+        this.controllerFor('topNav').set('selected', 'Metadata Values Lists');
     }
 });
 
