@@ -10,7 +10,7 @@ Vilio.AssetsView = Ember.View.extend(Vilio.ViewWithModalMixin, {
 });
 
 Vilio.AssetsIndexView = Ember.View.extend({
-	templateName : 'assets/index'
+	templateName : 'assets/assetIndex'
 });
 
 Vilio.NewAssetView = Ember.View.extend({
@@ -21,7 +21,7 @@ Vilio.AssetView = Ember.ContainerView.extend({
     childViews: ['assetMini'],
 
     assetMini: Em.View.extend({
-        templateName : 'assets/mini'
+        templateName : 'assets/assetMini'
     }),
 
     selectionChanged: function() {
@@ -55,12 +55,12 @@ Vilio.AssetView = Ember.ContainerView.extend({
 });
 
 Vilio.AssetEditView = Ember.View.extend({
-	templateName : 'assets/edit',
+	templateName : 'assets/assetEdit',
 });
 
 Vilio.AssetModalView = Ember.View.extend({
 	layoutName : 'layouts/modal',
-	templateName : 'assets/edit',
+	templateName : 'assets/assetEdit',
 	showHeader: true,
 
 	close: function() {
@@ -69,11 +69,11 @@ Vilio.AssetModalView = Ember.View.extend({
 });
 
 Vilio.ThumbnailView = Ember.View.extend({
-	templateName : 'assets/thumbnail'
+	templateName : 'assets/assetThumbnail'
 });
 
 Vilio.AssetImageView = Ember.View.extend({
-    templateName: 'assets/image'
+    templateName: 'assets/assetImage'
 });
 
 
