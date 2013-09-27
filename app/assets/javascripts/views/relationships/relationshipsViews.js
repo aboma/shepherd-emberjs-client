@@ -3,7 +3,7 @@ Vilio.RelationshipsView = Ember.View.extend({
 }); 
 
 Vilio.RelationshipsNewView = Ember.View.extend({
-	templateName: "relationship/new",
+	templateName: "relationship/relationshipNew",
 
 	// uploads file to server as new asset with
 	// a relationship to current portfolio
@@ -24,12 +24,12 @@ Vilio.RelationshipsNewView = Ember.View.extend({
 });
 
 Vilio.RelationshipsIndexView = Ember.View.extend({
-	templateName: "relationship/index"
+	templateName: "relationship/relationshipsIndex"
 });
 
 Vilio.RelationshipModalView = Ember.View.extend({
 	layoutName : 'layouts/modal',
-	templateName : 'relationship/edit',
+	templateName : 'relationship/relationshipEdit',
 });
 
 Vilio.RelationshipView = Ember.ContainerView.extend({
@@ -37,7 +37,7 @@ Vilio.RelationshipView = Ember.ContainerView.extend({
 	relationshipModalView: null,
 
     relationshipShow: Em.View.extend({
-        templateName : 'relationship/show'
+        templateName : 'relationship/relationshipShow'
     }),
 
     selectionChanged: function() {
