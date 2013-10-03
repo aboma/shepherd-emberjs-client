@@ -26,7 +26,7 @@ Vilio.RESTAdapter.map('Vilio.MetadataValuesList', {
   metadataListValues: { embedded: 'always' },
   links : { embedded: 'load' }
 });
-Vilio.RESTAdapter.map('Vilio.MetadataField', {
+Vilio.RESTAdapter.map('Vilio.MetadatumField', {
   links : { embedded: 'load' }
 
 });

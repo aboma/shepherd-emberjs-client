@@ -62,9 +62,9 @@ Vilio.ApplicationRoute = Ember.Route.extend({
         if (metadataValuesListsController) 
           metadataValuesListsController.set('model', Vilio.MetadataValuesList.find({}));
         // load fields
-        var metadataFieldsController = this.controllerFor('fields');
-        if (metadataFieldsController)
-          metadataFieldsController.set('model', Vilio.MetadataField.find({}));
+        var metadatumFieldsController = this.controllerFor('fields');
+        if (metadatumFieldsController)
+          metadatumFieldsController.set('model', Vilio.MetadatumField.find({}));
         // load metadata templates
         var metadataTemplatesController = this.controllerFor('templates'); 
         if (metadataTemplatesController)

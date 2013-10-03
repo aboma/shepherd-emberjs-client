@@ -55,7 +55,7 @@ Vilio.AssetController = Ember.ObjectController.extend(Vilio.ResourceControllerMi
         // for editing and display purposes
         fieldSettings.forEach(function(fieldSetting, index) {
            // does metadata exist on asset?
-           var metadatumField = fieldSetting.get('metadataField');
+           var metadatumField = fieldSetting.get('metadatumField');
            var fieldType = metadatumField.get('type');
            var metadatum = this.get('content.metadata').findProperty('metadatumField', metadatumField);
            var metadatumValues;

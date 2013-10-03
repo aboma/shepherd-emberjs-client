@@ -30,7 +30,7 @@ Vilio.TemplatesNewController = Vilio.TemplateShowController.extend(Vilio.EditMod
   // and all fields available for selection
   unselectedFields: function() {
     var fieldSettings = this.get('content.metadataTemplateFieldSettings');
-    var fsFields = fieldSettings.mapProperty('metadataField');
+    var fsFields = fieldSettings.mapProperty('metadatumField');
     var fields = this.get('fields');
     if (fsFields && fields) {
       return fields.filter(function(field, index) {
@@ -51,7 +51,7 @@ Vilio.TemplatesNewController = Vilio.TemplateShowController.extend(Vilio.EditMod
     var template = this.get('content');
     var length = this.get('orderedFieldSettings.length');
     this.get('content.metadataTemplateFieldSettings').createRecord({
-        metadataField: field, 
+        metadatumField: field, 
         required: false, 
         order: length + 1
     });

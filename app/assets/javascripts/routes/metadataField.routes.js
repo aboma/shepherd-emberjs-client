@@ -1,6 +1,6 @@
 Vilio.FieldsRoute = Ember.Route.extend({
     model: function() {
-        return Vilio.MetadataField.find();
+        return Vilio.MetadatumField.find();
     },
     // load values lists for forms
     setupController: function(controller, model) {
@@ -45,7 +45,7 @@ Vilio.FieldShowRoute = Ember.Route.extend({
 Vilio.FieldsNewRoute = Ember.Route.extend({
 	model: function() {
 		var transaction = this.store.transaction();
-		return transaction.createRecord(Vilio.MetadataField, {});
+		return transaction.createRecord(Vilio.MetadatumField, {});
 	},
     renderTemplate: function() {
 		this.render('fields.new', {
