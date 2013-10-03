@@ -1,6 +1,6 @@
 Vilio.MetadataListsRoute = Ember.Route.extend({
     model: function() {
-        return Vilio.MetadataValuesList.find();
+        return Vilio.MetadatumValuesList.find();
     },
 	setupController: function(controller, model) {
         this._super(controller, model);
@@ -21,7 +21,7 @@ Vilio.MetadataListsIndexRoute = Ember.Route.extend({
 Vilio.MetadataListsNewRoute = Ember.Route.extend({
 	model: function() {
 		var transaction = this.store.transaction();
-		return transaction.createRecord(Vilio.MetadataValuesList, {});
+		return transaction.createRecord(Vilio.MetadatumValuesList, {});
 	},
 	renderTemplate: function() {
 		this.render('metadata_lists.new', {

@@ -1,19 +1,19 @@
 Vilio.MetadataListsView = Ember.View.extend({
-    templateName: 'metadata/metadataValuesLists'
+    templateName: 'metadata/metadatumValuesLists'
 });
 
 Vilio.MetadataListsIndexView = Ember.View.extend({
-    templateName: 'metadata/metadataValuesListsIndex' 
+    templateName: 'metadata/metadatumValuesListsIndex' 
 });
 
 Vilio.MetadataListsNewView = Ember.View.extend({
-    templateName: 'metadata/metadataValuesListEdit'
+    templateName: 'metadata/metadatumValuesListEdit'
 });
 
 Vilio.MetadataListShowView = Ember.View.extend({
-    templateName: 'metadata/metadataValuesListShow'
+    templateName: 'metadata/metadatumValuesListShow'
 });
 
 Vilio.MetadataListEditView = Ember.View.extend({
-    templateName: 'metadata/metadataValuesListEdit'
+    templateName: 'metadata/metadatumValuesListEdit'
 });

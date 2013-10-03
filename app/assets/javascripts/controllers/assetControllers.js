@@ -69,7 +69,7 @@ Vilio.AssetController = Ember.ObjectController.extend(Vilio.ResourceControllerMi
               this.get('content.metadata').pushObject(metadatum);
            }
            if (metadatum.get('metadatumField.allowedValuesList')) {
-               metadatumValues = metadatum.get('metadatumField.allowedValuesList.metadataListValues');
+               metadatumValues = metadatum.get('metadatumField.allowedValuesList.metadatumListValues');
                metadatumValues = metadatumValues.mapProperty('value');
            }
            metadatumForEditing = Ember.Object.create({

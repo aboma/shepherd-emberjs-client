@@ -22,8 +22,8 @@ Vilio.RESTAdapter.map('Vilio.Relationship', {
   asset: { embedded: 'load' },
   links : { embedded: 'load' }
 });
-Vilio.RESTAdapter.map('Vilio.MetadataValuesList', {
-  metadataListValues: { embedded: 'always' },
+Vilio.RESTAdapter.map('Vilio.MetadatumValuesList', {
+  metadatumListValues: { embedded: 'always' },
   links : { embedded: 'load' }
 });
 Vilio.RESTAdapter.map('Vilio.MetadatumField', {

@@ -4,6 +4,6 @@ Vilio.MetadatumField = DS.Model.extend({
     type: DS.attr('string'),
     createdAt : DS.attr('date'),
     updatedAt : DS.attr('date'),
-    allowedValuesList: DS.belongsTo('Vilio.MetadataValuesList', { embedded: true }),
+    allowedValuesList: DS.belongsTo('Vilio.MetadatumValuesList', { embedded: true }),
 	links : DS.hasMany('Vilio.Link')
 });

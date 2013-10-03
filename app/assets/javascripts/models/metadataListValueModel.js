@@ -1,5 +1,5 @@
-Vilio.MetadataListValue = DS.Model.extend({
+Vilio.MetadatumListValue = DS.Model.extend({
     value: DS.attr('string'),
-   // metadata_values_list: DS.belongsTo('Vilio.MetadataValuesList')
-    metadataValuesList: DS.belongsTo('Vilio.MetadataValuesList')
+   // metadata_values_list: DS.belongsTo('Vilio.MetadatumValuesList')
+    metadatumValuesList: DS.belongsTo('Vilio.MetadatumValuesList')
 });

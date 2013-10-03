@@ -5,9 +5,9 @@ Vilio.FieldsRoute = Ember.Route.extend({
     // load values lists for forms
     setupController: function(controller, model) {
         this._super(controller, model);
-        var metadataValuesListsController = this.controllerFor('metadata_lists');
-        if (metadataValuesListsController) 
-          metadataValuesListsController.set('model', Vilio.MetadataValuesList.find({}));
+        var metadatumValuesListsController = this.controllerFor('metadata_lists');
+        if (metadatumValuesListsController) 
+          metadatumValuesListsController.set('model', Vilio.MetadatumValuesList.find({}));
         this.controllerFor('topNav').set('selected', 'Metadata Fields');
     }	
 });
