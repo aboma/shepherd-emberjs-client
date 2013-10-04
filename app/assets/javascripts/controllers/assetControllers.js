@@ -33,6 +33,12 @@ Vilio.AssetController = Ember.ObjectController.extend(Vilio.ResourceControllerMi
         return this.get('controllers.portfolio.content.metadataTemplate');
     }.property('controllers.portfolio.content'),
 
+    portfolioListString: function() {
+        return this.get('content.portfolios').map(function(item, index, enumerable) {
+            return item.get('name');
+        }).join(', ');
+    }.property('content.portfolios'),
+
     metadata2: function() {
         var metadata = this.get('metadataForEditing');
         if (!metadata) {

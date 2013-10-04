@@ -1,9 +1,13 @@
 <div class="asset-details">
 	<div class="asset-details-header">
-		<h2>{{ name }} ({{ filename }})</h2>
+		<h2>{{ name }}</h2>
     </div>
     <div class="asset-details-image">
-        {{ render "assetImage" content.links }}    
+        {{ render "assetImage" content.links }}
+        <div>({{ filename }})</div>
+        <div>
+            In Portfolios: {{ portfolioListString }}
+        </div>
     </div>
 
     {{ view Vilio.AssetMetadataView 

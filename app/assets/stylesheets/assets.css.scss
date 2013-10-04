@@ -9,7 +9,9 @@
 }
 
 .asset-actions{
+  bottom: 30px;
   clear: both;
+  position: absolute;
   width: 100%;
   button {
     clear: both;
@@ -27,11 +29,11 @@
 
 .asset-details-image {
   float: left;
-  height: 400px;
   margin: 30px 0px 30px 0px;
   width: 400px;
 
   img {
+    margin-bottom: 20px;
     max-height: 400px;
     max-width: 400px;
   }
