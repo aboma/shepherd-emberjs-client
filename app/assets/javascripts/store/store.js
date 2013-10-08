@@ -70,6 +70,13 @@ Vilio.FileUploadRESTAdapter = Vilio.RESTAdapter.extend({
         var adapter = this;
         var root = this.rootForType(type), json = {};
         var formData = record.get('formData');
+        // if not formData on this record, use default adapter instead
+        // since there is noting to post
+        if (!formData) {
+            store.get('_adapter').createRecord(store, type, record);
+            return;
+        }
+
     	console.log('FileUploadRestAdapter saving record with file');
 
         return $.ajax({

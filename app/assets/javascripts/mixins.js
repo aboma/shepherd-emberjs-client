@@ -16,10 +16,10 @@ Vilio.EditModelControllerMixin = Ember.Mixin.create({
 	// works for both save and edit by inspecting record states
 	// commit record if it has changed; returns promise of 
     // record create or update
-	saveEdits: function() {
+	saveEdits: function(record) {
         var controller = this,
-            msgController = this.get('controllers.message'),
-		    record = this.get('content');
+            msgController = this.get('controllers.message');
+		if (!record) record = this.get('content');
         return new Em.RSVP.Promise(function(resolve, reject) {
             // reset transaction if user wants to resubmit record
             // that is invalid or in error state
@@ -59,10 +59,10 @@ Vilio.EditModelControllerMixin = Ember.Mixin.create({
         });
 	},
 	// returns promise to delete resource
-	deleteRecord: function() {
+	deleteRecord: function(record) {
     	var controller = this,
-            msgController = this.get('controllers.message'),
-            record = this.get('content');
+            msgController = this.get('controllers.message');
+        if (!record) record = this.get('content');
         return new Em.RSVP.Promise(function(resolve, reject) {
             msgController.set('message', 'deleting record');
 	    	record.one('didDelete', controller, function() {

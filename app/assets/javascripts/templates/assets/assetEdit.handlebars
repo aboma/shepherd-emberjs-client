@@ -20,9 +20,20 @@
             {{#if controller.isEditing}} Editing {{/if}}
             {{#unless controller.isEditing}} Edit {{/unless}}
         </button>
+        <button {{ action addToPortfolio content }} {{bindAttr disabled="controller.isEditing"}} class="btn btn-warning">
+            Add To Portfolio 
+        </button>
+        {{ view Vilio.Select2 
+             viewName="addToPortfolio"
+             prompt="Portfolio"
+             contentBinding="controller.availablePortfolios" 
+             optionLabelPath="content.name"
+             optionValuePath="content.id"
+             selectionBinding="controller.portfolioToAddTo"
+        }}
         {{#if controller.isEditing}}
             {{#view Vilio.SaveButton targetBinding="controller"}} Save {{/view}}
-            {{#view Vilio.CancelButton targetBinding="controller"}} Cancel {{/view}}
+            <button {{ action stopEditing }} class="btn btn-warning"> Stop Editing </button>
         {{/if}}
     </div>
 </div>

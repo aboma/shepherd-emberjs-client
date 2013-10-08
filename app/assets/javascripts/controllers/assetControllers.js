@@ -12,8 +12,10 @@ Vilio.AssetsIndexController = Ember.ArrayController.extend({
 
 Vilio.AssetController = Ember.ObjectController.extend(Vilio.ResourceControllerMixin, 
                                                       Vilio.EditModelControllerMixin, { 
-    needs: ['portfolio', 'assetsIndex', 'assetEdit', 'assetImage'],
-    metadataForEditing: null,
+    needs: ['portfolio', 'portfolios', 'assetsIndex', 'assetEdit', 'assetImage', 'relationshipsNew'],
+    // portfolio to create relationship to to add asset to
+    // other portfolios
+    portfolioToAddTo: null,
     isEditing: false,
 
     // determine if this is the relationship selected from the list; 
@@ -33,28 +35,24 @@ Vilio.AssetController = Ember.ObjectController.extend(Vilio.ResourceControllerMi
         return this.get('controllers.portfolio.content.metadataTemplate');
     }.property('controllers.portfolio.content'),
 
+    //TODO: fix to filter asset relationships
+    availablePortfolios: function() {
+        return this.get('controllers.portfolios.content');
+    }.property('portfolios.content', 'content.portfolios'),
+
     portfolioListString: function() {
         return this.get('content.portfolios').map(function(item, index, enumerable) {
             return item.get('name');
         }).join(', ');
     }.property('content.portfolios'),
 
-    metadata2: function() {
-        var metadata = this.get('metadataForEditing');
-        if (!metadata) {
-            metadata = this.createMetadataForEditing();
-        }
-        return metadata;
-    }.property('content'),
-
-    createMetadataForEditing: function() {
-        var metadatas = this.get('content.metadata');
+    metadataForEditing: function() {
+        console.log('creating metadata for editing');
         var metadataForEditing = Ember.ArrayProxy.createWithMixins(Ember.SortableMixin, {
           sortProperties: ['order'],
           content: Ember.A()
         });
         var portfolio = this.get('controllers.portfolio');
-        //TODO fix
         var fieldSettings = this.get('metadataTemplate.metadataTemplateFieldSettings');
         if (!portfolio || !fieldSettings) return null;
         // copy template field settings and asset metadata to new temp object
@@ -72,11 +70,9 @@ Vilio.AssetController = Ember.ObjectController.extend(Vilio.ResourceControllerMi
                   metadatumField: metadatumField,
                   metadatumValue: null
               });
-              this.get('content.metadata').pushObject(metadatum);
            }
            if (metadatum.get('metadatumField.allowedValuesList')) {
-               metadatumValues = metadatum.get('metadatumField.allowedValuesList.metadatumListValues');
-               metadatumValues = metadatumValues.mapProperty('value');
+               metadatumValues = metadatum.get('metadatumField.allowedValuesList.metadatumListValues').mapProperty('value');
            }
            metadatumForEditing = Ember.Object.create({
                order: fieldSetting.get('order'), 
@@ -87,11 +83,20 @@ Vilio.AssetController = Ember.ObjectController.extend(Vilio.ResourceControllerMi
            });
            metadataForEditing.pushObject(metadatumForEditing);
         }, this);
-        this.set('metadataForEditing', metadataForEditing);
         return metadataForEditing;
+    }.property('content'),
+
+    addToPortfolio: function() {
+        console.log('adding to portfolio');
+        var portfolio = this.get('portfolioToAddTo');
+        var asset = this.get('content');
+        this.get('controllers.relationshipsNew').create(asset, portfolio);
     },
     edit: function() {
         this.set('isEditing', true);
+    },
+    stopEditing: function() {
+        this.set('isEditing', false);
     },
     cancel: function() {
         var controller = this;
@@ -101,6 +106,8 @@ Vilio.AssetController = Ember.ObjectController.extend(Vilio.ResourceControllerMi
 	},
     save: function() {
         var controller = this;
+        var metadata = this.get('metadataForEditing').map('metadatum');
+        this.get('content.metadata').pushObject(metadatum);
         this.saveEdits().then(function() {
             controller.set('isEditing', false);
         });

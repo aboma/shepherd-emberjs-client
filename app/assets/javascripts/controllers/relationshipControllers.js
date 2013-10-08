@@ -48,8 +48,17 @@ Vilio.RelationshipsNewController = Ember.ObjectController.extend(Vilio.EditModel
 	needs: ['portfolio'],
 
 	portfolio: function() {
-		var cont = this.get('controllers.portfolio');
-		var content = this.get('controllers.portfolio.content');
 		return this.get('controllers.portfolio.content.id');
-	}.property('controllers.portfolio.content.id')
+	}.property('controllers.portfolio.content'),
+
+    create: function(asset, portfolio) {
+		var relationship = this.store.transaction().createRecord(Vilio.Relationship);
+        relationship.set('asset', asset);
+        relationship.set('portfolio', portfolio);
+        portfolio.get('relationships').pushObject(relationship);
+        this.set('content', relationship);
+        this.saveEdits().then(function() {
+            console.log('relationship created');
+        });
+    }
 });
