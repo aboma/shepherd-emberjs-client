@@ -1,4 +1,4 @@
-Vilio.RelationshipsIndexController = Ember.ArrayController.extend({	
+Vilio.RelationshipsController = Ember.ArrayController.extend({	
     // relationship selected from the list
     selectedRelationship: null,
 
@@ -6,43 +6,50 @@ Vilio.RelationshipsIndexController = Ember.ArrayController.extend({
 	empty: function() {
 		var numOfAssets = this.get('content.length');
 		return numOfAssets === 0;
-	}.property('content.length'),
-
-    clearSelected: function() {
-        this.set('selectedRelationship', null);
-    },
-    setSelected: function(relationship) {
-        this.set('selectedRelationship', relationship);
-    }
+	}.property('content.length')
 });
 
-Vilio.RelationshipsController = Ember.ObjectController.extend({});
+Vilio.RelationshipsIndexController = Ember.ArrayController.extend({});
 
 Vilio.RelationshipController = Ember.ObjectController.extend(Vilio.EditModelControllerMixin, {
-    needs: ['relationshipsIndex'],
+    needs: ['relationshipsIndex', 'portfolios', 'relationshipsNew'],
+    portfolioToAddTo: null,
 
-    // determine if this is the relationship selected from the list; 
-    // allows for setting the selected relationship programmatically 
-    // and then having the appropriate individual view respond
-    isSelected: function() {
-        return (this.get('content') === this.get('controllers.relationshipsIndex.selectedRelationship'));
-    }.property('controllers.relationshipsIndex.selectedRelationship'),
-
-    deselect: function() {
-        this.get('controllers.relationshipsIndex').clearSelected();
-    },
     destroyRelationship: function(relationship) {
         var controller = this;
         this.deleteRecord().then(function() {
-            controller.deselect();
+            controller.transitionTo('relationships.index');
         }, function() {
             //TODO handle error
         });
     },
     removeFromPortfolio: function(relationship) {
         this.destroyRelationship(relationship);
+    },
+    // list of portfolios that this asset does not have a relationship
+    // with and can be added to by this user
+    availablePortfolios: function() {
+        console.log('getting available portfolios');
+        var ports =  this.get('controllers.portfolios.content');
+        var assetPorts = this.get('content.asset.portfolios');
+        var availablePorts = [];
+        if (assetPorts) {
+            availablePorts = ports.removeObjects(assetPorts);
+        }
+        return availablePorts;
+    }.property('portfolios.content', 'content'),
+    hasAvailablePortfolios: function() {
+       return this.get('availablePortfolios.length') > 0;
+    }.property('content', 'portfolios.content'),
+    addToPortfolio: function() {
+        console.log('adding to portfolio');
+        var portfolio = this.get('portfolioToAddTo');
+        var asset = this.get('content.asset');
+        this.get('controllers.relationshipsNew').create(asset, portfolio);
     }
 });
+
+Vilio.RelationshipEditController = Vilio.RelationshipController.extend({});
 
 Vilio.RelationshipsNewController = Ember.ObjectController.extend(Vilio.EditModelControllerMixin, {
 	needs: ['portfolio'],
@@ -62,3 +69,4 @@ Vilio.RelationshipsNewController = Ember.ObjectController.extend(Vilio.EditModel
         });
     }
 });
+

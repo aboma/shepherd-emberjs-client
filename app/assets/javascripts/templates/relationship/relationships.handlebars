@@ -1,3 +1,14 @@
 <div id="portfolio-relationships">
-	{{ outlet }}
+  <div id="relationships-message">Showing Portfolio Assets</div>
+  <div id="relationships-list">
+      {{#unless content.isLoaded}}
+          Loading...
+      {{/unless}}
+      {{#each relationship in controller}}
+          {{#linkTo 'relationship.edit' relationship}}
+              {{control 'relationship' relationship}}
+          {{/linkTo}}
+      {{/each}}
+  </div>
+{{ outlet }}
 </div>

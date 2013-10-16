@@ -1,4 +1,13 @@
 Vilio.RelationshipsRoute = Ember.Route.extend({
+    // get relationships for portfolio; these contain 
+	// portfolio <-> asset relationship; model must be set on 
+    // setupController because setting filtered model in
+    // model hook does not work
+    setupController: function(controller, model) {
+		var id = this.modelFor('portfolio').get('id');
+		model = Vilio.Relationship.find({ portfolio_id: id });
+        controller.set('content', model);
+    },
 	renderTemplate: function() {
 		this.render('relationships', {
 			into: 'portfolios',
@@ -8,22 +17,11 @@ Vilio.RelationshipsRoute = Ember.Route.extend({
 });
 
 Vilio.RelationshipsIndexRoute = Ember.Route.extend({
-    // get relationships for portfolio; these contain 
-	// portfolio <-> asset relationship
-    model: function() {
-		var id = this.modelFor('portfolio').get('id');
-		return Vilio.Relationship.find({ portfolio_id: id });
-	},
 	renderTemplate: function() {
 		this.render('relationships.index', {
 			into: 'relationships'
 		});
-	},
-    events: {
-        editAsset: function(relationship) {
-            this.controller.set('selectedRelationship', relationship);
-        }
-    }
+	}
 });
 
 // This route post FormData to the server, so it does not
@@ -61,4 +59,15 @@ Vilio.RelationshipsNewRoute = Ember.Route.extend({
             this.transitionTo('relationships.index');
         }
     }
+});
+
+Vilio.RelationshipEditRoute = Ember.Route.extend({
+    model: function() {
+      return this.modelFor('relationship');
+    },
+	renderTemplate: function() {
+		this.render('relationship.edit', {
+			into: 'relationships'
+		});
+	}
 });

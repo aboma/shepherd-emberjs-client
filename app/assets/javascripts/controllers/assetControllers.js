@@ -12,10 +12,7 @@ Vilio.AssetsIndexController = Ember.ArrayController.extend({
 
 Vilio.AssetController = Ember.ObjectController.extend(Vilio.ResourceControllerMixin, 
                                                       Vilio.EditModelControllerMixin, { 
-    needs: ['portfolio', 'portfolios', 'assetsIndex', 'assetEdit', 'assetImage', 'relationshipsNew'],
-    // portfolio to create relationship to to add asset to
-    // other portfolios
-    portfolioToAddTo: null,
+    needs: ['portfolio', 'assetsIndex', 'assetEdit', 'assetImage'],
     isEditing: false,
 
     // determine if this is the relationship selected from the list; 
@@ -34,11 +31,6 @@ Vilio.AssetController = Ember.ObjectController.extend(Vilio.ResourceControllerMi
     metadataTemplate: function() {
         return this.get('controllers.portfolio.content.metadataTemplate');
     }.property('controllers.portfolio.content'),
-
-    //TODO: fix to filter asset relationships
-    availablePortfolios: function() {
-        return this.get('controllers.portfolios.content');
-    }.property('portfolios.content', 'content.portfolios'),
 
     portfolioListString: function() {
         return this.get('content.portfolios').map(function(item, index, enumerable) {
@@ -86,12 +78,6 @@ Vilio.AssetController = Ember.ObjectController.extend(Vilio.ResourceControllerMi
         return metadataForEditing;
     }.property('content'),
 
-    addToPortfolio: function() {
-        console.log('adding to portfolio');
-        var portfolio = this.get('portfolioToAddTo');
-        var asset = this.get('content');
-        this.get('controllers.relationshipsNew').create(asset, portfolio);
-    },
     edit: function() {
         this.set('isEditing', true);
     },
@@ -106,8 +92,8 @@ Vilio.AssetController = Ember.ObjectController.extend(Vilio.ResourceControllerMi
 	},
     save: function() {
         var controller = this;
-        var metadata = this.get('metadataForEditing').map('metadatum');
-        this.get('content.metadata').pushObject(metadatum);
+        var metadata = this.get('metadataForEditing').mapProperty('metadatum');
+        this.get('content.metadata').pushObjects(metadata);
         this.saveEdits().then(function() {
             controller.set('isEditing', false);
         });
@@ -121,6 +107,8 @@ Vilio.AssetController = Ember.ObjectController.extend(Vilio.ResourceControllerMi
 
 
 Vilio.AssetEditController = Vilio.AssetController.extend({});
+
+Vilio.AssetModalEditController = Vilio.AssetController.extend({});
 
 Vilio.AssetsController = Ember.ObjectController.extend({});
 

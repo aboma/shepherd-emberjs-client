@@ -1,3 +1,12 @@
 <div id="asset-list">
+    <h3>All Assets</h3>
+    {{#unless content.isLoaded}}
+        Loading...
+    {{/unless}}
+    {{#each asset in content}}
+        {{#linkTo 'asset.modalEdit' asset}}
+            {{render 'asset' asset}}
+        {{/linkTo}}
+    {{/each}}
 	{{ outlet }}
 </div>

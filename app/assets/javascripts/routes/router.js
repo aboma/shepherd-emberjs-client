@@ -6,9 +6,12 @@ Vilio.Router.map(function(match) {
 	    this.resource('portfolio', { path: '/:portfolio_id' }, function() {
 		    this.route('show', { path: '/' });	    
 		    this.route('edit', { path: '/edit' });
-		    this.resource('relationships', { path: "/assets" }, function() {
+		    this.resource('relationships', { path: "/relationships" }, function() {
 		    	this.route('index', { path: "/" });
                 this.route('new', { path: "/new" });
+		        this.resource('relationship', { path: "/:relationship_id" }, function() {
+                    this.route('edit', { path: "/edit" });
+                });
 		    });
 	    });
 	});
@@ -37,6 +40,7 @@ Vilio.Router.map(function(match) {
 	this.resource('assets', { path: '/assets'}, function() {
 		this.resource('asset', { path: '/:asset_id' }, function() {
 			this.route('show', { path: '/' });
+			this.route('modalEdit', { path: '/edit' });
 		});
 	});
     this.resource('users', { path: '/users' }, function() {

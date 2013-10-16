@@ -4,7 +4,20 @@
             class="btn btn-danger relationship-remove"> 
             Remove 
         </button>
-		<a id="relationship-close" href="#" {{ action "deselect" }}>close</a>
+        {{#if controller.hasAvailablePortfolios}}
+            <button {{ action addToPortfolio content }} {{bindAttr disabled="controller.isEditing"}} class="btn btn-warning">
+                Add To Portfolio 
+            </button>
+            {{ view Vilio.Select2 
+                 viewName="addToPortfolio"
+                 prompt="Portfolio"
+                 contentBinding="controller.availablePortfolios" 
+                 optionLabelPath="content.name"
+                 optionValuePath="content.id"
+                 selectionBinding="controller.portfolioToAddTo"
+            }}
+        {{/if}}
+        {{#linkTo 'relationship.index' id="relationship-close"}} close {{/linkTo}}
 	</div>
 	<div id="relationship-asset">
 		{{ render "assetEdit" content.asset }}

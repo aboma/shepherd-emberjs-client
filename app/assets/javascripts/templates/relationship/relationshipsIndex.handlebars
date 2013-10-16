@@ -1,9 +1,0 @@
-<div id="relationships-message">Showing Portfolio Assets</div>
-<div id="relationships-list">
-    {{#unless content.isLoaded}}
-        Loading...
-    {{/unless}}
-	{{#each relationship in content}}
-		{{control 'relationship' relationship}}
-	{{/each}}
-</div>
