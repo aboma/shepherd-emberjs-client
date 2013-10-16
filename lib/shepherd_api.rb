@@ -1,6 +1,6 @@
 class ShepherdAPI < Object
-  @host = VILIO_CONFIG.api.url.host
-  @port = VILIO_CONFIG.api.url.port
+  @host = SHEPHERD_CONFIG.api.url.host
+  @port = SHEPHERD_CONFIG.api.url.port
   
   class << self
     attr_reader :host, :port

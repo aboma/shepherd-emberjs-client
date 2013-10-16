@@ -1,3 +1,3 @@
 RailsConfig.setup do |config|
-  config.const_name = "VILIO_CONFIG"
+  config.const_name = "SHEPHERD_CONFIG"
 end
