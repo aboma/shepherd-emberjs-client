@@ -2,7 +2,7 @@
   <div id="relationships-message">Showing Portfolio Assets</div>
   <div id="relationships-list">
       {{#unless content.isLoaded}}
-          Loading...
+          Loading assets for portfolio {{ portfolioName }}...
       {{/unless}}
       {{#each relationship in controller}}
           {{#linkTo 'relationship.edit' relationship}}

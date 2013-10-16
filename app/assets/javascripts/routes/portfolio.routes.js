@@ -6,6 +6,11 @@ Vilio.PortfoliosRoute = Ember.Route.extend({
         this._super(controller, model);
         this.controllerFor('topNav').set('selected', 'Portfolios');
     },
+	renderTemplate: function() {
+		this.render('portfolios', {  
+			into: 'application'
+		});
+	},
 });
 
 Vilio.PortfoliosIndexRoute = Ember.Route.extend({
@@ -66,6 +71,8 @@ Vilio.PortfolioShowRoute = Ember.Route.extend({
 		this.render('portfolio.show', {
 			into: 'portfolio'
 		});
+    },
+    redirect: function() {
 		// forward to show assets route, since show portfolio
 		// means show assets in portfolio to user
 		this.transitionTo('relationships');

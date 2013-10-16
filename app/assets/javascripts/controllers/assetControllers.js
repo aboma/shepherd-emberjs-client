@@ -51,10 +51,14 @@ Vilio.AssetController = Ember.ObjectController.extend(Vilio.ResourceControllerMi
         // for editing and display purposes
         fieldSettings.forEach(function(fieldSetting, index) {
            // does metadata exist on asset?
-           var metadatumField = fieldSetting.get('metadatumField');
-           var fieldType = metadatumField.get('type');
-           var metadatum = this.get('content.metadata').findProperty('metadatumField', metadatumField);
-           var metadatumValues;
+           var metadatumField, fieldType, metadata, metadatum,
+              metadatumValues, metadatumValuesList;
+           metadatumField = fieldSetting.get('metadatumField');
+           fieldType = metadatumField.get('type');
+           metadata = this.get('content.metadata');
+           if (metadata) {
+              metadatum = metadata.findProperty('metadatumField', metadatumField);
+           }
            // if metadatum value does not exist yet, create for purposes of editing;
            // remove null values before committing
            if (!metadatum) {
@@ -63,8 +67,9 @@ Vilio.AssetController = Ember.ObjectController.extend(Vilio.ResourceControllerMi
                   metadatumValue: null
               });
            }
-           if (metadatum.get('metadatumField.allowedValuesList')) {
-               metadatumValues = metadatum.get('metadatumField.allowedValuesList.metadatumListValues').mapProperty('value');
+           metadatumValuesList = metadatum.get('metadatumField.allowedValuesList');
+           if (metadatumValuesList) {
+               metadatumValues = metadatumValuesList.get('metadatumListValues').mapProperty('value');
            }
            metadatumForEditing = Ember.Object.create({
                order: fieldSetting.get('order'), 
@@ -116,11 +121,21 @@ Vilio.AssetsNewController = Vilio.AssetEditController.extend({});
 
 Vilio.AssetImageController = Ember.ArrayController.extend({
     originalImage: (function() {
-		return this.get('content').findProperty('rel', 'image');
+        var content = this.get('content');
+        if (content) {
+          return content.findProperty('rel', 'image');
+        } else {
+          return null;
+        }
     }).property('content.@each'),
 
     thumbnail: (function() {
-		return this.get('content').findProperty('rel', 'thumbnail');
+        var content = this.get('content');
+        if (content) {
+          return content.findProperty('rel', 'thumbnail');
+        } else {
+          return null;
+        }
 	}).property('content.@each'),
 
     fullPath: function() {

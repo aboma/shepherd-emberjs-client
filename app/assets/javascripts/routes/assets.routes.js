@@ -5,10 +5,21 @@ Vilio.AssetsRoute = Ember.Route.extend({
 	setupController: function(controller, model) {
         this._super(controller, model);
         this.controllerFor('topNav').set('selected', 'Assets');
-    }
+    },
+	renderTemplate: function() {
+		this.render('assets', {
+			into: 'application'
+		});
+	}
 });
 
-Vilio.AssetsIndexRoute = Ember.Route.extend({});
+Vilio.AssetsIndexRoute = Ember.Route.extend({
+	renderTemplate: function() {
+		this.render('assets.index', {
+			into: 'assets'
+		});
+	}
+});
 
 Vilio.AssetModalEditRoute = Ember.Route.extend({
     model: function() {

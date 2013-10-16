@@ -1,10 +1,10 @@
 <div id="relationship-show">
 	<div id="relationship-header">
-		<button {{ action removeFromPortfolio content }} 
+		<button {{ action destroyRelationship content }} 
             class="btn btn-danger relationship-remove"> 
             Remove 
         </button>
-        {{#if controller.hasAvailablePortfolios}}
+        {{#if hasAvailablePortfolios}}
             <button {{ action addToPortfolio content }} {{bindAttr disabled="controller.isEditing"}} class="btn btn-warning">
                 Add To Portfolio 
             </button>

@@ -7,6 +7,7 @@ Vilio.RelationshipsRoute = Ember.Route.extend({
 		var id = this.modelFor('portfolio').get('id');
 		model = Vilio.Relationship.find({ portfolio_id: id });
         controller.set('content', model);
+        controller.set('portfolioName', this.modelFor('portfolio').get('name'));
     },
 	renderTemplate: function() {
 		this.render('relationships', {
@@ -61,6 +62,14 @@ Vilio.RelationshipsNewRoute = Ember.Route.extend({
     }
 });
 
+Vilio.RelationshipRoute = Ember.Route.extend({
+	renderTemplate: function() {
+		this.render('relationship', {
+			into: 'relationships'
+		});
+	}
+});
+
 Vilio.RelationshipEditRoute = Ember.Route.extend({
     model: function() {
       return this.modelFor('relationship');
@@ -69,5 +78,16 @@ Vilio.RelationshipEditRoute = Ember.Route.extend({
 		this.render('relationship.edit', {
 			into: 'relationships'
 		});
-	}
+	},
+    events: {
+        destroyRelationship: function(event) {
+            var route = this;
+            console.log('detroying relationship');
+            this.controller.deleteRecord().then(function() {
+                route.transitionTo('relationships.index');
+            }, function() {
+                //TODO handle error
+            });
+        }
+    }
 });
