@@ -1,6 +1,6 @@
-Vilio.PortfoliosRoute = Ember.Route.extend({
+Shepherd.PortfoliosRoute = Ember.Route.extend({
 	model: function() {
-		return Vilio.Portfolio.find();
+		return Shepherd.Portfolio.find();
 	},
 	setupController: function(controller, model) {
         this._super(controller, model);
@@ -13,7 +13,7 @@ Vilio.PortfoliosRoute = Ember.Route.extend({
 	},
 });
 
-Vilio.PortfoliosIndexRoute = Ember.Route.extend({
+Shepherd.PortfoliosIndexRoute = Ember.Route.extend({
 	renderTemplate: function() {
 		this.render('portfolios.index', {  
 			into: 'portfolios',
@@ -26,10 +26,10 @@ Vilio.PortfoliosIndexRoute = Ember.Route.extend({
 	}
 });
 
-Vilio.PortfoliosNewRoute = Ember.Route.extend({
+Shepherd.PortfoliosNewRoute = Ember.Route.extend({
 	model: function() {
 		var transaction = this.store.transaction();
-		return transaction.createRecord(Vilio.Portfolio, {});
+		return transaction.createRecord(Shepherd.Portfolio, {});
 	},
 	renderTemplate: function() {
 		this.render('portfolios.new', {
@@ -57,7 +57,7 @@ Vilio.PortfoliosNewRoute = Ember.Route.extend({
     }
 });
 
-Vilio.PortfolioRoute = Ember.Route.extend({
+Shepherd.PortfolioRoute = Ember.Route.extend({
 	renderTemplate: function() {
 		this.render('portfolio', {
 			into: 'portfolios',
@@ -66,7 +66,7 @@ Vilio.PortfolioRoute = Ember.Route.extend({
 	}
 });
 
-Vilio.PortfolioShowRoute = Ember.Route.extend({
+Shepherd.PortfolioShowRoute = Ember.Route.extend({
 	renderTemplate: function() {
 		this.render('portfolio.show', {
 			into: 'portfolio'
@@ -79,7 +79,7 @@ Vilio.PortfolioShowRoute = Ember.Route.extend({
 	}
 });
 
-Vilio.PortfolioEditRoute = Ember.Route.extend({
+Shepherd.PortfolioEditRoute = Ember.Route.extend({
 	model: function() {
 		return this.modelFor('portfolio');
 	},

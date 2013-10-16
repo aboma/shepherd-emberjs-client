@@ -1,4 +1,4 @@
-Vilio.TopNavView = Ember.View.extend({
+Shepherd.TopNavView = Ember.View.extend({
 	templateName: "menus/topnav",
     selectedBinding: Ember.Binding.oneWay('controller.selected'),
     navItemView: Ember.View.extend({

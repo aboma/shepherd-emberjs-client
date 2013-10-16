@@ -1,4 +1,4 @@
-Vilio.PortfolioSelect2 = Vilio.Select2.extend({
+Shepherd.PortfolioSelect2 = Shepherd.Select2.extend({
     classNames: ['select2-portfolio'],
 
 	// bind change in selected portfolio to trigger routing 
@@ -15,26 +15,26 @@ Vilio.PortfolioSelect2 = Vilio.Select2.extend({
     }, 'value')
 });
 
-Vilio.PortfoliosIndexView = Ember.View.extend({
+Shepherd.PortfoliosIndexView = Ember.View.extend({
   	templateName: 'portfolio/portfolioIndex'
 });
 
-Vilio.PortfoliosNewView = Ember.View.extend({
+Shepherd.PortfoliosNewView = Ember.View.extend({
 	templateName: 'portfolio/portfolioEdit'
 });
 
-Vilio.PortfoliosView = Ember.View.extend({
+Shepherd.PortfoliosView = Ember.View.extend({
 	templateName: 'portfolio/portfolios'
 });
 
-Vilio.PortfolioView = Ember.View.extend({
+Shepherd.PortfolioView = Ember.View.extend({
 	templateName: 'portfolio/portfolio'
 });
 
-Vilio.PortfolioShowView = Ember.View.extend({
+Shepherd.PortfolioShowView = Ember.View.extend({
 	templateName: 'portfolio/portfolioShow'
 });
 
-Vilio.PortfolioEditView = Ember.View.extend({
+Shepherd.PortfolioEditView = Ember.View.extend({
 	templateName: 'portfolio/portfolioEdit'
 });

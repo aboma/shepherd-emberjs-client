@@ -11,7 +11,7 @@
 //= require bootstrap-modal
 //= require bootstrap-dropdown
 //= require select2
-//= require vilioApp
+//= require shepherdApp
 //= require mixins
 //= require_tree ./store
 //= require_tree ./models

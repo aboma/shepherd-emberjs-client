@@ -1,6 +1,6 @@
-Vilio.MetadataListsRoute = Ember.Route.extend({
+Shepherd.MetadataListsRoute = Ember.Route.extend({
     model: function() {
-        return Vilio.MetadatumValuesList.find();
+        return Shepherd.MetadatumValuesList.find();
     },
 	setupController: function(controller, model) {
         this._super(controller, model);
@@ -9,7 +9,7 @@ Vilio.MetadataListsRoute = Ember.Route.extend({
 });
 
 
-Vilio.MetadataListsIndexRoute = Ember.Route.extend({
+Shepherd.MetadataListsIndexRoute = Ember.Route.extend({
     renderTemplate: function() {
     	this.render('metadata_lists.index', {
 	    	into: 'metadata_lists',
@@ -18,10 +18,10 @@ Vilio.MetadataListsIndexRoute = Ember.Route.extend({
     }
 });
 
-Vilio.MetadataListsNewRoute = Ember.Route.extend({
+Shepherd.MetadataListsNewRoute = Ember.Route.extend({
 	model: function() {
 		var transaction = this.store.transaction();
-		return transaction.createRecord(Vilio.MetadatumValuesList, {});
+		return transaction.createRecord(Shepherd.MetadatumValuesList, {});
 	},
 	renderTemplate: function() {
 		this.render('metadata_lists.new', {
@@ -47,9 +47,9 @@ Vilio.MetadataListsNewRoute = Ember.Route.extend({
     } */
 });
 
-Vilio.MetadataListRoute = Ember.Route.extend({});
+Shepherd.MetadataListRoute = Ember.Route.extend({});
 
-Vilio.MetadataListShowRoute = Ember.Route.extend({
+Shepherd.MetadataListShowRoute = Ember.Route.extend({
     model: function() {
         return this.modelFor('metadata_list');
     },
@@ -67,7 +67,7 @@ Vilio.MetadataListShowRoute = Ember.Route.extend({
     }
 });
 
-Vilio.MetadataListEditRoute = Ember.Route.extend({
+Shepherd.MetadataListEditRoute = Ember.Route.extend({
     model: function() {
         return this.modelFor('metadata_list');
     },

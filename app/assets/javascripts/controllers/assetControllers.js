@@ -1,4 +1,4 @@
-Vilio.AssetsIndexController = Ember.ArrayController.extend({
+Shepherd.AssetsIndexController = Ember.ArrayController.extend({
     // asset selected from the list view
     selectedAsset: null,
 
@@ -10,8 +10,8 @@ Vilio.AssetsIndexController = Ember.ArrayController.extend({
     }
 });
 
-Vilio.AssetController = Ember.ObjectController.extend(Vilio.ResourceControllerMixin, 
-                                                      Vilio.EditModelControllerMixin, { 
+Shepherd.AssetController = Ember.ObjectController.extend(Shepherd.ResourceControllerMixin, 
+                                                      Shepherd.EditModelControllerMixin, { 
     needs: ['portfolio', 'assetsIndex', 'assetEdit', 'assetImage'],
     isEditing: false,
 
@@ -62,7 +62,7 @@ Vilio.AssetController = Ember.ObjectController.extend(Vilio.ResourceControllerMi
            // if metadatum value does not exist yet, create for purposes of editing;
            // remove null values before committing
            if (!metadatum) {
-              metadatum = Vilio.MetadatumValue.createRecord({
+              metadatum = Shepherd.MetadatumValue.createRecord({
                   metadatumField: metadatumField,
                   metadatumValue: null
               });
@@ -111,15 +111,15 @@ Vilio.AssetController = Ember.ObjectController.extend(Vilio.ResourceControllerMi
 });
 
 
-Vilio.AssetEditController = Vilio.AssetController.extend({});
+Shepherd.AssetEditController = Shepherd.AssetController.extend({});
 
-Vilio.AssetModalEditController = Vilio.AssetController.extend({});
+Shepherd.AssetModalEditController = Shepherd.AssetController.extend({});
 
-Vilio.AssetsController = Ember.ObjectController.extend({});
+Shepherd.AssetsController = Ember.ObjectController.extend({});
 
-Vilio.AssetsNewController = Vilio.AssetEditController.extend({});
+Shepherd.AssetsNewController = Shepherd.AssetEditController.extend({});
 
-Vilio.AssetImageController = Ember.ArrayController.extend({
+Shepherd.AssetImageController = Ember.ArrayController.extend({
     originalImage: (function() {
         var content = this.get('content');
         if (content) {
@@ -145,4 +145,4 @@ Vilio.AssetImageController = Ember.ArrayController.extend({
 	}.property('content.@each.href')
 });
 
-Vilio.ThumbnailController = Vilio.AssetImageController.extend({});
+Shepherd.ThumbnailController = Shepherd.AssetImageController.extend({});

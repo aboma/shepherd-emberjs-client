@@ -1,4 +1,4 @@
-Vilio.ApplicationView = Ember.View.extend({
+Shepherd.ApplicationView = Ember.View.extend({
 	templateName: "application/application",
-    classNames: ['vilio-container']
+    classNames: ['shepherd-container']
 });

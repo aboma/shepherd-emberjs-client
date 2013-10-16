@@ -1,6 +1,6 @@
-Vilio.AssetsRoute = Ember.Route.extend({
+Shepherd.AssetsRoute = Ember.Route.extend({
 	model: function() {
-		return Vilio.Asset.find();
+		return Shepherd.Asset.find();
 	},
 	setupController: function(controller, model) {
         this._super(controller, model);
@@ -13,7 +13,7 @@ Vilio.AssetsRoute = Ember.Route.extend({
 	}
 });
 
-Vilio.AssetsIndexRoute = Ember.Route.extend({
+Shepherd.AssetsIndexRoute = Ember.Route.extend({
 	renderTemplate: function() {
 		this.render('assets.index', {
 			into: 'assets'
@@ -21,7 +21,7 @@ Vilio.AssetsIndexRoute = Ember.Route.extend({
 	}
 });
 
-Vilio.AssetModalEditRoute = Ember.Route.extend({
+Shepherd.AssetModalEditRoute = Ember.Route.extend({
     model: function() {
         return this.modelFor('asset');
     },

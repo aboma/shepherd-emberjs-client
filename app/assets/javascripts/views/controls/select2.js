@@ -31,7 +31,7 @@
 //});
 //
 
-Vilio.Select2 = Ember.Select.extend({
+Shepherd.Select2 = Ember.Select.extend({
     defaultTemplate: Ember.Handlebars.compile('<option>{{#if prompt}}{{unbound prompt}}{{/if}}</option>{{#each view.content}}{{view Ember.SelectOption contentBinding="this"}}{{/each}}'),
     attributeBindings: ['required'],
     classNames: [],
@@ -45,7 +45,7 @@ Vilio.Select2 = Ember.Select.extend({
 		//this._super();
 		var placeholderText = this.get('prompt') || '';
         if (!this.$().select2)
-			throw new Exception('select2 is required for Vilio.Select2 control');
+			throw new Exception('select2 is required for Shepherd.Select2 control');
 		this.$().select2({
 			containerCssClass: this.get('classNames.first'),
 			placeholder: placeholderText,

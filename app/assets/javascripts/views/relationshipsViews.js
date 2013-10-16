@@ -1,8 +1,8 @@
-Vilio.RelationshipsView = Ember.View.extend({
+Shepherd.RelationshipsView = Ember.View.extend({
 	templateName: "relationship/relationships"
 }); 
 
-Vilio.RelationshipsNewView = Ember.View.extend({
+Shepherd.RelationshipsNewView = Ember.View.extend({
 	templateName: "relationship/relationshipNew",
 
 	// uploads file to server as new asset with
@@ -23,15 +23,15 @@ Vilio.RelationshipsNewView = Ember.View.extend({
     }
 });
 
-Vilio.RelationshipsIndexView = Ember.View.extend({
+Shepherd.RelationshipsIndexView = Ember.View.extend({
 	templateName: "relationship/relationshipsIndex"
 });
 
-Vilio.RelationshipEditView = Ember.View.extend({
+Shepherd.RelationshipEditView = Ember.View.extend({
 	layoutName : 'layouts/modal',
 	templateName : 'relationship/relationshipEdit',
 });
 
-Vilio.RelationshipView = Ember.View.extend({
+Shepherd.RelationshipView = Ember.View.extend({
 	templateName : 'relationship/relationshipShow'
 });

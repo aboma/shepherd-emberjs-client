@@ -1,13 +1,13 @@
-Vilio.TemplatesIndexController = Ember.ObjectController.extend({});
+Shepherd.TemplatesIndexController = Ember.ObjectController.extend({});
 
-Vilio.TemplatesController = Ember.ArrayController.extend({
+Shepherd.TemplatesController = Ember.ArrayController.extend({
   sortProperties: ['name'],
   sortAscending: true
 });
 
-Vilio.TemplateController = Ember.ObjectController.extend(Vilio.ResourceControllerMixin, {});
+Shepherd.TemplateController = Ember.ObjectController.extend(Shepherd.ResourceControllerMixin, {});
 
-Vilio.TemplateShowController = Ember.ObjectController.extend({
+Shepherd.TemplateShowController = Ember.ObjectController.extend({
   needs: ['fields', 'template'],
   uri: Ember.computed.alias('controllers.template.uri'),
   fields: Ember.computed.alias('controllers.fields.content'),
@@ -21,7 +21,7 @@ Vilio.TemplateShowController = Ember.ObjectController.extend({
   }.property('content.metadataTemplateFieldSettings.@each')
 });
 
-Vilio.TemplatesNewController = Vilio.TemplateShowController.extend(Vilio.EditModelControllerMixin, {
+Shepherd.TemplatesNewController = Shepherd.TemplateShowController.extend(Shepherd.EditModelControllerMixin, {
   needs: ['fields', 'template'],
   uri: Ember.computed.alias('controllers.template.uri'),
   fields: Ember.computed.alias('controllers.fields.content'),
@@ -78,6 +78,6 @@ Vilio.TemplatesNewController = Vilio.TemplateShowController.extend(Vilio.EditMod
   }
 });
 
-Vilio.TemplateEditController = Vilio.TemplatesNewController.extend({});
+Shepherd.TemplateEditController = Shepherd.TemplatesNewController.extend({});
 
-Vilio.FieldDraggableController = Ember.ObjectController.extend({});
+Shepherd.FieldDraggableController = Ember.ObjectController.extend({});

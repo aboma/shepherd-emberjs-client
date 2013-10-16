@@ -1,4 +1,4 @@
-Vilio.User = DS.Model.extend({
+Shepherd.User = DS.Model.extend({
     email: DS.attr('string'),
     lastName: DS.attr('string'),
     firstName: DS.attr('string'),
@@ -7,7 +7,7 @@ Vilio.User = DS.Model.extend({
     lastSignInAt: DS.attr('date'),
     createdAt : DS.attr('date'),
     updatedAt : DS.attr('date'),
-	links : DS.hasMany('Vilio.Link'),
+	links : DS.hasMany('Shepherd.Link'),
 
     nameFormatLastFirst: function() {
         return this.get('lastName') + ', ' + this.get('firstName');

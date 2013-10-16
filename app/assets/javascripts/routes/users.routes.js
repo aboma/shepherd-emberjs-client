@@ -1,6 +1,6 @@
-Vilio.UsersRoute = Ember.Route.extend({
+Shepherd.UsersRoute = Ember.Route.extend({
     model: function() {
-        return Vilio.User.find();
+        return Shepherd.User.find();
     },
 	setupController: function(controller, model) {
         this._super(controller, model);
@@ -8,7 +8,7 @@ Vilio.UsersRoute = Ember.Route.extend({
     },
 });
 
-Vilio.UsersIndexRoute = Ember.Route.extend({
+Shepherd.UsersIndexRoute = Ember.Route.extend({
     renderTemplate: function() {
         this.render('users.index', {
             into: 'users',
@@ -17,9 +17,9 @@ Vilio.UsersIndexRoute = Ember.Route.extend({
     }
 });
 
-Vilio.UserRoute = Ember.Route.extend({});
+Shepherd.UserRoute = Ember.Route.extend({});
 
-Vilio.UserShowRoute = Ember.Route.extend({
+Shepherd.UserShowRoute = Ember.Route.extend({
     model: function() {
         return this.modelFor('user');
     },
@@ -37,10 +37,10 @@ Vilio.UserShowRoute = Ember.Route.extend({
     }
 });
 
-Vilio.UsersNewRoute = Ember.Route.extend({
+Shepherd.UsersNewRoute = Ember.Route.extend({
 	model: function() {
 		var transaction = this.store.transaction();
-		return transaction.createRecord(Vilio.User, {});
+		return transaction.createRecord(Shepherd.User, {});
 	},
     renderTemplate: function() {
 		this.render('users.new', {
@@ -67,7 +67,7 @@ Vilio.UsersNewRoute = Ember.Route.extend({
     }
 });
 
-Vilio.UserEditRoute = Ember.Route.extend({
+Shepherd.UserEditRoute = Ember.Route.extend({
     model: function() {
         return this.modelFor('user');
     },

@@ -4,4 +4,4 @@
 
 require File.expand_path('../config/application', __FILE__)
 
-VilioEmberjsClient::Application.load_tasks
+ShepherdEmberjsClient::Application.load_tasks

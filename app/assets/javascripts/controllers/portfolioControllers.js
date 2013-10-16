@@ -1,6 +1,6 @@
-Vilio.PortfoliosIndexController = Ember.ObjectController.extend({});
+Shepherd.PortfoliosIndexController = Ember.ObjectController.extend({});
 
-Vilio.PortfoliosController = Ember.ArrayController.extend({
+Shepherd.PortfoliosController = Ember.ArrayController.extend({
 	needs: ['portfolio'],
 	content: null,
 	sortProperties: ['name'],
@@ -25,14 +25,14 @@ Vilio.PortfoliosController = Ember.ArrayController.extend({
   	}.observes('content.isLoaded')
 });
 
-Vilio.PortfolioController = Ember.ObjectController.extend(Vilio.ResourceControllerMixin, {});
+Shepherd.PortfolioController = Ember.ObjectController.extend(Shepherd.ResourceControllerMixin, {});
 
-Vilio.PortfolioShowController = Ember.ObjectController.extend({});
+Shepherd.PortfolioShowController = Ember.ObjectController.extend({});
 
-Vilio.PortfolioEditController = Ember.ObjectController.extend(Vilio.EditModelControllerMixin, {
+Shepherd.PortfolioEditController = Ember.ObjectController.extend(Shepherd.EditModelControllerMixin, {
   needs: ['portfolio', 'templates'],
   uri: Ember.computed.alias('controllers.portfolio.uri'),
   metadataTemplates: Ember.computed.alias('controllers.templates.content')
 });
 
-Vilio.PortfoliosNewController = Vilio.PortfolioEditController.extend({});
+Shepherd.PortfoliosNewController = Shepherd.PortfolioEditController.extend({});

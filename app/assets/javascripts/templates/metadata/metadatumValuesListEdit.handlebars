@@ -28,7 +28,7 @@
     	<div class="control-group">
     		<label class="control-label">List Name</label>
     		<div class="controls">
-				{{ view Vilio.TextField 
+				{{ view Shepherd.TextField 
                       viewName="listName" 
  					  valueBinding="name"
                       disabledBinding="content.isSaving" 
@@ -58,7 +58,7 @@
     		<label class="control-label">Values</label>
             <div class="controls">
               {{#each content.metadatumListValues }}
-        			{{ view Vilio.TextField
+        			{{ view Shepherd.TextField
                        class="metadata-value-input"
  	    	    	   valueBinding="value"
                        disabledBinding="content.isSaving"
@@ -79,10 +79,10 @@
 	    	</div>
     	{{/unless}}
     	<div class="control-group button-group-edit">
-            {{#view Vilio.SaveButton }} Save {{/view}}
-            {{#view Vilio.CancelButton }} Cancel {{/view}}
+            {{#view Shepherd.SaveButton }} Save {{/view}}
+            {{#view Shepherd.CancelButton }} Cancel {{/view}}
             {{#unless content.isNew}}
-                {{#view Vilio.DeleteButton }} Delete {{/view}}
+                {{#view Shepherd.DeleteButton }} Delete {{/view}}
 			{{/unless}}
      	</div>
     </fieldset>

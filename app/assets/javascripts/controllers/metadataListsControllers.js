@@ -1,6 +1,6 @@
-Vilio.MetadataListsIndexController = Ember.ObjectController.extend({});
+Shepherd.MetadataListsIndexController = Ember.ObjectController.extend({});
 
-Vilio.MetadataListsController = Ember.ArrayController.extend({
+Shepherd.MetadataListsController = Ember.ArrayController.extend({
   needs: ['metadata_list'],
   sortProperties: ['name'],
   sortAscending: true,
@@ -11,16 +11,16 @@ Vilio.MetadataListsController = Ember.ArrayController.extend({
   }.property('content.[]')
 });
 
-Vilio.MetadataListController = Ember.ObjectController.extend(Vilio.ResourceControllerMixin, {});
+Shepherd.MetadataListController = Ember.ObjectController.extend(Shepherd.ResourceControllerMixin, {});
 
-Vilio.MetadataListShowController = Ember.ObjectController.extend({
+Shepherd.MetadataListShowController = Ember.ObjectController.extend({
   needs: ['metadata_list'],
   uri: Ember.computed.alias('controllers.metadata_list.uri')
 });
 
-Vilio.MetadataListsNewController = Ember.ObjectController.extend(Vilio.EditModelControllerMixin, {
+Shepherd.MetadataListsNewController = Ember.ObjectController.extend(Shepherd.EditModelControllerMixin, {
   addValue: function() {
-    var newValue = this.get('content.transaction').createRecord(Vilio.MetadatumListValue, {});
+    var newValue = this.get('content.transaction').createRecord(Shepherd.MetadatumListValue, {});
     var values = this.get('content.metadatumListValues');
     values.pushObject(newValue);
   },
@@ -37,7 +37,7 @@ Vilio.MetadataListsNewController = Ember.ObjectController.extend(Vilio.EditModel
   }
 });
 
-Vilio.MetadataListEditController = Vilio.MetadataListsNewController.extend({
+Shepherd.MetadataListEditController = Shepherd.MetadataListsNewController.extend({
   needs: ['metadata_list'],
   uri: Ember.computed.alias('controllers.metadata_list.uri')
 });

@@ -1,12 +1,12 @@
-<section id='vilio'>
+<section id='shepherd'>
 	<nav>
 		{{ render 'topNav' }}
 	</nav>
-	<div id='vilio-main'>
+	<div id='shepherd-main'>
 		{{ outlet }}
 	</div>
 	<footer></footer>
 </section>
-{{ view Vilio.MessageView 
+{{ view Shepherd.MessageView 
       controllerBinding="controllers.message"
       id="message-container"}}

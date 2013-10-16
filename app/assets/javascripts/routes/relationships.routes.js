@@ -1,11 +1,11 @@
-Vilio.RelationshipsRoute = Ember.Route.extend({
+Shepherd.RelationshipsRoute = Ember.Route.extend({
     // get relationships for portfolio; these contain 
 	// portfolio <-> asset relationship; model must be set on 
     // setupController because setting filtered model in
     // model hook does not work
     setupController: function(controller, model) {
 		var id = this.modelFor('portfolio').get('id');
-		model = Vilio.Relationship.find({ portfolio_id: id });
+		model = Shepherd.Relationship.find({ portfolio_id: id });
         controller.set('content', model);
         controller.set('portfolioName', this.modelFor('portfolio').get('name'));
     },
@@ -17,7 +17,7 @@ Vilio.RelationshipsRoute = Ember.Route.extend({
 	}
 });
 
-Vilio.RelationshipsIndexRoute = Ember.Route.extend({
+Shepherd.RelationshipsIndexRoute = Ember.Route.extend({
 	renderTemplate: function() {
 		this.render('relationships.index', {
 			into: 'relationships'
@@ -27,10 +27,10 @@ Vilio.RelationshipsIndexRoute = Ember.Route.extend({
 
 // This route post FormData to the server, so it does not
 // use the edit controller mixin nor create a model for editing
-Vilio.RelationshipsNewRoute = Ember.Route.extend({
+Shepherd.RelationshipsNewRoute = Ember.Route.extend({
     model: function() {
         var port = this.modelFor('portfolio');
-        return this.store.transaction().createRecord(Vilio.Relationship, { portfolio: port });
+        return this.store.transaction().createRecord(Shepherd.Relationship, { portfolio: port });
     },
 	renderTemplate: function() {
 		this.render('relationships.new', {
@@ -62,7 +62,7 @@ Vilio.RelationshipsNewRoute = Ember.Route.extend({
     }
 });
 
-Vilio.RelationshipRoute = Ember.Route.extend({
+Shepherd.RelationshipRoute = Ember.Route.extend({
 	renderTemplate: function() {
 		this.render('relationship', {
 			into: 'relationships'
@@ -70,7 +70,7 @@ Vilio.RelationshipRoute = Ember.Route.extend({
 	}
 });
 
-Vilio.RelationshipEditRoute = Ember.Route.extend({
+Shepherd.RelationshipEditRoute = Ember.Route.extend({
     model: function() {
       return this.modelFor('relationship');
     },

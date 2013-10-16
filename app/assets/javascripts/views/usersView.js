@@ -1,19 +1,19 @@
-Vilio.UsersView = Ember.View.extend({
+Shepherd.UsersView = Ember.View.extend({
     templateName: 'users/users' 
 });
 
-Vilio.UsersIndexView = Ember.View.extend({
+Shepherd.UsersIndexView = Ember.View.extend({
     templateName: 'users/usersIndex'
 });
 
-Vilio.UserShowView = Ember.View.extend({
+Shepherd.UserShowView = Ember.View.extend({
     templateName: 'users/userShow'
 });
 
-Vilio.UsersNewView = Ember.View.extend({
+Shepherd.UsersNewView = Ember.View.extend({
     templateName: 'users/userEdit'
 });
 
-Vilio.UserEditView = Ember.View.extend({
+Shepherd.UserEditView = Ember.View.extend({
     templateName: 'users/userEdit'
 });

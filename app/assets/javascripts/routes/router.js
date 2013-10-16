@@ -1,4 +1,4 @@
-Vilio.Router.map(function(match) {
+Shepherd.Router.map(function(match) {
 	this.route("index", { path: "/" });
 	// portfolios
 	this.resource('portfolios', { path: '/portfolios' }, function() {
@@ -53,33 +53,33 @@ Vilio.Router.map(function(match) {
 });
 
 // load application settings and remove loading graphic
-Vilio.ApplicationRoute = Ember.Route.extend({
+Shepherd.ApplicationRoute = Ember.Route.extend({
     setupController: function(controller, model) {
         // load user session information
         var sessionController = this.controllerFor('session');
-        sessionController.set('model', Vilio.Session.find(1));
+        sessionController.set('model', Shepherd.Session.find(1));
         // load application settings
         var settingController = this.controllerFor('setting');
-        settingController.set('model', Vilio.Setting.find(1));
+        settingController.set('model', Shepherd.Setting.find(1));
         // load values lists for forms
         var metadatumValuesListsController = this.controllerFor('metadata_lists');
         if (metadatumValuesListsController) 
-          metadatumValuesListsController.set('model', Vilio.MetadatumValuesList.find({}));
+          metadatumValuesListsController.set('model', Shepherd.MetadatumValuesList.find({}));
         // load fields
         var metadatumFieldsController = this.controllerFor('fields');
         if (metadatumFieldsController)
-          metadatumFieldsController.set('model', Vilio.MetadatumField.find({}));
+          metadatumFieldsController.set('model', Shepherd.MetadatumField.find({}));
         // load metadata templates
         var metadataTemplatesController = this.controllerFor('templates'); 
         if (metadataTemplatesController)
-          metadataTemplatesController.set('model', Vilio.MetadataTemplate.find());
+          metadataTemplatesController.set('model', Shepherd.MetadataTemplate.find());
 
-        Vilio.loadingOverlay.hide();
+        Shepherd.loadingOverlay.hide();
         this._super(controller, model);
     }
 });
 
-Vilio.IndexRoute = Ember.Route.extend({
+Shepherd.IndexRoute = Ember.Route.extend({
 	redirect: function() {
 	   this.transitionTo('portfolios');
 	}

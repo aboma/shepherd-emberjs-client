@@ -1,1 +1,1 @@
-Vilio.SessionController = Ember.ObjectController.extend({});
+Shepherd.SessionController = Ember.ObjectController.extend({});

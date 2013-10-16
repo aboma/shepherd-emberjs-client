@@ -1,5 +1,5 @@
 // Controls messages shown to user 
-Vilio.MessageController = Ember.ObjectController.extend({
+Shepherd.MessageController = Ember.ObjectController.extend({
     message: null,
     duration: null,
     defaultDuration: 5000,

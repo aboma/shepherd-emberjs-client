@@ -17,7 +17,7 @@ class ApplicationController < ActionController::Base
       redirect_to_login("Please login")
       return nil
     end
-    VilioAPI.new().verify_token params[:auth_token]
+    ShepherdAPI.new().verify_token params[:auth_token]
     redirect_to_login("Please login") unless response.code == "200" 
   rescue Exception => ex
     redirect_to_login("Error contacting API for login")

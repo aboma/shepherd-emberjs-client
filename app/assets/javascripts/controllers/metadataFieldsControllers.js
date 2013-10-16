@@ -1,26 +1,26 @@
-Vilio.FieldsIndexController = Ember.ObjectController.extend({});
+Shepherd.FieldsIndexController = Ember.ObjectController.extend({});
 
-Vilio.FieldsController = Ember.ArrayController.extend({
+Shepherd.FieldsController = Ember.ArrayController.extend({
   needs: ['field'],
   sortProperties: ['name'],
   sortAscending: true,
   selectedBinding: Ember.Binding.oneWay('controllers.field.content')
 });
 
-Vilio.FieldController = Ember.ObjectController.extend(Vilio.ResourceControllerMixin, {});
+Shepherd.FieldController = Ember.ObjectController.extend(Shepherd.ResourceControllerMixin, {});
 
-Vilio.FieldShowController = Ember.ObjectController.extend({
+Shepherd.FieldShowController = Ember.ObjectController.extend({
   needs: ['field'],
   uri: Ember.computed.alias('controllers.field.uri')
 });
 
-Vilio.FieldsNewController = Ember.ObjectController.extend(Vilio.EditModelControllerMixin, {
+Shepherd.FieldsNewController = Ember.ObjectController.extend(Shepherd.EditModelControllerMixin, {
   needs: ['setting', 'metadata_lists'],
   fieldTypes: Ember.computed.alias('controllers.setting.fieldTypes'),
   fieldValuesLists: Ember.computed.alias('controllers.metadata_lists.content')
 });
 
-Vilio.FieldEditController = Vilio.FieldsNewController.extend({
+Shepherd.FieldEditController = Shepherd.FieldsNewController.extend({
   needs: ['field'],
   uri: Ember.computed.alias('controllers.field.uri')
 });

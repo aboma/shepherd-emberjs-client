@@ -17,23 +17,23 @@ jQuery.ajaxSetup({
 });
 
 
-window.Vilio = Ember.Application.create({
+window.Shepherd = Ember.Application.create({
     //rootElement: "body",
     LOG_TRANSITIONS: true
 });
 
 // this is needed to use control handlebars template properly per
 // https://github.com/emberjs/ember.js/issues/1990
-Vilio.register('controller:asset', Vilio.AssetController, { singleton: false });
-Vilio.register('controller:relationship', Vilio.RelationshipController, { singleton: false });
-Vilio.register('controller:thumbnail', Vilio.ThumbnailController, { singleton: false });
+Shepherd.register('controller:asset', Shepherd.AssetController, { singleton: false });
+Shepherd.register('controller:relationship', Shepherd.RelationshipController, { singleton: false });
+Shepherd.register('controller:thumbnail', Shepherd.ThumbnailController, { singleton: false });
 
 if (!window.console) {
 	window.console = {};
 	window.console.log = function(object) {}
 };
 
-Vilio.TextField = Ember.TextField.extend({
+Shepherd.TextField = Ember.TextField.extend({
 	attributeBindings: ['required', 'placeholderText'],
 	required: false,
 	autofocus: null,
@@ -44,8 +44,8 @@ Vilio.TextField = Ember.TextField.extend({
     }
 });
 
-Vilio.Checkbox = Ember.View.extend({
-  defaultTemplate: Ember.Handlebars.compile('<div class="vilio-checkbox"><input type="checkbox" {{bindAttr checked="view.checked" disabled="view.disabled"}}/><div for="vilio-checkbox"></div></div>'),
+Shepherd.Checkbox = Ember.View.extend({
+  defaultTemplate: Ember.Handlebars.compile('<div class="shepherd-checkbox"><input type="checkbox" {{bindAttr checked="view.checked" disabled="view.disabled"}}/><div for="shepherd-checkbox"></div></div>'),
 
   checked: null,
   disabled: false,
@@ -60,7 +60,7 @@ Vilio.Checkbox = Ember.View.extend({
   }
 });
 
-Vilio.Button = Ember.View.extend(Ember.TargetActionSupport, {
+Shepherd.Button = Ember.View.extend(Ember.TargetActionSupport, {
     tagName: 'button',
     classNames: ['btn'],
     content: Ember.computed.alias('controller.content'),
@@ -72,7 +72,7 @@ Vilio.Button = Ember.View.extend(Ember.TargetActionSupport, {
     }
 });
 
-Vilio.SaveButton = Vilio.Button.extend({
+Shepherd.SaveButton = Shepherd.Button.extend({
     classNames: ['btn-success'], 
     attributeBindings: ['disabled'],
     //disabled: !Ember.Binding.oneWay('content.isDirty'),
@@ -83,12 +83,12 @@ Vilio.SaveButton = Vilio.Button.extend({
     action: 'save'
 });
 
-Vilio.CancelButton = Vilio.Button.extend({
+Shepherd.CancelButton = Shepherd.Button.extend({
     classNames: ['btn-warning'],
     action: 'cancel'
 });
 
-Vilio.DeleteButton = Vilio.Button.extend({
+Shepherd.DeleteButton = Shepherd.Button.extend({
     classNames: ['btn-danger'],
     action: 'remove',
     disabled: function() {
@@ -96,7 +96,7 @@ Vilio.DeleteButton = Vilio.Button.extend({
     }.property('content.isSaving').cacheable(),
 });
 
-Vilio.loadingOverlay = {
+Shepherd.loadingOverlay = {
     hide : function() {
       console.log('hiding loading overlay');
       $('#loading').hide();

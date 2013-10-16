@@ -1,10 +1,10 @@
-Vilio.Asset = DS.Model.extend({
+Shepherd.Asset = DS.Model.extend({
 	name : DS.attr('string'),
 	description : DS.attr('string'),
 	filename : DS.attr('string'),
     createdAt : DS.attr('date'),
     updatedAt : DS.attr('date'), 
-	links : DS.hasMany('Vilio.Link'),
-	portfolios: DS.hasMany('Vilio.Portfolio'),
-    metadata: DS.hasMany('Vilio.MetadatumValue')
+	links : DS.hasMany('Shepherd.Link'),
+	portfolios: DS.hasMany('Shepherd.Portfolio'),
+    metadata: DS.hasMany('Shepherd.MetadatumValue')
 });

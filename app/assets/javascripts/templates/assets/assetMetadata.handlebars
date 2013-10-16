@@ -5,7 +5,7 @@
           <div class="asset-metadatum-value-edit">
              {{#if metadatum.isText}}
                 {{#if metadatum.metadatum.metadatumField.allowedValuesList}}
-                      {{ view Vilio.Select2 
+                      {{ view Shepherd.Select2 
   		                  prompt="Please select a value"
                           contentBinding="metadatum.metadatumValues" 
                           selectionBinding="metadatum.metadatum.metadatumValue"
@@ -13,14 +13,14 @@
                           disabledBinding="content.isSaving" 
                       }}
                 {{else}}
-                      {{ view Vilio.TextField
+                      {{ view Shepherd.TextField
            	   	       valueBinding="metadatum.metadatum.metadatumValue" 
                        disabledBinding="content.isSaving" 
                       }}
                 {{/if}}
              {{/if}}
              {{#if metadatum.isBoolean}}
-                 {{ view Vilio.Checkbox
+                 {{ view Shepherd.Checkbox
                     checkedBinding="metadatum.metadatum.metadatumValue"
                     disabledBinding="content.isSaving" 
                  }}

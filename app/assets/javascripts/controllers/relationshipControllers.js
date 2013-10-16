@@ -1,4 +1,4 @@
-Vilio.RelationshipsController = Ember.ArrayController.extend({	
+Shepherd.RelationshipsController = Ember.ArrayController.extend({	
     // relationship selected from the list
     selectedRelationship: null,
 
@@ -9,9 +9,9 @@ Vilio.RelationshipsController = Ember.ArrayController.extend({
 	}.property('content.length')
 });
 
-Vilio.RelationshipsIndexController = Ember.ArrayController.extend({});
+Shepherd.RelationshipsIndexController = Ember.ArrayController.extend({});
 
-Vilio.RelationshipController = Ember.ObjectController.extend(Vilio.EditModelControllerMixin, {
+Shepherd.RelationshipController = Ember.ObjectController.extend(Shepherd.EditModelControllerMixin, {
     needs: ['portfolios', 'relationshipsNew'],
     portfolioToAddTo: null,
 
@@ -45,9 +45,9 @@ Vilio.RelationshipController = Ember.ObjectController.extend(Vilio.EditModelCont
     }
 });
 
-Vilio.RelationshipEditController = Vilio.RelationshipController.extend({});
+Shepherd.RelationshipEditController = Shepherd.RelationshipController.extend({});
 
-Vilio.RelationshipsNewController = Ember.ObjectController.extend(Vilio.EditModelControllerMixin, {
+Shepherd.RelationshipsNewController = Ember.ObjectController.extend(Shepherd.EditModelControllerMixin, {
 	needs: ['portfolio'],
 
 	portfolio: function() {
@@ -55,7 +55,7 @@ Vilio.RelationshipsNewController = Ember.ObjectController.extend(Vilio.EditModel
 	}.property('controllers.portfolio.content'),
 
     create: function(asset, portfolio) {
-		var relationship = this.store.transaction().createRecord(Vilio.Relationship);
+		var relationship = this.store.transaction().createRecord(Shepherd.Relationship);
         relationship.set('asset', asset);
         relationship.set('portfolio', portfolio);
         portfolio.get('relationships').pushObject(relationship);

@@ -1,4 +1,4 @@
-Vilio.MessageView = Ember.View.extend({
+Shepherd.MessageView = Ember.View.extend({
     classNameBindings: ['show:message-show:message-hide'],
     templateName: 'application/message',
     show: false,

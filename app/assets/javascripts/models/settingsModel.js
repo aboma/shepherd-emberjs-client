@@ -1,3 +1,3 @@
-Vilio.Setting = DS.Model.extend({
+Shepherd.Setting = DS.Model.extend({
     fieldTypes : DS.attr('array')
 });

@@ -1,4 +1,4 @@
-class VilioAPI < Object
+class ShepherdAPI < Object
   @host = VILIO_CONFIG.api.url.host
   @port = VILIO_CONFIG.api.url.port
   
@@ -7,7 +7,7 @@ class VilioAPI < Object
   end
   
   def initialize 
-    @net = Net::HTTP.new(VilioAPI.host, VilioAPI.port)
+    @net = Net::HTTP.new(ShepherdAPI.host, ShepherdAPI.port)
   end
   
   # verify authentication token with API to determine if

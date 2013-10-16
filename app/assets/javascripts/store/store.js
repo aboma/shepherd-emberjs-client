@@ -1,4 +1,4 @@
-Vilio.RESTAdapter = DS.RESTAdapter.extend({ 
+Shepherd.RESTAdapter = DS.RESTAdapter.extend({ 
   bulkCommit: false,
   url: "http://localhost:4444" ,
   // override didError to handle 409 conflict status properly
@@ -14,42 +14,42 @@ Vilio.RESTAdapter = DS.RESTAdapter.extend({
   }
 });
 
-Vilio.RESTAdapter.map('Vilio.Asset', {
+Shepherd.RESTAdapter.map('Shepherd.Asset', {
   links: { embedded: 'load' },
   metadata: { embedded: 'always' }
 });
-Vilio.RESTAdapter.map('Vilio.Relationship', {
+Shepherd.RESTAdapter.map('Shepherd.Relationship', {
   asset: { embedded: 'load' },
   links : { embedded: 'load' }
 });
-Vilio.RESTAdapter.map('Vilio.MetadatumValuesList', {
+Shepherd.RESTAdapter.map('Shepherd.MetadatumValuesList', {
   metadatumListValues: { embedded: 'always' },
   links : { embedded: 'load' }
 });
-Vilio.RESTAdapter.map('Vilio.MetadatumField', {
+Shepherd.RESTAdapter.map('Shepherd.MetadatumField', {
   links : { embedded: 'load' }
 
 });
-Vilio.RESTAdapter.map('Vilio.MetadataTemplate', {
+Shepherd.RESTAdapter.map('Shepherd.MetadataTemplate', {
   metadataTemplateFieldSettings: { embedded: 'always' }, 
   links : { embedded: 'load' }
 });
-Vilio.RESTAdapter.map('Vilio.Portfolio', {
+Shepherd.RESTAdapter.map('Shepherd.Portfolio', {
   links : { embedded: 'load' }
 });
 
-Vilio.RESTAdapter.configure('Vilio.MetadatumValue', {
+Shepherd.RESTAdapter.configure('Shepherd.MetadatumValue', {
     sideloadAs: 'metadata'
 });
 
-Vilio.RESTAdapter.map('Vilio.User', {
+Shepherd.RESTAdapter.map('Shepherd.User', {
   links : { embedded: 'load' }
 });
 
-Vilio.RESTAdapter.configure('plurals', { settings: 'settings' });
-Vilio.RESTAdapter.configure('plurals', { metadata: 'metadata' });
+Shepherd.RESTAdapter.configure('plurals', { settings: 'settings' });
+Shepherd.RESTAdapter.configure('plurals', { metadata: 'metadata' });
 
-Vilio.RESTAdapter.registerTransform('array', {
+Shepherd.RESTAdapter.registerTransform('array', {
   deserialize: function(serialized) {
     return serialized.split(',');
   },
@@ -58,12 +58,12 @@ Vilio.RESTAdapter.registerTransform('array', {
   }
 });
 
-Vilio.Store = DS.Store.extend({
-  adapter: Vilio.RESTAdapter 
+Shepherd.Store = DS.Store.extend({
+  adapter: Shepherd.RESTAdapter 
 });
 
 // adapter to handle file uploads
-Vilio.FileUploadRESTAdapter = Vilio.RESTAdapter.extend({
+Shepherd.FileUploadRESTAdapter = Shepherd.RESTAdapter.extend({
     bulkCommit: false,
 
     createRecord: function(store, type, record) {
@@ -99,7 +99,7 @@ Vilio.FileUploadRESTAdapter = Vilio.RESTAdapter.extend({
     }
 });
 
-Vilio.FileUploadRESTAdapter.registerTransform('file', {
+Shepherd.FileUploadRESTAdapter.registerTransform('file', {
 	  serialize: function(value) {
 	    return value;
 	  },
@@ -109,4 +109,4 @@ Vilio.FileUploadRESTAdapter.registerTransform('file', {
 });
 
 //use overridden adapter to handle file uploads
-Vilio.Store.registerAdapter('Vilio.Relationship', Vilio.FileUploadRESTAdapter.create());
+Shepherd.Store.registerAdapter('Shepherd.Relationship', Shepherd.FileUploadRESTAdapter.create());

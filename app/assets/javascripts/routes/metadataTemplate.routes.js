@@ -1,6 +1,6 @@
-Vilio.TemplatesRoute = Ember.Route.extend({
+Shepherd.TemplatesRoute = Ember.Route.extend({
     model: function() {
-        return Vilio.MetadataTemplate.find();
+        return Shepherd.MetadataTemplate.find();
     },
 	setupController: function(controller, model) {
         this._super(controller, model);
@@ -9,7 +9,7 @@ Vilio.TemplatesRoute = Ember.Route.extend({
 });
 
 
-Vilio.TemplatesIndexRoute = Ember.Route.extend({
+Shepherd.TemplatesIndexRoute = Ember.Route.extend({
     renderTemplate: function() {
     	this.render('templates.index', {
 	    	into: 'templates',
@@ -18,9 +18,9 @@ Vilio.TemplatesIndexRoute = Ember.Route.extend({
     }
 });
 
-Vilio.TemplateRoute = Ember.Route.extend({});
+Shepherd.TemplateRoute = Ember.Route.extend({});
 
-Vilio.TemplateShowRoute = Ember.Route.extend({
+Shepherd.TemplateShowRoute = Ember.Route.extend({
     model: function() {
         return this.modelFor('template');
     },
@@ -38,10 +38,10 @@ Vilio.TemplateShowRoute = Ember.Route.extend({
     }
 });
 
-Vilio.TemplatesNewRoute = Ember.Route.extend({
+Shepherd.TemplatesNewRoute = Ember.Route.extend({
 	model: function() {
 		var transaction = this.store.transaction();
-		return transaction.createRecord(Vilio.MetadataTemplate, {});
+		return transaction.createRecord(Shepherd.MetadataTemplate, {});
 	},
     renderTemplate: function() {
 		this.render('templates.new', {
@@ -68,7 +68,7 @@ Vilio.TemplatesNewRoute = Ember.Route.extend({
     }
 });
 
-Vilio.TemplateEditRoute = Ember.Route.extend({
+Shepherd.TemplateEditRoute = Ember.Route.extend({
     model: function() {
         return this.modelFor('template');
     },

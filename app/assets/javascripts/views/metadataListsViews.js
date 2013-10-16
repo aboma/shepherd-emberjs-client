@@ -1,19 +1,19 @@
-Vilio.MetadataListsView = Ember.View.extend({
+Shepherd.MetadataListsView = Ember.View.extend({
     templateName: 'metadata/metadatumValuesLists'
 });
 
-Vilio.MetadataListsIndexView = Ember.View.extend({
+Shepherd.MetadataListsIndexView = Ember.View.extend({
     templateName: 'metadata/metadatumValuesListsIndex' 
 });
 
-Vilio.MetadataListsNewView = Ember.View.extend({
+Shepherd.MetadataListsNewView = Ember.View.extend({
     templateName: 'metadata/metadatumValuesListEdit'
 });
 
-Vilio.MetadataListShowView = Ember.View.extend({
+Shepherd.MetadataListShowView = Ember.View.extend({
     templateName: 'metadata/metadatumValuesListShow'
 });
 
-Vilio.MetadataListEditView = Ember.View.extend({
+Shepherd.MetadataListEditView = Ember.View.extend({
     templateName: 'metadata/metadatumValuesListEdit'
 });

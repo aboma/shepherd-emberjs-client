@@ -21,7 +21,7 @@
     	<div class="control-group">
     		<label class="control-label">Template Name</label>
     		<div class="controls">
-				{{ view Vilio.TextField viewName="fieldName" 
+				{{ view Shepherd.TextField viewName="fieldName" 
  					   valueBinding="name" disabledBinding="view.isDisabled" 
  				   		required="" autofocus="" }}
     		</div>
@@ -45,18 +45,18 @@
     	</div>
         <div id="control-group">
         <div id="template-field-selection">
-          {{#view Vilio.FieldSelectionView id="available-fields-list"}}
+          {{#view Shepherd.FieldSelectionView id="available-fields-list"}}
             {{#each unselectedFields}}
-                {{#view Vilio.FieldDraggableView contentBinding="this" 
+                {{#view Shepherd.FieldDraggableView contentBinding="this" 
                     class="field-selection"}}
                     {{name}}
                 {{/view}}
               {{/each}}
           {{/view}}
-          {{#view Vilio.FieldsListView id="template-fields-list"}}
+          {{#view Shepherd.FieldsListView id="template-fields-list"}}
               <div><span>Template Fields</span></div>
               {{#each orderedFieldSettings}}
-                  {{#view Vilio.FieldDraggableView contentBinding="this" 
+                  {{#view Shepherd.FieldDraggableView contentBinding="this" 
                     class="field-setting-edit"}}
                         <span class="field-name"
                          {{metadatumField.name}}
@@ -85,10 +85,10 @@
 	    	</div>
     	{{/unless}}
     	<div class="control-group button-group-edit">
-            {{#view Vilio.SaveButton }} Save {{/view}}
-            {{#view Vilio.CancelButton }} Cancel {{/view}}
+            {{#view Shepherd.SaveButton }} Save {{/view}}
+            {{#view Shepherd.CancelButton }} Cancel {{/view}}
             {{#unless content.isNew}}
-                {{#view Vilio.DeleteButton }} Delete {{/view}}
+                {{#view Shepherd.DeleteButton }} Delete {{/view}}
 			{{/unless}}
      	</div>
     </fieldset>

@@ -1,7 +1,7 @@
 <div class="form-horizontal">
 	<fieldset>
 		{{#if content.isNew }}
-			<legend>Create Vilio User</legend>
+			<legend>Create Shepherd User</legend>
 		{{else}}
     		<legend>Edit "{{ unbound content.nameFormatFirstLast }}" User Account</legend>    		
     	{{/if }}
@@ -21,7 +21,7 @@
     	<div class="control-group">
     		<label class="control-label">Email</label>
     		<div class="controls">
-				{{ view Vilio.TextField viewName="email" 
+				{{ view Shepherd.TextField viewName="email" 
  					   valueBinding="email" disabledBinding="view.isDisabled" 
  				    	required="" autofocus="" }}
     		</div>
@@ -34,7 +34,7 @@
     	<div class="control-group">
     		<label class="control-label">First Name</label>
     		<div class="controls">
-				{{ view Vilio.TextField viewName="firstName" 
+				{{ view Shepherd.TextField viewName="firstName" 
  					   valueBinding="firstName" disabledBinding="view.isDisabled" 
  				    	required="" autofocus="" }}
     		</div>
@@ -47,7 +47,7 @@
     	<div class="control-group">
     		<label class="control-label">Last Name</label>
     		<div class="controls">
-				{{ view Vilio.TextField viewName="lastName" 
+				{{ view Shepherd.TextField viewName="lastName" 
  					   valueBinding="lastName" disabledBinding="view.isDisabled" 
  				    	required="" autofocus="" }}
     		</div>
@@ -60,7 +60,7 @@
     	<div class="control-group">
     		<label class="control-label">Password</label>
     		<div class="controls">
-				{{ view Vilio.TextField viewName="password" 
+				{{ view Shepherd.TextField viewName="password" 
  					   valueBinding="password" disabledBinding="view.isDisabled" 
  				    	required="" autofocus="" type="password" }}
     		</div>
@@ -73,7 +73,7 @@
     	<div class="control-group">
     		<label class="control-label">Password Confirmation</label>
     		<div class="controls">
-				{{ view Vilio.TextField viewName="passwordConf" 
+				{{ view Shepherd.TextField viewName="passwordConf" 
  					   valueBinding="passwordConfirmation" disabledBinding="view.isDisabled" 
  				    	required="" autofocus="" type="password" }}
     		</div>
@@ -94,8 +94,8 @@
 	    	</div>
     	{{/unless}}
     	<div class="control-group button-group-edit">
-            {{#view Vilio.SaveButton }} Save {{/view}}
-            {{#view Vilio.CancelButton }} Cancel {{/view}}
+            {{#view Shepherd.SaveButton }} Save {{/view}}
+            {{#view Shepherd.CancelButton }} Cancel {{/view}}
      	</div>
     </fieldset>
 </div>

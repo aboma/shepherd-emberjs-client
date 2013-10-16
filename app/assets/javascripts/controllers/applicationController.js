@@ -1,3 +1,3 @@
-Vilio.ApplicationController = Ember.Controller.extend({
+Shepherd.ApplicationController = Ember.Controller.extend({
     needs: ['message']
 });

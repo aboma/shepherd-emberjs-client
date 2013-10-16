@@ -1,1 +1,1 @@
-Vilio.SettingController = Ember.ObjectController.extend({});
+Shepherd.SettingController = Ember.ObjectController.extend({});

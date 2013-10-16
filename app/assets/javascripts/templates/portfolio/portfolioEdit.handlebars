@@ -21,7 +21,7 @@
 	    	<div class="control-group">
 	    		<label class="control-label">Portfolio Name</label>
 	    		<div class="controls">
-   					{{ view Vilio.TextField viewName="portName" 
+   					{{ view Shepherd.TextField viewName="portName" 
    					   valueBinding="name" disabledBinding="view.isDisabled" 
    				   		required="" autofocus="" }}
 	    		</div>
@@ -46,7 +46,7 @@
             <div class="control-group">
                 <label class="control-label">Metadata Template</label>
                 <div class="controls">
-                    {{ view Vilio.Select2 
+                    {{ view Shepherd.Select2 
                           viewName="metadataTemplateSelect2"
                           prompt="Please select a metadata template"
                           contentBinding="controller.metadataTemplates" 
@@ -73,10 +73,10 @@
 		    	</div>
 	    	{{/unless}}
 	    	<div class="control-group button-group-edit">
-              {{#view Vilio.SaveButton }} Save {{/view}}
-              {{#view Vilio.CancelButton }} Cancel {{/view}}
+              {{#view Shepherd.SaveButton }} Save {{/view}}
+              {{#view Shepherd.CancelButton }} Cancel {{/view}}
               {{#unless content.isNew}}
-                 {{#view Vilio.DeleteButton }} Delete {{/view}}
+                 {{#view Shepherd.DeleteButton }} Delete {{/view}}
 			  {{/unless}}
 	    	</div>
 	    </fieldset>

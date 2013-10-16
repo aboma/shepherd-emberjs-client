@@ -1,4 +1,4 @@
-Vilio.MetadatumValue = DS.Model.extend({
-    metadatumField: DS.belongsTo('Vilio.MetadatumField'),
+Shepherd.MetadatumValue = DS.Model.extend({
+    metadatumField: DS.belongsTo('Shepherd.MetadatumField'),
     metadatumValue: DS.attr('string')
 });

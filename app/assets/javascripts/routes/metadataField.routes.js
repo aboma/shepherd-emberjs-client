@@ -1,19 +1,19 @@
-Vilio.FieldsRoute = Ember.Route.extend({
+Shepherd.FieldsRoute = Ember.Route.extend({
     model: function() {
-        return Vilio.MetadatumField.find();
+        return Shepherd.MetadatumField.find();
     },
     // load values lists for forms
     setupController: function(controller, model) {
         this._super(controller, model);
         var metadatumValuesListsController = this.controllerFor('metadata_lists');
         if (metadatumValuesListsController) 
-          metadatumValuesListsController.set('model', Vilio.MetadatumValuesList.find({}));
+          metadatumValuesListsController.set('model', Shepherd.MetadatumValuesList.find({}));
         this.controllerFor('topNav').set('selected', 'Metadata Fields');
     }	
 });
 
 
-Vilio.FieldsIndexRoute = Ember.Route.extend({
+Shepherd.FieldsIndexRoute = Ember.Route.extend({
     renderTemplate: function() {
     	this.render('fields.index', {
 	    	into: 'fields',
@@ -22,9 +22,9 @@ Vilio.FieldsIndexRoute = Ember.Route.extend({
     }
 });
 
-Vilio.FieldRoute = Ember.Route.extend({});
+Shepherd.FieldRoute = Ember.Route.extend({});
 
-Vilio.FieldShowRoute = Ember.Route.extend({
+Shepherd.FieldShowRoute = Ember.Route.extend({
     model: function() {
         return this.modelFor('field');
     },
@@ -42,10 +42,10 @@ Vilio.FieldShowRoute = Ember.Route.extend({
     }
 });
 
-Vilio.FieldsNewRoute = Ember.Route.extend({
+Shepherd.FieldsNewRoute = Ember.Route.extend({
 	model: function() {
 		var transaction = this.store.transaction();
-		return transaction.createRecord(Vilio.MetadatumField, {});
+		return transaction.createRecord(Shepherd.MetadatumField, {});
 	},
     renderTemplate: function() {
 		this.render('fields.new', {
@@ -72,7 +72,7 @@ Vilio.FieldsNewRoute = Ember.Route.extend({
     }
 });
 
-Vilio.FieldEditRoute = Ember.Route.extend({
+Shepherd.FieldEditRoute = Ember.Route.extend({
     model: function() {
         return this.modelFor('field');
     },

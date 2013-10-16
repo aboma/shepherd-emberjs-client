@@ -1,4 +1,4 @@
-Vilio.ResourceControllerMixin = Ember.Mixin.create({
+Shepherd.ResourceControllerMixin = Ember.Mixin.create({
   uri: function() {
     var links = this.get('content.links');
     if (!links) return null;
@@ -10,7 +10,7 @@ Vilio.ResourceControllerMixin = Ember.Mixin.create({
 
 // Mixin to generalize model create/edit functionality
 // for use in controllers. Typical use in route:
-Vilio.EditModelControllerMixin = Ember.Mixin.create({
+Shepherd.EditModelControllerMixin = Ember.Mixin.create({
     needs:['message'],
 
 	// works for both save and edit by inspecting record states
@@ -102,7 +102,7 @@ Vilio.EditModelControllerMixin = Ember.Mixin.create({
 // View mixin to create and control modal view that will
 // be opened when user clicks on view. Method createModalView
 // should be implemented on the view class that uses the mixin.
-Vilio.ViewWithModalMixin = Ember.Mixin.create({
+Shepherd.ViewWithModalMixin = Ember.Mixin.create({
 	modalView: null,
 
 	close: function() {
@@ -123,15 +123,15 @@ Vilio.ViewWithModalMixin = Ember.Mixin.create({
 	}
 });
 
-Vilio.DragNDrop = Ember.Namespace.create();
+Shepherd.DragNDrop = Ember.Namespace.create();
 
 // adapted from http://stackoverflow.com/questions/10762484/ember-js-html5-drag-and-drop-shopping-cart-demo
-Vilio.DragNDrop.cancel = function(event) {
+Shepherd.DragNDrop.cancel = function(event) {
     event.preventDefault();
     return false;
 };
 
-Vilio.DragNDrop.Draggable = Ember.Mixin.create({
+Shepherd.DragNDrop.Draggable = Ember.Mixin.create({
     attributeBindings: 'draggable',
     draggable: 'true',
     dragStart: function(event) {
@@ -140,9 +140,9 @@ Vilio.DragNDrop.Draggable = Ember.Mixin.create({
     }
 });
 
-Vilio.DragNDrop.Droppable = Ember.Mixin.create({
-    dragEnter: Vilio.DragNDrop.cancel,
-    dragOver: Vilio.DragNDrop.cancel,
+Shepherd.DragNDrop.Droppable = Ember.Mixin.create({
+    dragEnter: Shepherd.DragNDrop.cancel,
+    dragOver: Shepherd.DragNDrop.cancel,
     drop: function(event) {
         event.preventDefault();
         return false;

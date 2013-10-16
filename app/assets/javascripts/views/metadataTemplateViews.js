@@ -1,24 +1,24 @@
-Vilio.TemplatesView = Ember.View.extend({
+Shepherd.TemplatesView = Ember.View.extend({
     templateName: 'metadata/metadataTemplates'
 });
 
-Vilio.TemplatesIndexView = Ember.View.extend({
+Shepherd.TemplatesIndexView = Ember.View.extend({
     templateName: 'metadata/metadataTemplatesIndex' 
 });
 
-Vilio.TemplatesNewView = Ember.View.extend({
+Shepherd.TemplatesNewView = Ember.View.extend({
     templateName: 'metadata/metadataTemplateEdit'
 });
 
-Vilio.TemplateShowView = Ember.View.extend({
+Shepherd.TemplateShowView = Ember.View.extend({
     templateName: 'metadata/metadataTemplateShow'
 });
 
-Vilio.TemplateEditView = Ember.View.extend({
+Shepherd.TemplateEditView = Ember.View.extend({
     templateName: 'metadata/metadataTemplateEdit'
 });
 
-Vilio.FieldDraggableView = Ember.View.extend(Vilio.DragNDrop.Draggable, {
+Shepherd.FieldDraggableView = Ember.View.extend(Shepherd.DragNDrop.Draggable, {
     // .setDragImage (in #dragStart) requires an HTML element as the first argument
     // so you must tell Ember to create the view and it's element and then get the 
     // HTML representation of that element.
@@ -44,7 +44,7 @@ Vilio.FieldDraggableView = Ember.View.extend(Vilio.DragNDrop.Draggable, {
     }
 });
 
-Vilio.FieldSelectionView = Ember.View.extend(Vilio.DragNDrop.Droppable, {
+Shepherd.FieldSelectionView = Ember.View.extend(Shepherd.DragNDrop.Droppable, {
   classNames: ['drop-target'],
   drop: function(event) {
     console.log('dropping field');
@@ -57,7 +57,7 @@ Vilio.FieldSelectionView = Ember.View.extend(Vilio.DragNDrop.Droppable, {
   }
 });
 
-Vilio.FieldsListView = Ember.View.extend(Vilio.DragNDrop.Droppable, {
+Shepherd.FieldsListView = Ember.View.extend(Shepherd.DragNDrop.Droppable, {
   classNames: ['drop-target'],
   drop: function(event) {
     console.log('dropping field');
@@ -70,5 +70,5 @@ Vilio.FieldsListView = Ember.View.extend(Vilio.DragNDrop.Droppable, {
   }
 });
 
-Vilio.MetadataTemplateFieldSettingView = Vilio.FieldDraggableView.extend({
+Shepherd.MetadataTemplateFieldSettingView = Shepherd.FieldDraggableView.extend({
 });
