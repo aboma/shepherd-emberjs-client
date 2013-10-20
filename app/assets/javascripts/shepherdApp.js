@@ -33,6 +33,7 @@ if (!window.console) {
 	window.console.log = function(object) {}
 };
 
+
 Shepherd.TextField = Ember.TextField.extend({
 	attributeBindings: ['required', 'placeholderText'],
 	required: false,

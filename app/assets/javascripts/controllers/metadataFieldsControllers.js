@@ -4,7 +4,11 @@ Shepherd.FieldsController = Ember.ArrayController.extend({
   needs: ['field'],
   sortProperties: ['name'],
   sortAscending: true,
-  selectedBinding: Ember.Binding.oneWay('controllers.field.content')
+  selectedBinding: Ember.Binding.oneWay('controllers.field.content'),
+
+  fieldsExist: function() {
+      return this.get('content.length') > 0;
+  }.property('content')
 });
 
 Shepherd.FieldController = Ember.ObjectController.extend(Shepherd.ResourceControllerMixin, {});

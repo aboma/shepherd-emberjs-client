@@ -2,7 +2,11 @@ Shepherd.TemplatesIndexController = Ember.ObjectController.extend({});
 
 Shepherd.TemplatesController = Ember.ArrayController.extend({
   sortProperties: ['name'],
-  sortAscending: true
+  sortAscending: true,
+
+  templatesExist: function() {
+      return this.get('content.length') > 0;
+  }.property('content')
 });
 
 Shepherd.TemplateController = Ember.ObjectController.extend(Shepherd.ResourceControllerMixin, {});

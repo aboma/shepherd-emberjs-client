@@ -5,10 +5,15 @@ Shepherd.MetadataListsController = Ember.ArrayController.extend({
   sortProperties: ['name'],
   sortAscending: true,
   selectedBinding: Ember.Binding.oneWay('controllers.metadata_list.content'),
+
   namesList: function() {
     var lists = this.get('content');
     return lists.mapProperty('name');
-  }.property('content.[]')
+  }.property('content.[]'),
+
+  listsExist: function() {
+      return this.get('content.length') > 0;
+  }.property('content')
 });
 
 Shepherd.MetadataListController = Ember.ObjectController.extend(Shepherd.ResourceControllerMixin, {});

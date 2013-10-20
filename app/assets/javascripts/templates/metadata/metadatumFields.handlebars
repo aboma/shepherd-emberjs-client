@@ -6,6 +6,9 @@
     </div>
   </div>
   <div id="metadata-fields-list" class="left-nav">
+    {{#unless fieldsExist}}
+      <div>No fields defined</div>
+    {{/unless}}
     <ul class="nav nav-list"> 
     {{#each field in controller}}
       {{#unless field.isNew}}

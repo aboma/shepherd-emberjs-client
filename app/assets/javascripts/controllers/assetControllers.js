@@ -32,10 +32,16 @@ Shepherd.AssetController = Ember.ObjectController.extend(Shepherd.ResourceContro
         return this.get('controllers.portfolio.content.metadataTemplate');
     }.property('controllers.portfolio.content'),
 
+    // display portfolios this asset has a relationship with as a string
     portfolioListString: function() {
-        return this.get('content.portfolios').map(function(item, index, enumerable) {
-            return item.get('name');
-        }).join(', ');
+        var portfolios = this.get('content.portfolios');
+        if (portfolios) {
+            return portfolios.map(function(item, index, enumerable) {
+                return item.get('name');
+            }).join(', ');
+        } else {
+           return null;
+        }
     }.property('content.portfolios'),
 
     metadataForEditing: function() {

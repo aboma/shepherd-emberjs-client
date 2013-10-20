@@ -6,6 +6,9 @@
     </div>
   </div>
   <div id="metadata-templates-list" class="left-nav">
+    {{#unless templatesExist}}
+      <div>No templates defined</div>
+    {{/unless}}
     <ul class="nav nav-list"> 
     {{#each template in controller}}
       {{#unless template.isNew}}

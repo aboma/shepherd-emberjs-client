@@ -44,13 +44,8 @@ Shepherd.RelationshipsNewRoute = Ember.Route.extend({
                 route.controller.get('content').set('formData', evt.formData);
 			    this.controller.saveEdits().then(function(record) {
 				    console.log('relationship created');
-                    // set this new record as selected relationship so that
-                    // the view knows to display it in detail
-                    var relCon = route.controllerFor('relationshipsIndex');
-                    relCon.set('selectedRelationship', record);
-                    // show the list of relationships for the portfolio
-                    // with the new one selected
-    				route.transitionTo('relationships.index');
+                    // show relationship in edit view
+    				route.transitionTo('relationship.edit', record);
 	    		}, function() {
                     console.log('error creating relationship');
                 });

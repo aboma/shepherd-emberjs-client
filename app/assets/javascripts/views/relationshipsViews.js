@@ -3,6 +3,7 @@ Shepherd.RelationshipsView = Ember.View.extend({
 }); 
 
 Shepherd.RelationshipsNewView = Ember.View.extend({
+	layoutName : 'layouts/modal',
 	templateName: "relationship/relationshipNew",
 
 	// uploads file to server as new asset with
@@ -29,7 +30,7 @@ Shepherd.RelationshipsIndexView = Ember.View.extend({
 
 Shepherd.RelationshipEditView = Ember.View.extend({
 	layoutName : 'layouts/modal',
-	templateName : 'relationship/relationshipEdit',
+	templateName : 'relationship/relationshipEdit'
 });
 
 Shepherd.RelationshipView = Ember.View.extend({

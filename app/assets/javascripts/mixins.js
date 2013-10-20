@@ -1,3 +1,15 @@
+Shepherd.ModelAuditFieldsMixin = Ember.Mixin.create({
+    createdAt : DS.attr('date'),
+    createdBy : DS.belongsTo('User'),
+    updatedAt : DS.attr('date'),
+    updatedBy : DS.belongsTo('User'),
+
+    updatedAtBy: function() {
+        var user = this.get('updatedBy');
+        return user.get('firstName') + ' ' + user.get('lastName');
+    }
+});
+
 Shepherd.ResourceControllerMixin = Ember.Mixin.create({
   uri: function() {
     var links = this.get('content.links');

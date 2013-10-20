@@ -6,7 +6,7 @@ gem 'yajl-ruby', '~> 1.1.0'
 gem 'select2-rails', '~> 3.2.0'
 gem 'rails_config', '~> 0.3.2'
 gem "therubyracer", "~> 0.11.4", :platforms => :ruby
-
+gem 'thin'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
