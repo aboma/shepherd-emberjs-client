@@ -8,7 +8,7 @@ Shepherd.FieldsController = Ember.ArrayController.extend({
 
   fieldsExist: function() {
       return this.get('content.length') > 0;
-  }.property('content')
+  }.property('content.@each')
 });
 
 Shepherd.FieldController = Ember.ObjectController.extend(Shepherd.ResourceControllerMixin, {});

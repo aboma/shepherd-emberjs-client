@@ -6,7 +6,7 @@ Shepherd.TemplatesController = Ember.ArrayController.extend({
 
   templatesExist: function() {
       return this.get('content.length') > 0;
-  }.property('content')
+  }.property('content.@each')
 });
 
 Shepherd.TemplateController = Ember.ObjectController.extend(Shepherd.ResourceControllerMixin, {});

@@ -9,11 +9,11 @@ Shepherd.MetadataListsController = Ember.ArrayController.extend({
   namesList: function() {
     var lists = this.get('content');
     return lists.mapProperty('name');
-  }.property('content.[]'),
+  }.property('content'),
 
   listsExist: function() {
       return this.get('content.length') > 0;
-  }.property('content')
+  }.property('content.@each')
 });
 
 Shepherd.MetadataListController = Ember.ObjectController.extend(Shepherd.ResourceControllerMixin, {});

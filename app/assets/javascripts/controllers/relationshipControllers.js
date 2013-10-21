@@ -1,10 +1,9 @@
 Shepherd.RelationshipsController = Ember.ArrayController.extend({	
     needs: ['portfolio'],
-    // relationship selected from the list
-    selectedRelationship: null,
 
-    reload: function() {
+    reloadContent: function() {
 		var id = this.get('portfolio.content.id');
+        console.log('reloading relationships');
 		this.set('content', Shepherd.Relationship.find({ portfolio_id: id }));
     },
 

@@ -44,6 +44,8 @@ Shepherd.RelationshipsNewRoute = Ember.Route.extend({
                 route.controller.get('content').set('formData', evt.formData);
 			    this.controller.saveEdits().then(function(record) {
 				    console.log('relationship created');
+                    // reload relationships
+                    route.controllerFor('relationships').reloadContent();
                     // show relationship in edit view
     				route.transitionTo('relationship.edit', record);
 	    		}, function() {
