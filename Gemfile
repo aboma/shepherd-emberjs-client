@@ -1,11 +1,13 @@
 source 'https://rubygems.org'
 
-gem 'rails', '~> 3.2.6'
+gem 'rails', '~> 3.2.15'
 gem 'jquery-rails', '~> 2.0.1'
 gem 'yajl-ruby', '~> 1.1.0'
 gem 'select2-rails', '~> 3.2.0'
-gem 'rails_config', '~> 0.3.2'
-gem "therubyracer", "~> 0.11.4", :platforms => :ruby
+gem 'rails_config', '~> 0.3.3'
+gem "therubyracer", "~> 0.12", :platforms => :ruby
+
+# use this instead of webbrick for development
 gem 'thin'
 
 # Bundle edge Rails instead:
