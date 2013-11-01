@@ -29,8 +29,8 @@ set :puma_application, 'shepherd-emberjs-client'
 #  }
 # and/or per server
  server '162.243.11.113',
-   user: 'deploy',
-   roles: %w{web app db},
+   user: 'aboma',
+   roles: %w{web app},
    primary: true,
    ssh_options: {
      keys: %w(~/.ssh/id_rsa),

@@ -49,3 +49,19 @@ namespace :deploy do
   after :finishing, 'deploy:cleanup'
 
 end
+
+namespace :nginx do
+  desc "Restart nginx"
+  task :restart do
+    on roles(:app) do
+      execute "/etc/init.d/nginx restart"
+    end
+  end
+
+  desc "Show nginx status"
+  task :status do
+    on roles(:app) do
+      execute "/etc/init.d/nginx status"
+    end
+  end
+end

@@ -1,6 +1,7 @@
 source 'https://rubygems.org'
 
 gem 'rails', '~> 3.2.15'
+gem 'puma', '~> 2.6.0'
 gem 'jquery-rails', '~> 2.0.1'
 gem 'yajl-ruby', '~> 1.1.0'
 gem 'select2-rails', '~> 3.2.0'
