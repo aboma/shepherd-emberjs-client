@@ -1,5 +1,5 @@
+# Capistrano v3
 set :stage, :production
-set :puma_application, 'shepherd-emberjs-client'
 
 # Simple Role Syntax
 # ==================
@@ -29,7 +29,7 @@ set :puma_application, 'shepherd-emberjs-client'
 #  }
 # and/or per server
  server '162.243.11.113',
-   user: 'aboma',
+   user: 'deploy',
    roles: %w{web app},
    primary: true,
    ssh_options: {
@@ -38,52 +38,71 @@ set :puma_application, 'shepherd-emberjs-client'
      auth_methods: %w(publickey)
   }
 
+#after "deploy:symlink:shared", "db:symlink"
+
+#namespace :db do
+#  desc "Make symlink for database yaml"
+#  task :symlink do
+#    on roles(:app) do 
+#      execute :cp, "#{ deploy_to }/config/database.yml", "#{ release_path }/config/database.yml"
+#    end
+#  end
+#end
+
+# These Puma tasks rely on the puma Ubuntu Upstart tools, part of 
+# the Puma jungle tool, found in the puma distribution tool directory. The Upstart
+# config file must be edited to allow user sudo-less ability to start and stop jobs
 namespace :puma do
+  desc "Start Puma Manager"
+  task :start_manager do
+    on roles(:app) do
+      execute "start puma-manager"
+    end
+  end
+
+  desc "Register Puma application"
+  task :add do
+    on roles(:app) do
+      execute "grep -w '#{release_path}' /etc/puma.conf || printf \"#{release_path}\\n\" >> /etc/puma.conf"
+    end
+  end
+
+  task :remove do
+    on roles(:app) do
+    end
+  end
+
   desc "Start puma instance for this application"
   task :start do
     on roles(:app) do 
-      execute "/etc/init.d/puma start #{puma_application}"
+      execute "start puma app=#{release_path}"
     end
   end
 
   desc "Stop puma instance for this application"
   task :stop do
     on roles(:app) do
-      execute "/etc/init.d/puma stop #{puma_application}"
+      execute "stop puma app=#{release_path}"
     end
   end
 
   desc "Restart puma instance for this application"
   task :restart do
     on roles(:app) do
-      execute "/etc/init.d/puma restart #{puma_application}"
+      execute "restart puma app=#{release_path}"
     end
   end
 
   desc "Show status of puma for this application"
   task :status do
     on roles(:app) do
-      execute "/etc/init.d/puma status #{puma_application}"
-    end
-  end
-
-  desc "Show status of puma for all applications"
-  task :overview do
-    on roles(:app) do
-      execute "/etc/init.d/puma status"
-    end
-  end
-
-  desc "Create a shared tmp dir for puma state files"
-  task :after_symlink do
-    on roles(:app) do
-      execute :rm, "-rf", "#{release_path}/puma-tmp"
-      execute :ln, "-s", "#{shared_path}/puma-tmp", "#{release_path}/puma-tmp"
+      execute "status puma app=#{release_path}"
     end
   end
 end
 
-#after "deploy:finished", "puma:restart"
+after "deploy:starting", "puma:stop"
+after "deploy:finished", "puma:start"
 #after "deploy:symlink:shared", "puma:after_symlink"
 
 # setting per server overrides global ssh_options
