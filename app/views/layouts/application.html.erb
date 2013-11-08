@@ -4,6 +4,7 @@
 		<title>ShepherdDAM Client</title>
 		<script type='application/javascript'>
 			auth_token = "<%= params[:auth_token] %>";
+			shepherd_rest_url = '<%= api_path %>';
         	ENV = {
         	    EXPERIMENTAL_CONTROL_HELPER: true
 	        };
@@ -12,11 +13,6 @@
 	    <%= javascript_include_tag "jquery" %>
 		<%= javascript_include_tag "application" %>
 		<%= csrf_meta_tags %>
-		<script type='application/javascript'>
-			Shepherd.CONFIG = {
-				url : '<%= api_path %>'
-			}
-		</script>
 	</head>
 	<body>
 		<%= yield %>

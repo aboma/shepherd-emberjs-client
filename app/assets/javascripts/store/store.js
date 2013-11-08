@@ -1,6 +1,6 @@
 Shepherd.RESTAdapter = DS.RESTAdapter.extend({ 
   bulkCommit: false,
-  url: "http://localhost:4444" ,
+  url: shepherd_rest_url,
   // override didError to handle 409 conflict status properly
   didError: function(store, type, record, xhr) {
    	if (xhr.status === 422 || xhr.status === 409) {
