@@ -23,7 +23,7 @@ set :deploy_via, :remote_cache
 
 # set :linked_files, %w{config/database.yml}
 # set :linked_dirs, %w{bin log tmp/pids tmp/cache tmp/sockets vendor/bundle public/system}
-set :linked_files, %w{config/puma.rb}
+set :linked_files, %w{config/settings.yml config/puma.rb}
 set :linked_dirs, %w{tmp/puma}
 
 # set :default_env, { path: "/opt/ruby/bin:$PATH" }
