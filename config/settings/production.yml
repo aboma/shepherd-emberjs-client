@@ -1,5 +1,6 @@
 api:
   url:
-    host:   # url host
-    port:   # port on url host
-    path:   # path on host, if any
+    protocol:         # http or https
+    host:             # url host
+    port:             # port on url host
+    path:             # path on host, if any

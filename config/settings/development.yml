@@ -1,5 +1,6 @@
 api:
   url:
-    host: 'http://localhost'
+    protocol: 'http://'
+    host: 'localhost'
     port: 4444
     path:   # path on host, if any
