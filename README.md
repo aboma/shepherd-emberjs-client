@@ -10,6 +10,8 @@ Shepherd also separates the client frontend application from the backend RESTful
 
 This client application has also been designed for superior responsiveness and usability achieved through the use of a one page javascript app.
 
+![Shepherd DAM Client](ShepherdDAMClient.png "Shepherd DAM Client")
+
 ## Releases
 
 Please see the Changelog for complete release information.
@@ -19,6 +21,7 @@ Please see the Changelog for complete release information.
 * Search
 * Video and document support
 * User Permissions
+* Results Paging
 
 ## Installation
 
@@ -28,7 +31,7 @@ It is recommended that you install this application on Linux. It has been tested
 
 ### Pre-requisites
 
-Ruby, Bundler gem
+Ruby, Bundler gem, ImageMagick dev package
 
 ### Process
 
