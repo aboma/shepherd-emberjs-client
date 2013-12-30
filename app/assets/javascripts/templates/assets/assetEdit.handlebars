@@ -2,26 +2,28 @@
 	<div class="asset-details-header">
 		<h2>{{ name }}</h2>
     </div>
-    <div class="asset-details-image">
-        {{ render "assetImage" content.links }}
-        <div>({{ filename }})</div>
+    <div class="asset-details-main">
+        <div class="asset-details-image">
+            {{ asset-image src=image name=filename }}
+        </div>
         <div>
-            In Portfolios: {{ portfolioListString }}
+            <div>({{ filename }})</div>
+            <div>In Portfolios: {{ portfolioListString }}</div>
         </div>
     </div>
 
     {{ view Shepherd.AssetMetadataView 
         contentBinding="content.metadata"
-        controllerBinding=controller
+        controller=controller
     }}
     <div class="asset-actions">
-        <button {{ action download content }} {{bindAttr disabled="controller.isEditing"}} class="btn"> Download </button> 
-        <button {{ action edit content }} {{bindAttr disabled="controller.isEditing"}} class="btn btn-warning"> 
+        <button {{ action download content }} {{bind-attr disabled="controller.isEditing"}} class="btn"> Download </button> 
+        <button {{ action edit content }} {{bind-attr disabled="controller.isEditing"}} class="btn btn-warning"> 
             {{#if controller.isEditing}} Editing {{/if}}
             {{#unless controller.isEditing}} Edit {{/unless}}
         </button>
         {{#if controller.isEditing}}
-            <button {{ action save content }} {{bindAttr disabled="metadataForEditing.isNew"}} class="btn btn-success"> Save </button>
+            <button {{ action save content }} {{bind-attr disabled="metadataForEditing.isNew"}} class="btn btn-success"> Save </button>
             <button {{ action stopEditing }} class="btn btn-warning"> Stop Editing </button>
         {{/if}}
     </div>

@@ -3,7 +3,6 @@ Shepherd.Portfolio = DS.Model.extend({
 	description : DS.attr('string'),
 	createdAt : DS.attr('date'),
 	updatedAt : DS.attr('date'),
-	relationships: DS.hasMany('Shepherd.Relationship'),
-    metadataTemplate: DS.belongsTo('Shepherd.MetadataTemplate'),
-	links : DS.hasMany('Shepherd.Link')
+	relationships: DS.hasMany('relationship', { async: true }),
+    metadataTemplate: DS.belongsTo('metadataTemplate')
 });

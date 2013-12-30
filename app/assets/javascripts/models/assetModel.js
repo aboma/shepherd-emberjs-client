@@ -4,7 +4,9 @@ Shepherd.Asset = DS.Model.extend({
 	filename : DS.attr('string'),
     createdAt : DS.attr('date'),
     updatedAt : DS.attr('date'), 
-	links : DS.hasMany('Shepherd.Link'),
-	portfolios: DS.hasMany('Shepherd.Portfolio'),
-    metadata: DS.hasMany('Shepherd.MetadatumValue')
+    file: DS.attr('string'),
+    image: DS.attr('string'),
+    thumbnail: DS.attr('string'),
+	portfolios: DS.hasMany('portfolio'),
+    metadata: DS.hasMany('metadatum', { async: true })
 });

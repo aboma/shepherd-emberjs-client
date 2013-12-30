@@ -2,7 +2,7 @@
   <div>
     <div class="section-header">
       <span class="section-title">Metadata Templates Definitions</span>
-      <div class="inline-link"> / {{#linkTo "templates.new"}}create{{/linkTo}}</div>
+      <div class="inline-link"> / {{#link-to "templates.new"}}create{{/link-to}}</div>
     </div>
   </div>
   <div id="metadata-templates-list" class="left-nav">
@@ -13,7 +13,7 @@
     {{#each template in controller}}
       {{#unless template.isNew}}
         {{#unless template.isError}}
-          <li>{{#linkTo "template.show" template}}{{template.name}}{{/linkTo}}</li>
+          <li>{{#link-to "template.show" template}}{{template.name}}{{/link-to}}</li>
         {{/unless}}
       {{/unless}}
     {{/each}}

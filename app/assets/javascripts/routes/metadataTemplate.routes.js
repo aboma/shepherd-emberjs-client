@@ -1,6 +1,6 @@
 Shepherd.TemplatesRoute = Ember.Route.extend({
     model: function() {
-        return Shepherd.MetadataTemplate.find();
+        return this.store.find('metadataTemplate');
     },
 	setupController: function(controller, model) {
         this._super(controller, model);
@@ -30,7 +30,7 @@ Shepherd.TemplateShowRoute = Ember.Route.extend({
           outlet: 'main'
         });
     },
-    events: {
+    actions: {
         edit: function() {
             var model = this.controller.get('content');
             this.transitionTo('template.edit', model);
@@ -40,8 +40,7 @@ Shepherd.TemplateShowRoute = Ember.Route.extend({
 
 Shepherd.TemplatesNewRoute = Ember.Route.extend({
 	model: function() {
-		var transaction = this.store.transaction();
-		return transaction.createRecord(Shepherd.MetadataTemplate, {});
+        return this.store.createRecord('metadataTemplate');
 	},
     renderTemplate: function() {
 		this.render('templates.new', {
@@ -49,15 +48,19 @@ Shepherd.TemplatesNewRoute = Ember.Route.extend({
             outlet: 'main'
 		});
 	},
-	events: {
+	actions: {
 		cancel: function() {
 			this.controller.stopEditing();
 			this.transitionTo('templates.index');
 		},
 		save: function() {
 			var route = this;
-			this.controller.saveEdits().then(function() {
-				route.transitionTo('template.show', route.controller.get('content'));
+			this.controller.saveEdits().then(function(){
+                // reload to avoid duplicate embedded records issue
+                // http://discuss.emberjs.com/t/proposal-fix-saving-new-embedded-records-creates-duplicates/3677
+                route.controller.get('content').reload().then(function() {
+			    	route.transitionTo('template.show', route.controller.get('content'));
+                });
 			}, function() {
                 // error handled on controller
             });
@@ -72,18 +75,13 @@ Shepherd.TemplateEditRoute = Ember.Route.extend({
     model: function() {
         return this.modelFor('template');
     },
-   	// create transaction and add model to it
-	setupController: function(controller, model) {
-        this._super(controller, model);
-		this.store.transaction().add(model);
-	},
     renderTemplate: function() {
         this.render('template.edit', {
             into: 'templates',
             outlet: 'main'
         });
     },
-    events: {
+    actions: {
 		cancel: function() {
 			this.controller.stopEditing();
 			this.transitionTo('templates.index');

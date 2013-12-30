@@ -1,13 +1,13 @@
 <div id="users-definitions">
   <div class="section-header">
       <span class="section-title">Users</span>
-      <div class="inline-link"> / {{#linkTo users.new}}Create{{/linkTo}}</div>
+      <div class="inline-link"> / {{#link-to "users.new"}}Create{{/link-to}}</div>
   </div>
   <div id="users-list" class="left-nav">
     <ul class="nav nav-list"> 
     {{#each user in controller}}
       {{#unless user.isNew}}
-        <li>{{#linkTo "user.show" user}}{{user.nameFormatLastFirst}}{{/linkTo}}</li>
+        <li>{{#link-to "user.show" user}}{{user.nameFormatLastFirst}}{{/link-to}}</li>
       {{/unless}}
     {{/each}}
     </ul>

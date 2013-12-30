@@ -1,13 +1,13 @@
 Shepherd.FieldsRoute = Ember.Route.extend({
     model: function() {
-        return Shepherd.MetadatumField.find();
+        return this.store.find('metadatumField');
     },
     // load values lists for forms
     setupController: function(controller, model) {
         this._super(controller, model);
         var metadatumValuesListsController = this.controllerFor('metadata_lists');
         if (metadatumValuesListsController) 
-          metadatumValuesListsController.set('model', Shepherd.MetadatumValuesList.find({}));
+          metadatumValuesListsController.set('model', this.store.find('metadatumValuesList'));
         this.controllerFor('topNav').set('selected', 'Metadata Fields');
     }	
 });
@@ -34,7 +34,7 @@ Shepherd.FieldShowRoute = Ember.Route.extend({
           outlet: 'main'
         });
     },
-    events: {
+    actions: {
         edit: function() {
             var model = this.controller.get('content');
             this.transitionTo('field.edit', model);
@@ -44,8 +44,7 @@ Shepherd.FieldShowRoute = Ember.Route.extend({
 
 Shepherd.FieldsNewRoute = Ember.Route.extend({
 	model: function() {
-		var transaction = this.store.transaction();
-		return transaction.createRecord(Shepherd.MetadatumField, {});
+        return this.store.createRecord('metadatumField');
 	},
     renderTemplate: function() {
 		this.render('fields.new', {
@@ -53,7 +52,7 @@ Shepherd.FieldsNewRoute = Ember.Route.extend({
             outlet: 'main'
 		});
 	},
-	events: {
+	actions: {
 		cancel: function() {
 			this.controller.stopEditing();
 			this.transitionTo('fields.index');
@@ -76,18 +75,13 @@ Shepherd.FieldEditRoute = Ember.Route.extend({
     model: function() {
         return this.modelFor('field');
     },
-   	// create transaction and add model to it
-	setupController: function(controller, model) {
-        this._super(controller, model);
-		this.store.transaction().add(model);
-	},
     renderTemplate: function() {
         this.render('field.edit', {
             into: 'fields',
             outlet: 'main'
         });
     },
-    events: {
+    actions: {
 		cancel: function() {
 			this.controller.stopEditing();
 			this.transitionTo('fields.index');

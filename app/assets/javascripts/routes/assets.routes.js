@@ -1,6 +1,6 @@
 Shepherd.AssetsRoute = Ember.Route.extend({
 	model: function() {
-		return Shepherd.Asset.find();
+		return this.store.find('asset');
 	},
 	setupController: function(controller, model) {
         this._super(controller, model);

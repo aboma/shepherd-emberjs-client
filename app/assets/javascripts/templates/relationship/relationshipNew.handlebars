@@ -4,19 +4,19 @@
     <div class="control-group">
    		<label class="control-label">Asset Name</label>
    		<div class="controls">
-			<input type="text" name="name" />
+			<input type="text" name="name" required="required" />
 		</div>
 	</div>
 	<div class="control-group">
    		<label class="control-label">Description</label>
    		<div class="controls">
-			<input type="text" name="description" />
+			<textarea placeholder="Asset Description" name="description"></textarea>
 		</div>
 	</div>
     <div class="control-group">
    		<label class="control-label">File</label>
    		<div class="controls">
-        	<input type="file" name="file" />
+        	<input type="file" name="file" required="required" />
         </div>
     </div>
 	<input type="hidden" name="portfolio_id" value="{{unbound controller.portfolio}}" />

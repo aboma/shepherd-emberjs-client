@@ -1,1 +1,1 @@
-//= require jquery-1.8.3
+//= require jquery-1.10.2.js

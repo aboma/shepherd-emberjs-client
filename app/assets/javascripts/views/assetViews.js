@@ -30,9 +30,11 @@ Shepherd.AssetModalEditView = Ember.View.extend({
 	templateName : 'assets/assetEdit',
 	showHeader: true,
 
-	close: function() {
-		this.destroy();
-	}
+    actions: {
+    	close: function() {
+		    this.destroy();
+	    }
+    }
 });
 
 Shepherd.ThumbnailView = Ember.View.extend({

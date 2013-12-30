@@ -1,6 +1,6 @@
 Shepherd.MetadataListsRoute = Ember.Route.extend({
     model: function() {
-        return Shepherd.MetadatumValuesList.find();
+        return this.store.find('metadatumValuesList');
     },
 	setupController: function(controller, model) {
         this._super(controller, model);
@@ -11,17 +11,16 @@ Shepherd.MetadataListsRoute = Ember.Route.extend({
 
 Shepherd.MetadataListsIndexRoute = Ember.Route.extend({
     renderTemplate: function() {
-    	this.render('metadata_lists.index', {
-	    	into: 'metadata_lists',
-    		outlet: 'main'
-    	});
+        this.render('metadata_lists.index', {
+            into: 'metadata_lists',
+            outlet: 'main'
+        });
     }
 });
 
 Shepherd.MetadataListsNewRoute = Ember.Route.extend({
 	model: function() {
-		var transaction = this.store.transaction();
-		return transaction.createRecord(Shepherd.MetadatumValuesList, {});
+        return this.store.createRecord('metadatumValuesList');
 	},
 	renderTemplate: function() {
 		this.render('metadata_lists.new', {
@@ -29,7 +28,7 @@ Shepherd.MetadataListsNewRoute = Ember.Route.extend({
             outlet: 'main'
 		});
 	},
-	events: {
+	actions: {
 		cancel: function() {
 			this.controller.stopEditing();
 			this.transitionTo('metadata_lists.index');
@@ -38,7 +37,10 @@ Shepherd.MetadataListsNewRoute = Ember.Route.extend({
 			var route = this;
             this.controller.removeBlankValues();
 			this.controller.saveEdits().then(function() {
-				route.transitionTo('metadata_list.show', route.controller.get('content'));
+                // reload metadata list to avoid duplicate records issue
+                route.controller.get('content').reload().then(function() {
+                    route.transitionTo('metadata_list.show', route.controller.get('content'));
+                });
 			});
 		}
     } /*,
@@ -55,11 +57,11 @@ Shepherd.MetadataListShowRoute = Ember.Route.extend({
     },
     renderTemplate: function() {
         this.render('metadata_list.show', {
-          into: 'metadata_lists',
-          outlet: 'main'
+            into: 'metadata_lists',
+            outlet: 'main'
         });
     },
-    events: {
+    actions: {
         edit: function() {
             var model = this.controller.get('content');
             this.transitionTo('metadata_list.edit', model);
@@ -71,18 +73,13 @@ Shepherd.MetadataListEditRoute = Ember.Route.extend({
     model: function() {
         return this.modelFor('metadata_list');
     },
-   	// create transaction and add model to it
-	setupController: function(controller, model) {
-        this._super(controller, model);
-		this.store.transaction().add(model);
-	},
     renderTemplate: function() {
         this.render('metadata_list.edit', {
             into: 'metadata_lists',
             outlet: 'main'
         });
     },
-    events: {
+    actions: {
 		cancel: function() {
 			this.controller.stopEditing();
 			this.transitionTo('metadata_lists.index');
@@ -91,7 +88,10 @@ Shepherd.MetadataListEditRoute = Ember.Route.extend({
 			var route = this;
             this.controller.removeBlankValues();
 			this.controller.saveEdits().then(function() {
-				route.transitionTo('metadata_list.show', route.controller.get('content'));
+                // reload metadata list to avoid duplicate records issue
+                route.controller.get('content').reload().then(function() {
+                    route.transitionTo('metadata_list.show', route.controller.get('content'));
+                });
 			});
 		},
         remove: function() {

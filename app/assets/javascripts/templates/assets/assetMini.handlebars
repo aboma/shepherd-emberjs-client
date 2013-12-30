@@ -1,6 +1,6 @@
 {{#with content as asset}}
 	<div class="asset-small">
-		{{ control "thumbnail" asset.links }}
+        {{ thumbnail-image src=asset.thumbnail }}
 		<div class="asset-name">{{ asset.name }}</div>
 	</div>
 {{/with}}

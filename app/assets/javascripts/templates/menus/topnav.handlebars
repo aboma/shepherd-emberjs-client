@@ -7,10 +7,10 @@
 			    </li>
 			 	<ul class="nav">
                    {{#view view.navItemView item="Portfolios" }}
-			 		   {{#linkTo "portfolios.index"}}Portfolios{{/linkTo}}
+			 		   {{#link-to "portfolios.index"}}Portfolios{{/link-to}}
                    {{/view}}
                    {{#view view.navItemView item="Assets" }}
-			 		   {{#linkTo "assets.index"}}Assets{{/linkTo}}
+			 		   {{#link-to "assets.index"}}Assets{{/link-to}}
                    {{/view}}
 				    <li class="divider-vertical"></li>
 				    <li class="dropdown">
@@ -19,16 +19,16 @@
 							href="#"> Admin <b class="caret"></b> </a>
 						<ul class="dropdown-menu">
                             {{#view view.navItemView item="Users" }}
-                                {{#linkTo "users.index"}}Users{{/linkTo}}
+                                {{#link-to "users.index"}}Users{{/link-to}}
                             {{/view}}
                             {{#view view.navItemView item="Metadata Templates" }}
-                                {{#linkTo "templates.index"}}Metadata Templates{{/linkTo}}
+                                {{#link-to "templates.index"}}Metadata Templates{{/link-to}}
                             {{/view}}
                             {{#view view.navItemView item="Metadata Fields" }}
-								{{#linkTo "fields.index"}}Metadata Fields{{/linkTo}}
+								{{#link-to "fields.index"}}Metadata Fields{{/link-to}}
 							{{/view}}
                             {{#view view.navItemView item="Metadata Values Lists" }}
-								{{#linkTo "metadata_lists.index"}}Metadata Values Lists{{/linkTo}}
+								{{#link-to "metadata_lists.index"}}Metadata Values Lists{{/link-to}}
 							{{/view}}
 						</ul>
 					</li>

@@ -5,7 +5,7 @@
             Remove 
         </button>
         {{#if hasAvailablePortfolios}}
-            <button {{ action addToPortfolio content }} {{bindAttr disabled="controller.isEditing"}} class="btn btn-warning">
+            <button {{ action addToPortfolio content }} {{bind-attr disabled="controller.isEditing"}} class="btn btn-warning">
                 Add To Portfolio 
             </button>
             {{ view Shepherd.Select2 
@@ -17,7 +17,7 @@
                  selectionBinding="controller.portfolioToAddTo"
             }}
         {{/if}}
-        {{#linkTo 'relationship.index' id="relationship-close"}} close {{/linkTo}}
+        {{#link-to 'relationship.index' id="relationship-close"}} close {{/link-to}}
 	</div>
 	<div id="relationship-asset">
 		{{ render "assetEdit" content.asset }}

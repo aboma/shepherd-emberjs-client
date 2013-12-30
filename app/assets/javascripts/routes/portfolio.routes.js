@@ -1,6 +1,6 @@
 Shepherd.PortfoliosRoute = Ember.Route.extend({
 	model: function() {
-		return Shepherd.Portfolio.find();
+		return this.store.find('portfolio');
 	},
 	setupController: function(controller, model) {
         this._super(controller, model);
@@ -28,8 +28,7 @@ Shepherd.PortfoliosIndexRoute = Ember.Route.extend({
 
 Shepherd.PortfoliosNewRoute = Ember.Route.extend({
 	model: function() {
-		var transaction = this.store.transaction();
-		return transaction.createRecord(Shepherd.Portfolio, {});
+        return this.store.createRecord('portfolio');
 	},
 	renderTemplate: function() {
 		this.render('portfolios.new', {
@@ -37,7 +36,7 @@ Shepherd.PortfoliosNewRoute = Ember.Route.extend({
 			outlet: 'master'
 		});
 	},
-	events: {
+	actions: {
 		cancel: function() {
 			this.controller.stopEditing();
 			this.transitionTo('portfolios.index');
@@ -83,18 +82,13 @@ Shepherd.PortfolioEditRoute = Ember.Route.extend({
 	model: function() {
 		return this.modelFor('portfolio');
 	},
-	// create transaction and add model to it
-	setupController: function(controller, model) {
-        this._super(controller, model);
-		this.store.transaction().add(model);
-	},
 	renderTemplate: function() {
 		this.render('portfolio.edit', {
 			into: 'portfolios',
 			outlet: 'detail'	
 		});
 	},
-	events: {
+	actions: {
 		cancel: function() {
 			this.controller.stopEditing();
 			this.transitionTo('portfolio.show', this.controller.get('content'));

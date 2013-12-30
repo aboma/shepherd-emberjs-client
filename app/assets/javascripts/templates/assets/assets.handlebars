@@ -4,9 +4,9 @@
         Loading...
     {{/unless}}
     {{#each asset in content}}
-        {{#linkTo 'asset.modalEdit' asset}}
+        {{#link-to 'asset.modalEdit' asset}}
             {{render 'asset' asset}}
-        {{/linkTo}}
+        {{/link-to}}
     {{/each}}
 	{{ outlet }}
 </div>

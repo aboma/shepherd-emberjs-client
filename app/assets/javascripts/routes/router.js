@@ -57,22 +57,22 @@ Shepherd.ApplicationRoute = Ember.Route.extend({
     setupController: function(controller, model) {
         // load user session information
         var sessionController = this.controllerFor('session');
-        sessionController.set('model', Shepherd.Session.find(1));
+        sessionController.set('model', this.store.find('session', 1));
         // load application settings
         var settingController = this.controllerFor('setting');
-        settingController.set('model', Shepherd.Setting.find(1));
+        settingController.set('model', this.store.find('setting', 1));
         // load values lists for forms
         var metadatumValuesListsController = this.controllerFor('metadata_lists');
         if (metadatumValuesListsController) 
-          metadatumValuesListsController.set('model', Shepherd.MetadatumValuesList.find({}));
+          metadatumValuesListsController.set('model', this.store.find('metadatumValuesList'));
         // load fields
         var metadatumFieldsController = this.controllerFor('fields');
         if (metadatumFieldsController)
-          metadatumFieldsController.set('model', Shepherd.MetadatumField.find({}));
+          metadatumFieldsController.set('model', this.store.find('metadatumField'));
         // load metadata templates
         var metadataTemplatesController = this.controllerFor('templates'); 
         if (metadataTemplatesController)
-          metadataTemplatesController.set('model', Shepherd.MetadataTemplate.find());
+          metadataTemplatesController.set('model', this.store.find('metadataTemplate'));
 
         Shepherd.loadingOverlay.hide();
         this._super(controller, model);

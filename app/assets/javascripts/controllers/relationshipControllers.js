@@ -1,10 +1,11 @@
 Shepherd.RelationshipsController = Ember.ArrayController.extend({	
     needs: ['portfolio'],
 
+    // reload selected portfoli to include uploaded relationship
     reloadContent: function() {
 		var id = this.get('controllers.portfolio.content.id');
         console.log('reloading relationships for portfolio ' + id);
-		this.set('content', Shepherd.Relationship.find({ portfolio_id: id }));
+		this.set('content', this.store.find('portfolio', id));
     },
 
 	// broken per https://github.com/emberjs/data/issues/587
@@ -37,16 +38,22 @@ Shepherd.RelationshipController = Ember.ObjectController.extend(Shepherd.EditMod
         }
         return availablePorts;
     }.property('content.asset.portfolios'),
+
     // array of portfolios that asset does not have
-    // a relationship with
+    // a relationship with, and hencea relationship can be
+    // created with
     hasAvailablePortfolios: function() {
        return this.get('availablePortfolios.length') > 0;
     }.property('content.asset.portfolios'),
-    addToPortfolio: function() {
-        console.log('adding to portfolio');
-        var portfolio = this.get('portfolioToAddTo');
-        var asset = this.get('content.asset');
-        this.get('controllers.relationshipsNew').create(asset, portfolio);
+
+    actions: {
+        // add asset to another portfolio
+        addToPortfolio: function() {
+            console.log('adding to portfolio');
+            var portfolio = this.get('portfolioToAddTo');
+            var asset = this.get('content.asset');
+            this.get('controllers.relationshipsNew').create(asset, portfolio);
+        }
     }
 });
 
@@ -60,9 +67,10 @@ Shepherd.RelationshipsNewController = Ember.ObjectController.extend(Shepherd.Edi
 	}.property('controllers.portfolio.content'),
 
     create: function(asset, portfolio) {
-		var relationship = this.store.transaction().createRecord(Shepherd.Relationship);
-        relationship.set('asset', asset);
-        relationship.set('portfolio', portfolio);
+		var relationship = this.store.createRecord('relationship', {
+            asset: asset,
+            portfolio: portfolio
+        });
         portfolio.get('relationships').pushObject(relationship);
         this.set('content', relationship);
         this.saveEdits().then(function() {

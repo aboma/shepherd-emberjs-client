@@ -2,7 +2,7 @@
   <div>
     <div class="section-header">
       <span class="section-title">Metadadata Values List Definitions</span>
-      <div class="inline-link"> / {{#linkTo metadata_lists.new}}create{{/linkTo}}</div>
+      <div class="inline-link"> / {{#link-to "metadata_lists.new"}}create{{/link-to}}</div>
     </div>
   </div>
   <div id="metadata-lists-list" class="left-nav">
@@ -12,7 +12,7 @@
     <ul class="nav nav-list"> 
     {{#each list in controller}}
       {{#unless list.isNew}}
-        <li>{{#linkTo "metadata_list.show" list}}{{list.name}}{{/linkTo}}</li>
+        <li>{{#link-to "metadata_list.show" list}}{{list.name}}{{/link-to}}</li>
       {{/unless}}
     {{/each}}
     </ul>

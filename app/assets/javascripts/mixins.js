@@ -11,13 +11,9 @@ Shepherd.ModelAuditFieldsMixin = Ember.Mixin.create({
 });
 
 Shepherd.ResourceControllerMixin = Ember.Mixin.create({
-  uri: function() {
-    var links = this.get('content.links');
-    if (!links) return null;
-    var link = links.findProperty('rel', 'self');
-    if (!link) return null;
-    return link.get('href');
-  }.property('content.links')
+    uri: function() {
+        return this.get('content.data.links.self');
+    }.property('content')
 });
 
 // Mixin to generalize model create/edit functionality
@@ -25,83 +21,33 @@ Shepherd.ResourceControllerMixin = Ember.Mixin.create({
 Shepherd.EditModelControllerMixin = Ember.Mixin.create({
     needs:['message'],
 
-	// works for both save and edit by inspecting record states
-	// commit record if it has changed; returns promise of 
-    // record create or update
+    // save edits and show success or error message to user;
+    // return RSVP promise to enable promise chaining
 	saveEdits: function(record) {
         var controller = this,
             msgController = this.get('controllers.message');
-		if (!record) record = this.get('content');
-        return new Em.RSVP.Promise(function(resolve, reject) {
-            // reset transaction if user wants to resubmit record
-            // that is invalid or in error state
-            if (!record.get('isValid') || record.get('isError')) {
-                this.resetRecordState();
-            }
-            if (!record.get('isDirty')) {
-                msgController.set('message', 'no changes to save in model');
-                resolve(record);
-                return;
-            }
-            msgController.set('message', 'saving record');
-    	    var method = record.get('isNew') === true ? 'didCreate' : 'didUpdate';
-    		// callback will show record once the id is available
-	   		record.one(method, controller, function() {
-                msgController.set('message', 'record saved');
-                if (method === 'didUpdate') {
-                    // resolve promise
-                    resolve(record);
-                } else {
-                    // observe for when id is created since we may need this
-                    // for transition
-	    	        record.addObserver('id', this, resolve);
-                }
-	    	});
-            var errorHandler = function() {
-                var type = this.get('content.isError') ? 'error' : 'problem';
-                msgController.set('message', type + ' saving record');
-                // reject promise
-                reject(record);
-            }
-            // callback for invalid or conflict response from server
-            record.one('becameInvalid', controller, errorHandler);
-            record.one('becameError', controller, errorHandler);
-	    	// trigger save
-		    record.get('transaction').commit();
+		if (!record) { record = this.get('content'); }
+        msgController.set('message', 'saving record');
+        return record.save().then(function(savedRecord){
+            msgController.set('message', 'record saved');
+            return savedRecord;
         });
 	},
-	// returns promise to delete resource
+	// returns RSVP promise to delete resource
 	deleteRecord: function(record) {
-    	var controller = this,
+        var controller = this,
             msgController = this.get('controllers.message');
-        if (!record) record = this.get('content');
-        return new Em.RSVP.Promise(function(resolve, reject) {
-            msgController.set('message', 'deleting record');
-	    	record.one('didDelete', controller, function() {
-                msgController.set('message', 'record deleted');
-                resolve();
-	    	});
-            record.one('didError', controller, function() {
-                msgController.set('message', 'error deleting record');
-                reject(record);
-            });
-		    record.deleteRecord();
-    		controller.get('content.transaction').commit();
+        if (!record) { record = this.get('content'); }
+        msgController.set('message', 'deleting record');
+        return record.deleteRecord().then(function(){
+            msgController.set('message', 'record deleted');
+        }, function() {
+            msgController.set('message', 'error deleting record');
         });
 	},
-	stopEditing: function(callback) {
-        var controller = this;
-        return new Em.RSVP.Promise(function(resolve, reject) {
-            var content = controller.get('content');
-            if (!content.get('isValid')) {
-                content.send('becameValid');
-            }
-            controller.get('content.transaction').rollback();
-            if (content.get('isNew')) {
-                content.deleteRecord();
-            }
-            resolve();
-        });
+    // rollback changes to model when editing has stopped
+	stopEditing: function() {
+        this.get('model').rollback();
 	},
     // enable transaction to be submitted again
     resetRecordState: function() {
@@ -122,8 +68,9 @@ Shepherd.ViewWithModalMixin = Ember.Mixin.create({
 	},
 
 	closeModalView: function() {
-		if (this.modalView)
+		if (this.modalView) {
 			this.modalView.close();
+        }
 	},
 
 	// open modal view of relationship to show all
@@ -160,3 +107,132 @@ Shepherd.DragNDrop.Droppable = Ember.Mixin.create({
         return false;
     }
 });
+
+
+(function() {
+var get = Ember.get;
+var forEach = Ember.EnumerableUtils.forEach;
+
+/**
+  The EmbeddedRecordsMixin allows you to add embedded record support to your
+  serializers.
+  To set up embedded records, you include the mixin into the serializer and then
+  define your embedded relations.
+
+  ```js
+  App.PostSerializer = DS.ActiveModelSerializer.extend(DS.EmbeddedRecordsMixin, {
+    attrs: {
+      comments: {embedded: 'always'}
+    }
+  })
+  ```
+
+  Currently only `{embedded: 'always'}` records are supported.
+
+  @class EmbeddedRecordsMixin
+  @namespace DS
+*/
+DS.ExtendedEmbeddedRecordsMixin = Ember.Mixin.create({
+
+  /**
+    Serialize has-may relationship when it is configured as embedded objects.
+
+    @method serializeHasMany
+  */
+  serializeHasMany: function(record, json, relationship) {
+    var key   = relationship.key,
+        attrs = get(this, 'attrs'),
+        embed = attrs && attrs[key] && 
+              ((attrs[key].embedded === 'always') || (attrs[key].embedded === 'submit'));
+
+    if (embed) {
+      json[this.keyForAttribute(key)] = get(record, key).map(function(relation) {
+        var data = relation.serialize(),
+            primaryKey = get(this, 'primaryKey');
+
+        data[primaryKey] = get(relation, primaryKey);
+
+        return data;
+      }, this);
+    }
+  },
+
+  /**
+    Extract embedded objects out of the payload for a single object
+    and add them as sideloaded objects instead.
+
+    @method extractSingle
+  */
+  extractSingle: function(store, primaryType, payload, recordId, requestType) {
+    var root = this.keyForAttribute(primaryType.typeKey),
+        partial = payload[root];
+
+    updatePayloadWithEmbedded(store, this, primaryType, partial, payload);
+
+    return this._super(store, primaryType, payload, recordId, requestType);
+  },
+
+  /**
+    Extract embedded objects out of a standard payload
+    and add them as sideloaded objects instead.
+
+    @method extractArray
+  */
+  extractArray: function(store, type, payload) {
+    var root = this.keyForAttribute(type.typeKey),
+        partials = payload[Ember.String.pluralize(root)];
+
+    forEach(partials, function(partial) {
+      updatePayloadWithEmbedded(store, this, type, partial, payload);
+    }, this);
+
+    return this._super(store, type, payload);
+  }
+});
+
+function updatePayloadWithEmbedded(store, serializer, type, partial, payload) {
+  var attrs = get(serializer, 'attrs');
+
+  if (!attrs) {
+    return;
+  }
+
+  type.eachRelationship(function(key, relationship) {
+    var expandedKey, embeddedTypeKey, attribute, ids,
+        config = attrs[key],
+        serializer = store.serializerFor(relationship.type.typeKey),
+        primaryKey = get(serializer, "primaryKey");
+
+    if (relationship.kind !== "hasMany") {
+      return;
+    }
+
+    if (config && (config.embedded === 'always' || config.embedded === 'load')) {
+      // underscore forces the embedded records to be side loaded.
+      // it is needed when main type === relationship.type
+      embeddedTypeKey = '_' + Ember.String.pluralize(relationship.type.typeKey);
+      expandedKey = this.keyForRelationship(key, relationship.kind);
+      attribute  = this.keyForAttribute(key);
+      ids = [];
+
+      if (!partial[attribute]) {
+        return;
+      }
+
+      payload[embeddedTypeKey] = payload[embeddedTypeKey] || [];
+
+      forEach(partial[attribute], function(data) {
+        var embeddedType = store.modelFor(relationship.type.typeKey);
+        updatePayloadWithEmbedded(store, serializer, embeddedType, data, payload);
+        ids.push(data[primaryKey]);
+        payload[embeddedTypeKey].push(data);
+      });
+
+      partial[expandedKey] = ids;
+      delete partial[attribute];
+    }
+  }, serializer);
+}
+})();
+
+

@@ -10,9 +10,10 @@ Shepherd.AssetsIndexController = Ember.ArrayController.extend({
     }
 });
 
-Shepherd.AssetController = Ember.ObjectController.extend(Shepherd.ResourceControllerMixin, 
+Shepherd.AssetController = Ember.ObjectController.extend(
                                                       Shepherd.EditModelControllerMixin, { 
-    needs: ['portfolio', 'assetsIndex', 'assetEdit', 'assetImage'],
+    needs: ['portfolio', 'assetsIndex', 'assetEdit'],
+    metadataForEditing: Ember.ArrayProxy.create(),
     isEditing: false,
 
     // determine if this is the relationship selected from the list; 
@@ -22,12 +23,6 @@ Shepherd.AssetController = Ember.ObjectController.extend(Shepherd.ResourceContro
         return (this.get('content') === this.get('controllers.assetsIndex.selectedAsset'));
     }.property('controllers.assetsIndex.selectedAsset'),
 
-    originalFileUrl: (function() {
-		var fileLink = this.get('content.links').findProperty('rel', 'file');
-        var fileUrl = fileLink.get('href');
-        return fileUrl;
-    }).property('content.@each'),
-
     metadataTemplate: function() {
         return this.get('controllers.portfolio.content.metadataTemplate');
     }.property('controllers.portfolio.content'),
@@ -36,83 +31,89 @@ Shepherd.AssetController = Ember.ObjectController.extend(Shepherd.ResourceContro
     portfolioListString: function() {
         var portfolios = this.get('content.portfolios');
         if (portfolios) {
-            return portfolios.map(function(item, index, enumerable) {
+            return portfolios.map(function(item) {
                 return item.get('name');
             }).join(', ');
         } else {
-           return null;
+            return null;
         }
     }.property('content.portfolios'),
 
-    metadataForEditing: function() {
-        console.log('creating metadata for editing');
+    createMetadataForEditing: function() {
+        var controller = this;
         var metadataForEditing = Ember.ArrayProxy.createWithMixins(Ember.SortableMixin, {
-          sortProperties: ['order'],
-          content: Ember.A()
+            sortProperties: ['order'],
+            content: Ember.A()
         });
         var portfolio = this.get('controllers.portfolio');
         var fieldSettings = this.get('metadataTemplate.metadataTemplateFieldSettings');
-        if (!portfolio || !fieldSettings) return null;
-        // copy template field settings and asset metadata to new temp object
-        // for editing and display purposes
-        fieldSettings.forEach(function(fieldSetting, index) {
-           // does metadata exist on asset?
-           var metadatumField, fieldType, metadata, metadatum,
-              metadatumValues, metadatumValuesList;
-           metadatumField = fieldSetting.get('metadatumField');
-           fieldType = metadatumField.get('type');
-           metadata = this.get('content.metadata');
-           if (metadata) {
-              metadatum = metadata.findProperty('metadatumField', metadatumField);
-           }
-           // if metadatum value does not exist yet, create for purposes of editing;
-           // remove null values before committing
-           if (!metadatum) {
-              metadatum = Shepherd.MetadatumValue.createRecord({
-                  metadatumField: metadatumField,
-                  metadatumValue: null
-              });
-           }
-           metadatumValuesList = metadatum.get('metadatumField.allowedValuesList');
-           if (metadatumValuesList) {
-               metadatumValues = metadatumValuesList.get('metadatumListValues').mapProperty('value');
-           }
-           metadatumForEditing = Ember.Object.create({
-               order: fieldSetting.get('order'), 
-               metadatum: metadatum,
-               metadatumValues: metadatumValues,
-               isText: (fieldType === 'text'),
-               isBoolean: (fieldType === 'boolean')
-           });
-           metadataForEditing.pushObject(metadatumForEditing);
-        }, this);
-        return metadataForEditing;
-    }.property('content'),
+        console.log('creating metadata for editing');
+        if (!portfolio || !fieldSettings) { return null; }
+        // load metadata for asset ansynchronously and process once available; return
+        // promise so view updates when data available
+        this.get('content').get('metadata').then(function(metadata) {
+            // copy template field settings and asset metadata to new temp object
+            // for editing and display purposes
+            fieldSettings.forEach(function(fieldSetting) {
+                // does metadata exist on asset?
+                var metadatumField, fieldType, metadatum,
+                    metadatumValues, metadatumValuesList, metadatumForEditing;
+                metadatumField = fieldSetting.get('metadatumField');
+                fieldType = metadatumField.get('type');
+                if (metadata) {
+                    metadatum = metadata.findProperty('metadatumField', metadatumField);
+                }
+                // if metadatum value does not exist yet, create for purposes of editing;
+                // remove null values before committing
+                if (!metadatum) {
+                    metadatum = controller.store.createRecord('metadatum', {
+                        metadatumField: metadatumField,
+                        metadatumValue: null
+                    });
+                }
+                metadatumValuesList = metadatum.get('metadatumField.allowedValuesList');
+                if (metadatumValuesList) {
+                    metadatumValues = metadatumValuesList.get('metadatumListValues')
+                                        .mapProperty('value').sort();
+                }
+                metadatumForEditing = Ember.Object.create({
+                    order: fieldSetting.get('order'), 
+                    metadatum: metadatum,
+                    metadatumValues: metadatumValues,
+                    isText: (fieldType === 'text'),
+                    isBoolean: (fieldType === 'boolean')
+                });
+                metadataForEditing.pushObject(metadatumForEditing);
+            }, this);
 
-    edit: function() {
-        this.set('isEditing', true);
-    },
-    stopEditing: function() {
-        this.set('isEditing', false);
-    },
-    cancel: function() {
-        var controller = this;
-        this.stopEditing().then(function() {
-            controller.set('isEditing', false);
+            controller.set('metadataForEditing', metadataForEditing);
         });
-	},
-    save: function() {
-        var controller = this;
-        var metadata = this.get('metadataForEditing').mapProperty('metadatum');
-        this.get('content.metadata').pushObjects(metadata);
-        this.saveEdits().then(function() {
-            controller.set('isEditing', false);
-        });
-    },
-    download: function() {
-        console.log('download');
-        var fileUrl = this.get('originalFileUrl');
-        window.location = fileUrl;
+    }.observes('content'),
+
+    actions: {
+        edit: function() {
+            this.set('isEditing', true);
+        },
+        stopEditing: function() {
+            this.set('isEditing', false);
+        },
+        cancel: function() {
+            var controller = this;
+            this.stopEditing().then(function() {
+                controller.set('isEditing', false);
+            });
+        },
+        save: function() {
+            var controller = this;
+            var metadata = this.get('metadataForEditing').mapProperty('metadatum');
+            this.get('content.metadata').pushObjects(metadata);
+            this.saveEdits().then(function() {
+                controller.set('isEditing', false);
+            });
+        },
+        download: function() {
+            window.location = this.get('file');
+        }
     }
 });
 
@@ -124,31 +125,3 @@ Shepherd.AssetModalEditController = Shepherd.AssetController.extend({});
 Shepherd.AssetsController = Ember.ObjectController.extend({});
 
 Shepherd.AssetsNewController = Shepherd.AssetEditController.extend({});
-
-Shepherd.AssetImageController = Ember.ArrayController.extend({
-    originalImage: (function() {
-        var content = this.get('content');
-        if (content) {
-          return content.findProperty('rel', 'image');
-        } else {
-          return null;
-        }
-    }).property('content.@each'),
-
-    thumbnail: (function() {
-        var content = this.get('content');
-        if (content) {
-          return content.findProperty('rel', 'thumbnail');
-        } else {
-          return null;
-        }
-	}).property('content.@each'),
-
-    fullPath: function() {
-		var url = this.get('href');
-		if (!url) return null;
-		return url + '?x-api-key=' + auth_token;
-	}.property('content.@each.href')
-});
-
-Shepherd.ThumbnailController = Shepherd.AssetImageController.extend({});

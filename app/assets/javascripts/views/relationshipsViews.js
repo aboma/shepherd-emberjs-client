@@ -17,7 +17,7 @@ Shepherd.RelationshipsNewView = Ember.View.extend({
         	formData = new FormData(form[0]);
         if(formData) {
         	var router = this.controller.target;
-            event.formData = formData;
+            event.data = formData;
             // send event to submit data to route
             router.send('create', event);
          }

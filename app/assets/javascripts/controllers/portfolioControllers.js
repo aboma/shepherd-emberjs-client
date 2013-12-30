@@ -9,7 +9,7 @@ Shepherd.PortfoliosController = Ember.ArrayController.extend({
 
     savedSortedContent: function() {
         return this.get('arrangedContent').filter(function(item) {
-          return item.get('isNew') === false;
+            return item.get('isNew') === false;
         });
     }.property('content.@each.isNew'),
 
@@ -18,11 +18,11 @@ Shepherd.PortfoliosController = Ember.ArrayController.extend({
 		this.set('selected', null);
 	},
 
-  	contentLoaded: function() {
-  		console.log('controller content is loaded');
-  		// set default value to null so prompt is shown, not first item
-  		//this.set('selectedPortfolio', null);
-  	}.observes('content.isLoaded')
+    contentLoaded: function() {
+        console.log('controller content is loaded');
+        // set default value to null so prompt is shown, not first item
+        //this.set('selectedPortfolio', null);
+    }.observes('content.isLoaded')
 });
 
 Shepherd.PortfolioController = Ember.ObjectController.extend(Shepherd.ResourceControllerMixin, {});
@@ -30,9 +30,9 @@ Shepherd.PortfolioController = Ember.ObjectController.extend(Shepherd.ResourceCo
 Shepherd.PortfolioShowController = Ember.ObjectController.extend({});
 
 Shepherd.PortfolioEditController = Ember.ObjectController.extend(Shepherd.EditModelControllerMixin, {
-  needs: ['portfolio', 'templates'],
-  uri: Ember.computed.alias('controllers.portfolio.uri'),
-  metadataTemplates: Ember.computed.alias('controllers.templates.content')
+    needs: ['portfolio', 'templates'],
+    uri: Ember.computed.alias('controllers.portfolio.uri'),
+    metadataTemplates: Ember.computed.alias('controllers.templates.content')
 });
 
 Shepherd.PortfoliosNewController = Shepherd.PortfolioEditController.extend({});

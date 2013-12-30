@@ -1,4 +1,5 @@
-Shepherd.MetadatumValue = DS.Model.extend({
-    metadatumField: DS.belongsTo('Shepherd.MetadatumField'),
+Shepherd.Metadatum = DS.Model.extend({
+    asset: DS.belongsTo('asset'),
+    metadatumField: DS.belongsTo('metadatumField'),
     metadatumValue: DS.attr('string')
 });

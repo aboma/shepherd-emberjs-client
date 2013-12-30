@@ -1,56 +1,36 @@
-Shepherd.RESTAdapter = DS.RESTAdapter.extend({ 
-  bulkCommit: false,
-  url: shepherd_rest_url,
-  // override didError to handle 409 conflict status properly
-  didError: function(store, type, record, xhr) {
-   	if (xhr.status === 422 || xhr.status === 409) {
-   		var json = JSON.parse(xhr.responseText),
-      	serializer = this.get('serializer'),
-      	errors = serializer.extractValidationErrors(type, json);
-   		store.recordWasInvalid(record, errors);
-   	} else {
-   		this._super.apply(this, arguments);
-   	}
-  }
+Shepherd.ApplicationAdapter = DS.ActiveModelAdapter.extend({ 
+    host: shepherd_rest_url
 });
 
-Shepherd.RESTAdapter.map('Shepherd.Asset', {
-  links: { embedded: 'load' },
-  metadata: { embedded: 'always' }
-});
-Shepherd.RESTAdapter.map('Shepherd.Relationship', {
-  asset: { embedded: 'load' },
-  links : { embedded: 'load' }
-});
-Shepherd.RESTAdapter.map('Shepherd.MetadatumValuesList', {
-  metadatumListValues: { embedded: 'always' },
-  links : { embedded: 'load' }
-});
-Shepherd.RESTAdapter.map('Shepherd.MetadatumField', {
-  links : { embedded: 'load' }
-
-});
-Shepherd.RESTAdapter.map('Shepherd.MetadataTemplate', {
-  metadataTemplateFieldSettings: { embedded: 'always' }, 
-  links : { embedded: 'load' }
-});
-Shepherd.RESTAdapter.map('Shepherd.Portfolio', {
-  links : { embedded: 'load' }
+Shepherd.MetadatumValuesListSerializer = DS.ActiveModelSerializer.extend(DS.EmbeddedRecordsMixin, {
+    attrs: {
+        metadatumListValues: {embedded: 'always'}
+    }
 });
 
-Shepherd.RESTAdapter.configure('Shepherd.MetadatumValue', {
-    sideloadAs: 'metadata'
+Shepherd.MetadataTemplateSerializer = DS.ActiveModelSerializer.extend(DS.EmbeddedRecordsMixin, {
+    attrs: {
+        metadataTemplateFieldSettings: {embedded: 'always'}
+    }
 });
 
-Shepherd.RESTAdapter.map('Shepherd.User', {
-  links : { embedded: 'load' }
+Shepherd.RelationshipSerializer = DS.ActiveModelSerializer.extend(DS.EmbeddedRecordsMixin, {
+    attrs: {
+        asset: {embedded: 'always'}
+    }
 });
 
-Shepherd.RESTAdapter.configure('plurals', { settings: 'settings' });
-Shepherd.RESTAdapter.configure('plurals', { metadata: 'metadata' });
+// use customized Embedded Records mixin to handle case where you want to 
+// embed records only on submit
+Shepherd.AssetSerializer = DS.ActiveModelSerializer.extend(DS.ExtendedEmbeddedRecordsMixin, {
+    attrs: {
+        metadata: {embedded: 'submit'}
+    }
+});
 
-Shepherd.RESTAdapter.registerTransform('array', {
+Shepherd.ArrayTransform = DS.Transform.extend({
   deserialize: function(serialized) {
+    console.log('deserializing array');
     return serialized.split(',');
   },
   serialize: function(deserialized) {
@@ -58,55 +38,70 @@ Shepherd.RESTAdapter.registerTransform('array', {
   }
 });
 
-Shepherd.Store = DS.Store.extend({
-  adapter: Shepherd.RESTAdapter 
+Shepherd.FileTransform = DS.Transform.extend({
+  serialize: function(value) {
+    return value;
+  },
+  deserialize: function(value) {
+    return value;
+  }
 });
 
-// adapter to handle file uploads
-Shepherd.FileUploadRESTAdapter = Shepherd.RESTAdapter.extend({
-    bulkCommit: false,
+// adapter to handle file uploads when creating new relationship with asset
+// embedded, using FormData object to post form with file
+Shepherd.RelationshipAdapter = DS.ActiveModelAdapter.extend({
+  host: shepherd_rest_url,
+  createRecord: function(store, type, record) {
+    var data = {};
+    var serializer = store.serializerFor(type.typeKey);
+    var formData = record.get('formData');
 
-    createRecord: function(store, type, record) {
-        var adapter = this;
-        var root = this.rootForType(type), json = {};
-        var formData = record.get('formData');
-        // if not formData on this record, use default adapter instead
-        // since there is noting to post
-        if (!formData) {
-            store.get('_adapter').createRecord(store, type, record);
-            return;
-        }
+    console.log('custom relationship adapter');
+    if (formData) {
+      // submit formData instead of json hash
+      console.log('submitting formData for relationship');
+      return this.ajax(this.buildURL(type.typeKey), "POST", { 
+        data: formData,
+		// Options to tell JQuery not to process data or worry about
+		// content-type
+		cache : false,
+		contentType : false,
+		processData : false
+        //contentType: 'application/x-www-form-urlencoded; charset=UTF-8'
+      });
+    } else {
+      // standard functionality
+      serializer.serializeIntoHash(data, type, record, { includeId: true });
 
-    	console.log('FileUploadRestAdapter saving record with file');
-
-        return $.ajax({
-			url : this.buildURL(root), 
-			type : 'POST', 
-			context : this,  
-			// Form data
-			data : formData,
-			// Options to tell JQuery not to process data or worry about
-			// content-type
-			cache : false,
-			contentType : false,
-			processData : false
-		}).then(function(json){
-            adapter.didCreateRecord(store, type, record, json);
-        }, function(xhr) {
-            adapter.didError(store, type, record, xhr);
-            throw xhr;
-        }).then(null, DS.rejectionHandler);
+      return this.ajax(this.buildURL(type.typeKey), "POST", { data: data });
     }
-});
+  },
 
-Shepherd.FileUploadRESTAdapter.registerTransform('file', {
-	  serialize: function(value) {
-	    return value;
-	  },
-	  deserialize: function(value) {
-	    return value;
-	  }
-});
+  // override ajaxOptions to allow setting of content type
+  ajaxOptions: function(url, type, hash) {
+    hash = hash || {};
+    hash.url = url;
+    hash.type = type;
+    hash.dataType = 'json';
+    hash.context = this;
 
-//use overridden adapter to handle file uploads
-Shepherd.Store.registerAdapter('Shepherd.Relationship', Shepherd.FileUploadRESTAdapter.create());
+    if (hash.data && type !== 'GET') {
+      if (hash.contentType === undefined) {
+        hash.contentType = 'application/json; charset=utf-8';
+        hash.data = JSON.stringify(hash.data);
+      }
+    }
+
+    if (this.headers !== undefined) {
+      var headers = this.headers;
+      hash.beforeSend = function (xhr) {
+        forEach.call(Ember.keys(headers), function(key) {
+          xhr.setRequestHeader(key, headers[key]);
+        });
+      };
+    }
+
+
+    return hash;
+  }
+});

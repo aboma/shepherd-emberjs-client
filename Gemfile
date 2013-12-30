@@ -2,7 +2,6 @@ source 'https://rubygems.org'
 
 gem 'rails', '~> 3.2.15'
 gem 'puma', '~> 2.6.0'
-gem 'jquery-rails', '~> 2.0.1'
 gem 'yajl-ruby', '~> 1.1.0'
 gem 'select2-rails', '~> 3.2.0'
 gem 'rails_config', '~> 0.3.3'
@@ -20,8 +19,8 @@ group :development, :test do
 end
 
 gem 'multi_json', '1.8.2'
-gem 'handlebars-source', '~> 1.0.0.rc4'
-gem 'handlebars_assets', '~> 0.12'
+gem 'handlebars-source', '~> 1.2.1'
+gem 'handlebars_assets', '~> 0.15'
 gem 'sass-rails', '~> 3.1'
 gem 'bootstrap-sass', '~> 2.0.4.0'
 gem 'bootswatch-rails'

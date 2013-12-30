@@ -4,6 +4,5 @@ Shepherd.MetadatumField = DS.Model.extend({
     type: DS.attr('string'),
     createdAt : DS.attr('date'),
     updatedAt : DS.attr('date'),
-    allowedValuesList: DS.belongsTo('Shepherd.MetadatumValuesList', { embedded: true }),
-	links : DS.hasMany('Shepherd.Link')
+    allowedValuesList: DS.belongsTo('metadatumValuesList')
 });

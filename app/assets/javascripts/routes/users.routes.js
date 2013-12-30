@@ -1,6 +1,6 @@
 Shepherd.UsersRoute = Ember.Route.extend({
     model: function() {
-        return Shepherd.User.find();
+        return this.store.find('user');
     },
 	setupController: function(controller, model) {
         this._super(controller, model);
@@ -29,7 +29,7 @@ Shepherd.UserShowRoute = Ember.Route.extend({
           outlet: 'detail'
         });
     },
-    events: {
+    actions: {
         edit: function() {
             var model = this.controller.get('content');
             this.transitionTo('user.edit', model);
@@ -39,8 +39,7 @@ Shepherd.UserShowRoute = Ember.Route.extend({
 
 Shepherd.UsersNewRoute = Ember.Route.extend({
 	model: function() {
-		var transaction = this.store.transaction();
-		return transaction.createRecord(Shepherd.User, {});
+        return this.store.createRecord('user');
 	},
     renderTemplate: function() {
 		this.render('users.new', {
@@ -48,7 +47,7 @@ Shepherd.UsersNewRoute = Ember.Route.extend({
             outlet: 'detail'
 		});
 	},
-	events: {
+	actions: {
 		cancel: function() {
 			this.controller.stopEditing();
 			this.transitionTo('users.index');
@@ -71,18 +70,13 @@ Shepherd.UserEditRoute = Ember.Route.extend({
     model: function() {
         return this.modelFor('user');
     },
-   	// create transaction and add model to it
-	setupController: function(controller, model) {
-        this._super(controller, model);
-		this.store.transaction().add(model);
-	},
     renderTemplate: function() {
         this.render('user.edit', {
             into: 'users',
             outlet: 'detail'
         });
     },
-    events: {
+    actions: {
 		cancel: function() {
 			this.controller.stopEditing();
 			this.transitionTo('users.index');

@@ -1,13 +1,13 @@
 Shepherd.RelationshipsRoute = Ember.Route.extend({
     // get relationships for portfolio; these contain 
-	// portfolio <-> asset relationship; model must be set on 
-    // setupController because setting filtered model in
-    // model hook does not work
+	// portfolio <-> asset relationship;  
+    model: function() {
+		return this.modelFor('portfolio').get('relationships');
+    },
     setupController: function(controller, model) {
 		var id = this.modelFor('portfolio').get('id');
-		model = Shepherd.Relationship.find({ portfolio_id: id });
-        controller.set('content', model);
         controller.set('portfolioName', this.modelFor('portfolio').get('name'));
+        this._super(controller, model);
     },
 	renderTemplate: function() {
 		this.render('relationships', {
@@ -30,25 +30,29 @@ Shepherd.RelationshipsIndexRoute = Ember.Route.extend({
 Shepherd.RelationshipsNewRoute = Ember.Route.extend({
     model: function() {
         var port = this.modelFor('portfolio');
-        return this.store.transaction().createRecord(Shepherd.Relationship, { portfolio: port });
+        return this.store.createRecord('relationship', { portfolio: port });
     },
 	renderTemplate: function() {
 		this.render('relationships.new', {
 			into: 'relationships'
 		});
 	},
-    events: {
+    actions: {
         create: function(evt) {
-            if (evt.formData) {
+            if (evt.data) {
                 var route = this;
-                route.controller.get('content').set('formData', evt.formData);
-			    this.controller.saveEdits().then(function(record) {
+                route.controller.get('content').set('formData', evt.data);
+			    this.controller.saveEdits().then(function(newRelation) {
+				    console.log(newRelation);
 				    console.log('relationship created');
                     // reload relationships
-                    route.controllerFor('relationships').reloadContent();
+                    //route.controllerFor('relationships').reloadContent();
                     // show relationship in edit view
-    				route.transitionTo('relationship.edit', record);
-	    		}, function() {
+    				route.transitionTo('relationship.edit', newRelation);
+                }, function(error) {
+                    var msgController = route.controllerFor('message');
+                    if (msgController) msgController.set('message', 'error saving record');
+                    alert('error saving record: ' + errors[0]);
                     console.log('error creating relationship');
                 });
             }
@@ -76,7 +80,7 @@ Shepherd.RelationshipEditRoute = Ember.Route.extend({
 			into: 'relationships'
 		});
 	},
-    events: {
+    actions: {
         destroyRelationship: function(event) {
             var route = this;
             console.log('detroying relationship');
