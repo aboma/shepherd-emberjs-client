@@ -7,11 +7,5 @@ Shepherd.TopNavView = Ember.View.extend({
       isActive: function() {
         return this.get('item') === this.get('parentView.selected');
       }.property('item', 'parentView.selected')
-    }),
-
-    selectedChanged: function() {
-      // this is an inline version of .addObserver
-      console.log("selected changed");
-    }.observes('controller.selected')
-
+    })
 });

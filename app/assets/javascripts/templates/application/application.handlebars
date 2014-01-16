@@ -1,12 +1,10 @@
-<section id='shepherd'>
-	<nav>
+	<nav id='shepherd-top-nav'>
 		{{ render 'topNav' }}
 	</nav>
 	<div id='shepherd-main'>
 		{{ outlet }}
 	</div>
 	<footer></footer>
-</section>
 {{ view Shepherd.MessageView 
       controllerBinding="controllers.message"
       id="message-container"}}

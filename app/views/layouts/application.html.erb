@@ -3,9 +3,9 @@
 	<head>
 		<title>ShepherdDAM Client</title>
 		<script type='application/javascript'>
-			auth_token = "<%= params[:auth_token] %>";
-			shepherd_rest_url = '<%= api_path %>';
-        	ENV = {
+			var auth_token = "<%= params[:auth_token] %>";
+			var shepherd_rest_url = '<%= api_path %>';
+        	var ENV = {
         	    EXPERIMENTAL_CONTROL_HELPER: true
 	        };
 		</script>

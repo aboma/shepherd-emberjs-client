@@ -66,15 +66,7 @@ legend, .page-header {
 	text-align: center;
 	z-index: 100;
 }
-#shepherd
-{
-	background: #272B30 url("classy_fabric.png") repeat scroll 20% 0;
-	height: auto;
-	min-height: 100%;
-	padding-top: 40px;
-	position: absolute;
-	width: 100%;
-}
+
 #ShepherdLeftNav
 {
 	float: left;
@@ -240,7 +232,15 @@ legend, .page-header {
 	font-size: 24px;
 	line-height: 28px;
 }
-
+.shepherd
+{
+	background: #272B30 url("classy_fabric.png") repeat scroll 20% 0;
+	height: auto;
+	min-height: 100%;
+	padding-top: 20px;
+	position: absolute;
+	width: 100%;
+}
 .shepherd-checkbox {
 	width: 28px;
 	height: 28px;

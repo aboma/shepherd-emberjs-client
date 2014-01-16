@@ -20,7 +20,7 @@ Ember.$.ajaxPrefilter(function(options ,originalOptions, xhr) {
 Ember.run.backburner.DEBUG = true;
 
 window.Shepherd = Ember.Application.create({
-    //rootElement: "body",
+    rootElement: "#shepherd-container",
     LOG_TRANSITIONS: true
    // LOG_TRANSITIONS_INTERNAL: true
 });

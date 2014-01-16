@@ -1,52 +1,50 @@
-<div id='shepherd-top-nav'>
-    <div class="navbar navbar-fixed-top">
-	    <div class="navbar-inner">
-		    <div class="container">
-			    <li class="brand">
-				    <a href='/'>Shepherd</a>
-			    </li>
-			 	<ul class="nav">
-                   {{#view view.navItemView item="Portfolios" }}
-			 		   {{#link-to "portfolios.index"}}Portfolios{{/link-to}}
-                   {{/view}}
-                   {{#view view.navItemView item="Assets" }}
-			 		   {{#link-to "assets.index"}}Assets{{/link-to}}
-                   {{/view}}
-				    <li class="divider-vertical"></li>
-				    <li class="dropdown">
-						<a class="dropdown-toggle"
-							data-toggle="dropdown"
-							href="#"> Admin <b class="caret"></b> </a>
-						<ul class="dropdown-menu">
-                            {{#view view.navItemView item="Users" }}
-                                {{#link-to "users.index"}}Users{{/link-to}}
-                            {{/view}}
-                            {{#view view.navItemView item="Metadata Templates" }}
-                                {{#link-to "templates.index"}}Metadata Templates{{/link-to}}
-                            {{/view}}
-                            {{#view view.navItemView item="Metadata Fields" }}
-								{{#link-to "fields.index"}}Metadata Fields{{/link-to}}
-							{{/view}}
-                            {{#view view.navItemView item="Metadata Values Lists" }}
-								{{#link-to "metadata_lists.index"}}Metadata Values Lists{{/link-to}}
-							{{/view}}
-						</ul>
-					</li>
-                 </ul>
-				 <ul class="nav pull-right">
-				    <li class="divider-vertical"></li>
-				    <li class="dropdown">
-						<a class="dropdown-toggle"
-							data-toggle="dropdown"
-							href="#"> Boma, Adrian <b class="caret"></b> </a>
-							<ul class="dropdown-menu">
-								<li>
-									<a href='/logout'>Logout</a>
-								</li>
-							</ul>
-					</li>
-			    </ul>
-    		</div>
-   		</div>
-   	</div>		
-</div>
+<div class="navbar navbar-fixed-top">
+    <div class="navbar-inner">
+        <div class="container">
+            <li class="brand">
+                <a href='/'>Shepherd</a>
+            </li>
+            <ul class="nav">
+                {{#view view.navItemView item="Portfolios" }}
+                    {{#link-to "portfolios.index"}}Portfolios{{/link-to}}
+                {{/view}}
+                {{#view view.navItemView item="Assets" }}
+                    {{#link-to "assets.index"}}Assets{{/link-to}}
+                {{/view}}
+                <li class="divider-vertical"></li>
+                <li class="dropdown">
+                    <a class="dropdown-toggle"
+                        data-toggle="dropdown"
+                        href="#"> Admin <b class="caret"></b> </a>
+                    <ul class="dropdown-menu">
+                        {{#view view.navItemView item="Users" }}
+                            {{#link-to "users.index"}}Users{{/link-to}}
+                        {{/view}}
+                        {{#view view.navItemView item="Metadata Templates" }}
+                            {{#link-to "templates.index"}}Metadata Templates{{/link-to}}
+                        {{/view}}
+                        {{#view view.navItemView item="Metadata Fields" }}
+                            {{#link-to "fields.index"}}Metadata Fields{{/link-to}}
+                        {{/view}}
+                        {{#view view.navItemView item="Metadata Values Lists" }}
+                            {{#link-to "metadata_lists.index"}}Metadata Values Lists{{/link-to}}
+                        {{/view}}
+                    </ul>
+                </li>
+              </ul>
+              <ul class="nav pull-right">
+                <li class="divider-vertical"></li>
+                <li class="dropdown">
+                    <a class="dropdown-toggle"
+                        data-toggle="dropdown"
+                        href="#"> Boma, Adrian <b class="caret"></b> </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href='/logout'>Logout</a>
+                            </li>
+                        </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>		
