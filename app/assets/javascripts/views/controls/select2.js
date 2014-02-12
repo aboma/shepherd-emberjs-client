@@ -23,7 +23,7 @@
 //        var selection = this.get('selection');
 //        if (selection) {
 //            console.log('select2 value changed to ' + selection.get('name'));
-//        	this.get('controller').transitionToRoute('container.show', selection);
+//        	  this.get('controller').transitionToRoute('container.show', selection);
 //        } else {
 //        	this.get('controller').transitionToRoute('container.index');
 //        }
@@ -44,8 +44,9 @@ Shepherd.Select2 = Ember.Select.extend({
 	didInsertElement : function() {
 		//this._super();
 		var placeholderText = this.get('prompt') || '';
-        if (!this.$().select2)
+        if (!this.$().select2) {
 			throw new Exception('select2 is required for Shepherd.Select2 control');
+        }
 		this.$().select2({
 			containerCssClass: this.get('classNames.first'),
 			placeholder: placeholderText,
@@ -56,7 +57,7 @@ Shepherd.Select2 = Ember.Select.extend({
 	},
 
     willDestroyElement : function() {
-      console.log('destroying select2');
+        console.log('destroying select2');
         this.$().select2('destroy');
     },
 
@@ -67,11 +68,12 @@ Shepherd.Select2 = Ember.Select.extend({
 		Ember.run.sync();
 		// trigger change event on selectbox once data
 		// has been loaded to update options values
-		Ember.run.next(this, function() {
+        Ember.run.scheduleOnce('actions', this, function() {
 			console.log('updating select2 options list');
 			// trigger change event on select2
-			if (this.$())
-              this.$().change();
+			if (this.$()) {
+                this.$().change();
+            }
 		});
 	}.observes('controller.content.isLoaded'),
 
@@ -94,12 +96,11 @@ Shepherd.Select2 = Ember.Select.extend({
 		var fieldvalue = '';
 		var selected = this.get('controller.selected');
 		var sel2Val = this.$().select2('val');
-		if (selected) fieldvalue = selected.get(fieldname);
+		if (selected) { fieldvalue = selected.get(fieldname); }
 		if (sel2Val !== fieldvalue || fieldvalue == '') {
-			Ember.run.sync();
 			// trigger change event on selectbox once data
 			// has been loaded to update options values
-			Ember.run.next(this, function() {
+            Ember.run.scheduleOnce('actions', this, function() {
 				this.setSelectedValue(fieldvalue);
 			});
 		}
