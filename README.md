@@ -12,6 +12,22 @@ This client application has also been designed for superior responsiveness and u
 
 ![Shepherd DAM Client](ShepherdDAMClient.png "Shepherd DAM Client")
 
+## Functionality
+### Metadata Fields and Templates
+
+Metadata fields can be defined through the admin pages. These fields must have a type and may also have a metadata list assigned to them, if desired. The metadata list setting will require the user setting value on the field to pick a value from the metadata list.
+
+Metadata templates can be created with one or more fields assigned to them. These templates can then be assigned to portfolios, so that any assets added to that portfolio must satisfy the metadata template settings.
+
+### Portfolios
+
+Portfolios can be created to contain groups of related assets (files). A metadata template may be assigned to the portfolio to enforce required metadata entry on assets added to the portfolio. 
+
+### Assets (files)
+
+Assets may be uploaded into a portfolio, however, assets can belong to more than one portfolio. In this way, one version of a file/asset can live in multiple portfolios without having to store multiple copies of the same file as you would in a file system. Shepherd allows you to store one canonical version of your files/assets and associated metadata. 
+
+
 ## Releases
 
 Please see the Changelog for complete release information.
@@ -35,14 +51,14 @@ Ruby, Bundler gem, ImageMagick dev package
 
 ### Process
 
-* Install Shepherd REST API server
+* Install [Shepherd REST API server](https://github.com/aboma/shepherd-rest-api) to provide server-side RESTful API.
 * Checkout lastest release using git tags: clone the repository and then checkout the release tag that you have selected:
 
 ```
 $ git clone git@github.com:aboma/shepherd-emberjs-client.git 
 $ git checkout tags/<tag_name>
 ```
-
+* Make sure you checkout matching versions of the API and client applications.
 * Set protocol, host, port and path settings to Shepherd REST API server in `config/setting.yml` or `config/settings/<environment>.yml` files. If these settings are not there or incorrect, upon login a message will state that the system is unable to contact API.
 
 ## Contributing
