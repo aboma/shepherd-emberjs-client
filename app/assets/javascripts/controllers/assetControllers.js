@@ -88,7 +88,7 @@ Shepherd.AssetController = Ember.ObjectController.extend(
 
             controller.set('metadataForEditing', metadataForEditing);
         });
-    }.observes('content'),
+    }.observes('content').on('init'),
 
     actions: {
         edit: function() {
