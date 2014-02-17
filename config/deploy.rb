@@ -8,7 +8,8 @@ set :repository, "git@github.com:aboma/shepherd-emberjs-client.git"
 #  `git tag`.split("\n").last
 #end
 
-ask :branch, proc { `git rev-parse --abbrev-ref HEAD`.chomp }
+ask :branch, proc { `git tag`.split("\n").last }
+#ask :branch, proc { `git rev-parse --abbrev-ref HEAD`.chomp }
 #
 #server "162.243.11.113", :app, :web, :db, :primary => true
 set :user, "deploy" # The server's user for deploys
